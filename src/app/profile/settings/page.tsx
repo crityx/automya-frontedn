@@ -51,8 +51,6 @@ export default function ParametresPage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Paramètres du compte"
-      videoUrl="https://example.com/settings-tutorial"
     >
       <ProfileSettings />
     </DashboardLayout>

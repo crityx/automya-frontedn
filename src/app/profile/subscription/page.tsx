@@ -51,8 +51,6 @@ export default function AbonnementPage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Gestion d'abonnement"
-      videoUrl="https://example.com/subscription-tutorial"
     >
       <SubscriptionInfo />
     </DashboardLayout>

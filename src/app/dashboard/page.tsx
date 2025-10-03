@@ -36,8 +36,6 @@ export default function DashboardPage() {
   return (
     <DashboardLayout 
       leftMenuSections={dashboardMenuSections}
-      videoTitle="Comprendre vos analytics"
-      videoUrl="https://example.com/analytics-tutorial"
     >
       <AnalyticsOverview />
     </DashboardLayout>

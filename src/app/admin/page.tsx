@@ -70,8 +70,6 @@ export default function AdminPage() {
   return (
     <DashboardLayout 
       leftMenuSections={getMenuSections()}
-      videoTitle="Administration Automya"
-      videoUrl="https://example.com/admin-tutorial"
     >
       <SellerDashboard userRole={userRole} />
     </DashboardLayout>

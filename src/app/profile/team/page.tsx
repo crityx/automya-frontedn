@@ -51,8 +51,6 @@ export default function EquipePage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Gestion d'équipe"
-      videoUrl="https://example.com/team-management-tutorial"
     >
       <TeamManagement />
     </DashboardLayout>

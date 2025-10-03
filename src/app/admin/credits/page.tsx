@@ -66,8 +66,6 @@ export default function CreditsPage() {
   return (
     <DashboardLayout 
       leftMenuSections={getMenuSections()}
-      videoTitle="Gérer les crédits utilisateurs"
-      videoUrl="https://example.com/credits-management-tutorial"
     >
       <CreditsManager />
     </DashboardLayout>

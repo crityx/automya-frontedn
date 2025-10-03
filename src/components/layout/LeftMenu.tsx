@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Crown } from 'phosphor-react';
+import { Crown } from 'phosphor-react';
 
 interface MenuSection {
   title: string;
@@ -17,11 +17,9 @@ interface MenuSection {
 
 interface LeftMenuProps {
   sections: MenuSection[];
-  videoTitle?: string;
-  videoUrl?: string;
 }
 
-export default function LeftMenu({ sections, videoTitle, videoUrl }: LeftMenuProps) {
+export default function LeftMenu({ sections }: LeftMenuProps) {
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
@@ -59,19 +57,6 @@ export default function LeftMenu({ sections, videoTitle, videoUrl }: LeftMenuPro
           </div>
         ))}
 
-        {/* Video Tutorial Section */}
-        {videoTitle && (
-          <div className="bg-primary-light rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <PlayCircle size={24} className="text-primary flex-shrink-0" />
-              <div>
-                <h4 className="text-sm font-medium text-black">
-                  {videoTitle}
-                </h4>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Upsell Section */}
         <div className="bg-white border border-gray/20 rounded-lg p-4">

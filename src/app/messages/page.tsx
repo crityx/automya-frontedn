@@ -31,8 +31,6 @@ export default function MessagesPage() {
   return (
     <DashboardLayout 
       leftMenuSections={messagesMenuSections}
-      videoTitle="Configurer l'IA conversationnelle"
-      videoUrl="https://example.com/ai-configuration-tutorial"
     >
       <AIConfiguration />
     </DashboardLayout>

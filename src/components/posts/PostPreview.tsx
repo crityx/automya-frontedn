@@ -96,58 +96,56 @@ export default function PostPreview({
           </div>
 
           {/* Image Section */}
-          <button
-            onClick={onImageClick}
-            disabled={isGeneratingImage}
-            className="w-full border-2 border-dashed border-gray/20 rounded-lg p-6 text-center hover:border-primary transition-colors mb-4 flex items-center justify-center space-x-3"
-          >
-            {isGeneratingImage ? (
-              <>
-                <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-                <div className="text-left">
-                  <p className="text-primary font-medium">Génération en cours...</p>
-                  <p className="text-sm text-gray/60">Création de votre image</p>
-                </div>
-              </>
-            ) : selectedImage ? (
-              <>
-                <img
-                  src={selectedImage}
-                  alt="Image sélectionnée"
-                  className="w-12 h-12 rounded object-cover"
-                />
-                <div className="text-left flex-1">
-                  <p className="text-gray font-medium">Image sélectionnée</p>
-                  <p className="text-sm text-gray/60">
-                    {lastGenerationMethod === 'generate-from-image' ? 'Générée avec transformation' :
-                     lastGenerationMethod === 'generate-from-description' ? 'Générée depuis description' :
-                     lastGenerationMethod === 'generate-from-post' ? 'Générée depuis le post' :
-                     'Importée depuis fichiers/galerie'}
-                  </p>
-                </div>
-                {lastGenerationMethod && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEditImageParameters();
-                    }}
-                    className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
-                    title="Modifier les paramètres"
-                  >
-                    <Palette size={16} />
-                  </button>
-                )}
-              </>
-            ) : (
-              <>
-                <Plus size={24} className="text-gray" />
-                <div className="text-left">
-                  <p className="text-gray font-medium">Ajouter une image</p>
-                  <p className="text-sm text-gray/60">Cliquez pour choisir une option</p>
-                </div>
-              </>
+          <div className="relative w-full border-2 border-dashed border-gray/20 rounded-lg p-6 text-center hover:border-primary transition-colors mb-4 flex items-center justify-center space-x-3">
+            <div 
+              onClick={onImageClick}
+              className="w-full flex items-center justify-center space-x-3 cursor-pointer"
+            >
+              {isGeneratingImage ? (
+                <>
+                  <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                  <div className="text-left">
+                    <p className="text-primary font-medium">Génération en cours...</p>
+                    <p className="text-sm text-gray/60">Création de votre image</p>
+                  </div>
+                </>
+              ) : selectedImage ? (
+                <>
+                  <img
+                    src={selectedImage}
+                    alt="Image sélectionnée"
+                    className="w-12 h-12 rounded object-cover"
+                  />
+                  <div className="text-left flex-1">
+                    <p className="text-gray font-medium">Image sélectionnée</p>
+                    <p className="text-sm text-gray/60">
+                      {lastGenerationMethod === 'generate-from-image' ? 'Générée avec transformation' :
+                       lastGenerationMethod === 'generate-from-description' ? 'Générée depuis description' :
+                       lastGenerationMethod === 'generate-from-post' ? 'Générée depuis le post' :
+                       'Importée depuis fichiers/galerie'}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Plus size={24} className="text-gray" />
+                  <div className="text-left">
+                    <p className="text-gray font-medium">Ajouter une image</p>
+                    <p className="text-sm text-gray/60">Cliquez pour choisir une option</p>
+                  </div>
+                </>
+              )}
+            </div>
+            {selectedImage && lastGenerationMethod && (
+              <button
+                onClick={onEditImageParameters}
+                className="absolute top-2 right-2 p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                title="Modifier les paramètres"
+              >
+                <Palette size={16} />
+              </button>
             )}
-          </button>
+          </div>
           
           {selectedImage && (
             <div className="mb-4">

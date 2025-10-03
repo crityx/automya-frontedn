@@ -1,8 +1,8 @@
 'use client';
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import MediaManager from '@/components/posts/MediaManager';
-import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
+import PostCommenting from '@/components/posts/PostCommenting';
+import { PenNib, CalendarBlank, Image, Kanban, ChatCircle } from 'phosphor-react';
 
 const postMenuSections = [
   {
@@ -27,17 +27,22 @@ const postMenuSections = [
         name: 'Médias',
         href: '/post/medias',
         icon: <Image size={20} />
+      },
+      {
+        name: 'Commenter des postes',
+        href: '/post/commenting',
+        icon: <ChatCircle size={20} />
       }
     ]
   }
 ];
 
-export default function PostPage() {
+export default function PostCommentingPage() {
   return (
     <DashboardLayout 
       leftMenuSections={postMenuSections}
     >
-      <MediaManager />
+      <PostCommenting />
     </DashboardLayout>
   );
 }

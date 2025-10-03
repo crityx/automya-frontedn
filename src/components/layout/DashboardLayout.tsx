@@ -7,8 +7,6 @@ import LeftMenu from './LeftMenu';
 interface DashboardLayoutProps {
   children: ReactNode;
   leftMenuSections: any[];
-  videoTitle?: string;
-  videoUrl?: string;
 }
 
 const mockUser = {
@@ -20,9 +18,7 @@ const mockUser = {
 
 export default function DashboardLayout({ 
   children, 
-  leftMenuSections, 
-  videoTitle,
-  videoUrl 
+  leftMenuSections 
 }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen bg-gray/5">
@@ -30,8 +26,6 @@ export default function DashboardLayout({
       <div className="flex">
         <LeftMenu 
           sections={leftMenuSections}
-          videoTitle={videoTitle}
-          videoUrl={videoUrl}
         />
         <main className="flex-1 p-8">
           {children}

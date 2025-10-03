@@ -38,6 +38,8 @@ export default function Header({ user }: HeaderProps) {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard' },
     { name: 'Posts', href: '/post' },
+    { name: 'Comments', href: '/comments' },
+    { name: 'Invitations', href: '/invitations' },
     { name: 'Messages', href: '/messages' },
   ];
 

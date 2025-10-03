@@ -60,8 +60,6 @@ export default function StatsPage() {
   return (
     <DashboardLayout 
       leftMenuSections={adminMenuSections}
-      videoTitle="Statistiques globales de la plateforme"
-      videoUrl="https://example.com/global-stats-tutorial"
     >
       <GlobalStats />
     </DashboardLayout>

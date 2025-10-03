@@ -36,8 +36,6 @@ export default function LeadsPage() {
   return (
     <DashboardLayout 
       leftMenuSections={dashboardMenuSections}
-      videoTitle="Analyser vos leads"
-      videoUrl="https://example.com/leads-analytics-tutorial"
     >
       <LeadsAnalytics />
     </DashboardLayout>

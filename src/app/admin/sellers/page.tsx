@@ -60,8 +60,6 @@ export default function SellersPage() {
   return (
     <DashboardLayout 
       leftMenuSections={adminMenuSections}
-      videoTitle="Gérer vos vendeurs partenaires"
-      videoUrl="https://example.com/sellers-management-tutorial"
     >
       <SellersManagement />
     </DashboardLayout>

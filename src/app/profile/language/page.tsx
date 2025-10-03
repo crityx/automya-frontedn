@@ -51,8 +51,6 @@ export default function LanguePage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Paramètres de langue"
-      videoUrl="https://example.com/language-tutorial"
     >
       <LanguageSettings />
     </DashboardLayout>

@@ -60,8 +60,6 @@ export default function ConfigPage() {
   return (
     <DashboardLayout 
       leftMenuSections={adminMenuSections}
-      videoTitle="Configuration de la plateforme"
-      videoUrl="https://example.com/platform-config-tutorial"
     >
       <PlatformConfig />
     </DashboardLayout>

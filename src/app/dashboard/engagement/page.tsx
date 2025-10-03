@@ -36,8 +36,6 @@ export default function EngagementPage() {
   return (
     <DashboardLayout 
       leftMenuSections={dashboardMenuSections}
-      videoTitle="Optimiser votre engagement"
-      videoUrl="https://example.com/engagement-tutorial"
     >
       <EngagementAnalytics />
     </DashboardLayout>

@@ -31,8 +31,6 @@ export default function MessagesDashboardPage() {
   return (
     <DashboardLayout 
       leftMenuSections={messagesMenuSections}
-      videoTitle="Analytics des conversations"
-      videoUrl="https://example.com/messages-analytics-tutorial"
     >
       <MessagesDashboard />
     </DashboardLayout>

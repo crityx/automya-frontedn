@@ -31,8 +31,6 @@ export default function ObjectifsPage() {
   return (
     <DashboardLayout 
       leftMenuSections={messagesMenuSections}
-      videoTitle="Définir vos objectifs"
-      videoUrl="https://example.com/objectives-tutorial"
     >
       <ConversationObjectives />
     </DashboardLayout>

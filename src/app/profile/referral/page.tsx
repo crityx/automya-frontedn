@@ -51,8 +51,6 @@ export default function ParrainagePage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Programme de parrainage"
-      videoUrl="https://example.com/referral-tutorial"
     >
       <ReferralProgram />
     </DashboardLayout>

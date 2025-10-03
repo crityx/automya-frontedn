@@ -36,8 +36,6 @@ export default function PostPage() {
   return (
     <DashboardLayout 
       leftMenuSections={postMenuSections}
-      videoTitle="Générer du contenu avec l'IA"
-      videoUrl="https://example.com/post-generation-tutorial"
     >
       <PostKanban />
     </DashboardLayout>

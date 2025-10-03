@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import PostGeneration from '@/components/posts/PostGeneration';
-import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
+import { PenNib, CalendarBlank, Image, Kanban, ChatCircle } from 'phosphor-react';
 
 const postMenuSections = [
   {
@@ -27,6 +27,11 @@ const postMenuSections = [
         name: 'Médias',
         href: '/post/medias',
         icon: <Image size={20} />
+      },
+      {
+        name: 'Commenter des postes',
+        href: '/post/commenting',
+        icon: <ChatCircle size={20} />
       }
     ]
   }
@@ -36,8 +41,6 @@ export default function PostPage() {
   return (
     <DashboardLayout 
       leftMenuSections={postMenuSections}
-      videoTitle="Générer du contenu avec l'IA"
-      videoUrl="https://example.com/post-generation-tutorial"
     >
       <PostGeneration />
     </DashboardLayout>

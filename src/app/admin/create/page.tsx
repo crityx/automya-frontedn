@@ -66,8 +66,6 @@ export default function CreateUserPage() {
   return (
     <DashboardLayout 
       leftMenuSections={getMenuSections()}
-      videoTitle="Créer un compte utilisateur"
-      videoUrl="https://example.com/create-user-tutorial"
     >
       <CreateUserForm />
     </DashboardLayout>

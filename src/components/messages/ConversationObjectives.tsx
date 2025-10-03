@@ -403,7 +403,7 @@ export default function ConversationObjectives() {
                       onClick={() => deleteScenario(scenario.id)}
                       className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

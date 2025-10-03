@@ -51,8 +51,6 @@ export default function ProfilPage() {
   return (
     <DashboardLayout 
       leftMenuSections={profileMenuSections}
-      videoTitle="Configuration de profil"
-      videoUrl="https://example.com/profile-tutorial"
     >
       <ProfileInfo />
     </DashboardLayout>

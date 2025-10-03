@@ -66,8 +66,6 @@ export default function SellerDashboardPage() {
   return (
     <DashboardLayout 
       leftMenuSections={getMenuSections()}
-      videoTitle="Analytics de performance vendeur"
-      videoUrl="https://example.com/seller-analytics-tutorial"
     >
       <SellerAnalytics />
     </DashboardLayout>
