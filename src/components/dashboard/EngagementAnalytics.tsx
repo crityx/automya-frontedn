@@ -16,7 +16,7 @@ import {
   ThumbsUp, 
   ChatCircle, 
   Share, 
-  TrendingUp,
+  TrendUp,
   CalendarBlank,
   Eye,
   Heart,
@@ -169,7 +169,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp size={24} className="text-primary" />
+              <TrendUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+5%</span>
           </div>

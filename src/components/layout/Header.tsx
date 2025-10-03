@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import CreditsModal from '@/components/ui/CreditsModal';
+import NotificationsModal from '@/components/ui/NotificationsModal';
 import { 
   Bell, 
   CaretDown, 
@@ -30,12 +32,13 @@ export default function Header({ user }: HeaderProps) {
   const pathname = usePathname();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false);
+  const [isNotificationsModalOpen, setIsNotificationsModalOpen] = useState(false);
 
   const navigation = [
-    { name: 'Posts', href: '/post' },
     { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Posts', href: '/post' },
     { name: 'Messages', href: '/messages' },
-    { name: 'Prospection', href: '/prospection', isBeta: true },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -46,7 +49,7 @@ export default function Header({ user }: HeaderProps) {
         <div className="flex items-center h-16 w-full">
           {/* Section 1: Logo */}
           <div className="flex items-center flex-1">
-            <Link href="/dashboard" className="flex items-center space-x-3">
+            <Link href="/post" className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold">A</span>
               </div>
@@ -80,16 +83,22 @@ export default function Header({ user }: HeaderProps) {
           {/* Section 3: Utilitaires */}
           <div className="flex items-center space-x-4 flex-1 justify-end">
             {/* Credits */}
-            <div className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg">
+            <button 
+              onClick={() => setIsCreditsModalOpen(true)}
+              className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg hover:bg-primary/20 transition-colors"
+            >
               <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits}</span>
-            </div>
+            </button>
 
             {/* Notifications */}
-            <button className="p-2 rounded-lg hover:bg-gray/10 transition-colors relative">
+            <button 
+              onClick={() => setIsNotificationsModalOpen(true)}
+              className="p-2 rounded-lg hover:bg-gray/10 transition-colors relative"
+            >
               <Bell size={24} className="text-gray" />
               <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-medium">3</span>
+                <span className="text-white text-xs font-medium">2</span>
               </span>
             </button>
 
@@ -232,13 +241,31 @@ export default function Header({ user }: HeaderProps) {
             </nav>
             
             {/* Mobile Credits */}
-            <div className="flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg mt-4 w-fit">
+            <button 
+              onClick={() => setIsCreditsModalOpen(true)}
+              className="flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg mt-4 w-fit hover:bg-primary/20 transition-colors"
+            >
               <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits} crédits</span>
-            </div>
+            </button>
           </div>
         )}
       </div>
+
+      {/* Credits Modal */}
+      <CreditsModal 
+        isOpen={isCreditsModalOpen}
+        onClose={() => setIsCreditsModalOpen(false)}
+        currentCredits={user.credits}
+        expiringCredits={2}
+        expirationDate="3 mois"
+      />
+
+      {/* Notifications Modal */}
+      <NotificationsModal 
+        isOpen={isNotificationsModalOpen}
+        onClose={() => setIsNotificationsModalOpen(false)}
+      />
     </header>
   );
 }

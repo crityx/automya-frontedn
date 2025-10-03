@@ -17,6 +17,26 @@ import {
   Copy,
   Share
 } from 'phosphor-react';
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  closestCenter,
+  DragOverEvent,
+  useDroppable,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  CSS,
+} from '@dnd-kit/utilities';
 
 interface Post {
   id: string;
@@ -130,17 +150,250 @@ const postTypeConfig = {
   personal: { name: 'Personnel', color: 'bg-orange-100 text-orange-800' }
 };
 
+interface DroppableColumnProps {
+  status: Post['status'];
+  config: {
+    title: string;
+    color: string;
+    icon: JSX.Element;
+    bgColor: string;
+  };
+  posts: Post[];
+  onPostClick: (post: Post) => void;
+  onStatusChange: (postId: string, newStatus: Post['status']) => void;
+  onDeletePost: (postId: string) => void;
+  onCopyPost: (content: string) => void;
+}
+
+function DroppableColumn({ status, config, posts, onPostClick, onStatusChange, onDeletePost, onCopyPost }: DroppableColumnProps) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: status,
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`bg-white rounded-2xl border border-gray/20 transition-colors ${
+        isOver ? 'border-primary bg-primary/5' : ''
+      }`}
+    >
+      <div className={`p-4 ${config.bgColor} border-b border-gray/20`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            {config.icon}
+            <h2 className="font-semibold text-black">{config.title}</h2>
+            <span className={`px-2 py-1 text-xs font-medium rounded-full ${config.color}`}>
+              {posts.length}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <SortableContext
+        items={posts.map(post => post.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <div className="p-4 space-y-4 max-h-96 overflow-y-auto min-h-32">
+          {posts.map((post) => (
+            <DraggablePost
+              key={post.id}
+              post={post}
+              onClick={() => onPostClick(post)}
+              onStatusChange={onStatusChange}
+              onDeletePost={onDeletePost}
+              onCopyPost={onCopyPost}
+            />
+          ))}
+          
+          {posts.length === 0 && (
+            <div className="text-center py-8">
+              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                {config.icon}
+              </div>
+              <p className="text-sm text-gray">Aucun post {config.title.toLowerCase()}</p>
+              <p className="text-xs text-gray mt-1">Glissez un post ici</p>
+            </div>
+          )}
+        </div>
+      </SortableContext>
+    </div>
+  );
+}
+
+interface DraggablePostProps {
+  post: Post;
+  onClick: () => void;
+  onStatusChange: (postId: string, newStatus: Post['status']) => void;
+  onDeletePost: (postId: string) => void;
+  onCopyPost: (content: string) => void;
+}
+
+function DraggablePost({ post, onClick, onStatusChange, onDeletePost, onCopyPost }: DraggablePostProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: post.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="p-4 border border-gray/20 rounded-lg hover:border-primary/50 cursor-grab active:cursor-grabbing transition-colors group"
+      onClick={onClick}
+    >
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex-1">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className={`px-2 py-1 text-xs font-medium rounded-full ${postTypeConfig[post.type].color}`}>
+              {postTypeConfig[post.type].name}
+            </span>
+          </div>
+          <h3 className="font-medium text-black line-clamp-2 mb-2">
+            {post.title}
+          </h3>
+          <p className="text-sm text-gray line-clamp-3 mb-3">
+            {post.content}
+          </p>
+        </div>
+        
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="p-1 hover:bg-gray/10 rounded"
+          >
+            <DotsThreeVertical size={16} className="text-gray" />
+          </button>
+        </div>
+      </div>
+
+      <div className="text-xs text-gray space-y-1">
+        <div>Créé: {formatDate(post.createdAt)}</div>
+        {post.scheduledFor && (
+          <div className="text-blue-600">📅 Planifié: {formatDate(post.scheduledFor)}</div>
+        )}
+        {post.publishedAt && (
+          <div className="text-green-600">✅ Publié: {formatDate(post.publishedAt)}</div>
+        )}
+      </div>
+
+      {post.engagement && (
+        <div className="mt-3 pt-3 border-t border-gray/10">
+          <div className="grid grid-cols-4 gap-2 text-xs">
+            <div className="text-center">
+              <div className="font-medium text-black">{post.engagement.views}</div>
+              <div className="text-gray">Vues</div>
+            </div>
+            <div className="text-center">
+              <div className="font-medium text-black">{post.engagement.likes}</div>
+              <div className="text-gray">Likes</div>
+            </div>
+            <div className="text-center">
+              <div className="font-medium text-black">{post.engagement.comments}</div>
+              <div className="text-gray">Comm.</div>
+            </div>
+            <div className="text-center">
+              <div className="font-medium text-black">{post.engagement.shares}</div>
+              <div className="text-gray">Partages</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-3 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          {post.status === 'draft' && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onStatusChange(post.id, 'scheduled');
+              }}
+              className="text-xs text-blue-600 hover:text-blue-800"
+            >
+              Planifier
+            </button>
+          )}
+          {post.status === 'scheduled' && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onStatusChange(post.id, 'published');
+              }}
+              className="text-xs text-green-600 hover:text-green-800"
+            >
+              Publier
+            </button>
+          )}
+        </div>
+        
+        <div className="flex items-center space-x-1">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onCopyPost(post.content);
+            }}
+            className="p-1 text-gray hover:text-black rounded"
+          >
+            <Copy size={12} />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeletePost(post.id);
+            }}
+            className="p-1 text-red-600 hover:text-red-800 rounded"
+          >
+            <Trash size={12} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PostKanban() {
   const [posts, setPosts] = useState<Post[]>(mockPosts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [newPost, setNewPost] = useState({
     title: '',
     content: '',
     type: 'educational' as Post['type'],
     scheduledFor: ''
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   const getPostsByStatus = (status: Post['status']) => {
     return posts.filter(post => post.status === status);
@@ -185,6 +438,49 @@ export default function PostKanban() {
     ));
   };
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
+
+  const handleDragOver = (event: DragOverEvent) => {
+    const { active, over } = event;
+    
+    if (!over) return;
+
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    const activePost = posts.find(post => post.id === activeId);
+    if (!activePost) return;
+
+    if (overId === 'draft' || overId === 'scheduled' || overId === 'published') {
+      const newStatus = overId as Post['status'];
+      if (activePost.status !== newStatus) {
+        handleStatusChange(activeId, newStatus);
+      }
+    }
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveId(null);
+
+    if (!over) return;
+
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    const activePost = posts.find(post => post.id === activeId);
+    if (!activePost) return;
+
+    if (overId === 'draft' || overId === 'scheduled' || overId === 'published') {
+      const newStatus = overId as Post['status'];
+      if (activePost.status !== newStatus) {
+        handleStatusChange(activeId, newStatus);
+      }
+    }
+  };
+
   const handleDeletePost = (postId: string) => {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce post ?')) {
       setPosts(posts.filter(post => post.id !== postId));
@@ -196,202 +492,58 @@ export default function PostKanban() {
     alert('Contenu copié !');
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('fr-FR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
   return (
-    <div className="max-w-7xl">
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-black mb-2">Gestion des posts</h1>
-            <p className="text-gray">Organisez vos contenus par statut</p>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
+      <div className="max-w-7xl">
+        <div className="mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-black mb-2">Gestion des posts</h1>
+              <p className="text-gray">Organisez vos contenus par statut - Glissez-déposez pour changer de catégorie</p>
+            </div>
+            
+            <Button onClick={() => setIsCreateModalOpen(true)}>
+              <Plus size={16} className="mr-2" />
+              Nouveau post
+            </Button>
           </div>
-          
-          <Button onClick={() => setIsCreateModalOpen(true)}>
-            <Plus size={16} className="mr-2" />
-            Nouveau post
-          </Button>
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {Object.entries(statusConfig).map(([status, config]) => {
-          const count = getPostsByStatus(status as Post['status']).length;
-          return (
-            <div key={status} className="bg-white rounded-2xl p-6 border border-gray/20">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`p-2 rounded-lg ${config.bgColor}`}>
-                  {config.icon}
-                </div>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-black mb-1">{count}</p>
-                <p className="text-sm text-gray">{config.title}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+        {/* Kanban Board */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {Object.entries(statusConfig).map(([status, config]) => {
+            const statusPosts = getPostsByStatus(status as Post['status']);
+            
+            return (
+              <DroppableColumn
+                key={status}
+                status={status as Post['status']}
+                config={config}
+                posts={statusPosts}
+                onPostClick={handlePostClick}
+                onStatusChange={handleStatusChange}
+                onDeletePost={handleDeletePost}
+                onCopyPost={handleCopyPost}
+              />
+            );
+          })}
+        </div>
 
-      {/* Kanban Board */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {Object.entries(statusConfig).map(([status, config]) => {
-          const statusPosts = getPostsByStatus(status as Post['status']);
-          
-          return (
-            <div key={status} className="bg-white rounded-2xl border border-gray/20">
-              <div className={`p-4 ${config.bgColor} border-b border-gray/20`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    {config.icon}
-                    <h2 className="font-semibold text-black">{config.title}</h2>
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${config.color}`}>
-                      {statusPosts.length}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
-                {statusPosts.map((post) => (
-                  <div
-                    key={post.id}
-                    className="p-4 border border-gray/20 rounded-lg hover:border-primary/50 cursor-pointer transition-colors group"
-                    onClick={() => handlePostClick(post)}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${postTypeConfig[post.type].color}`}>
-                            {postTypeConfig[post.type].name}
-                          </span>
-                        </div>
-                        <h3 className="font-medium text-black line-clamp-2 mb-2">
-                          {post.title}
-                        </h3>
-                        <p className="text-sm text-gray line-clamp-3 mb-3">
-                          {post.content}
-                        </p>
-                      </div>
-                      
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            // Menu options
-                          }}
-                          className="p-1 hover:bg-gray/10 rounded"
-                        >
-                          <DotsThreeVertical size={16} className="text-gray" />
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="text-xs text-gray space-y-1">
-                      <div>Créé: {formatDate(post.createdAt)}</div>
-                      {post.scheduledFor && (
-                        <div className="text-blue-600">📅 Planifié: {formatDate(post.scheduledFor)}</div>
-                      )}
-                      {post.publishedAt && (
-                        <div className="text-green-600">✅ Publié: {formatDate(post.publishedAt)}</div>
-                      )}
-                    </div>
-
-                    {post.engagement && (
-                      <div className="mt-3 pt-3 border-t border-gray/10">
-                        <div className="grid grid-cols-4 gap-2 text-xs">
-                          <div className="text-center">
-                            <div className="font-medium text-black">{post.engagement.views}</div>
-                            <div className="text-gray">Vues</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-black">{post.engagement.likes}</div>
-                            <div className="text-gray">Likes</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-black">{post.engagement.comments}</div>
-                            <div className="text-gray">Comm.</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-medium text-black">{post.engagement.shares}</div>
-                            <div className="text-gray">Partages</div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Quick Actions */}
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {status === 'draft' && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleStatusChange(post.id, 'scheduled');
-                            }}
-                            className="text-xs text-blue-600 hover:text-blue-800"
-                          >
-                            Planifier
-                          </button>
-                        )}
-                        {status === 'scheduled' && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleStatusChange(post.id, 'published');
-                            }}
-                            className="text-xs text-green-600 hover:text-green-800"
-                          >
-                            Publier
-                          </button>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center space-x-1">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCopyPost(post.content);
-                          }}
-                          className="p-1 text-gray hover:text-black rounded"
-                        >
-                          <Copy size={12} />
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeletePost(post.id);
-                          }}
-                          className="p-1 text-red-600 hover:text-red-800 rounded"
-                        >
-                          <Trash size={12} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {statusPosts.length === 0 && (
-                  <div className="text-center py-8">
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      {config.icon}
-                    </div>
-                    <p className="text-sm text-gray">Aucun post {config.title.toLowerCase()}</p>
-                  </div>
-                )}
+        <DragOverlay>
+          {activeId ? (
+            <div className="p-4 border border-primary rounded-lg bg-white shadow-lg opacity-75">
+              <div className="font-medium text-black line-clamp-2">
+                {posts.find(post => post.id === activeId)?.title}
               </div>
             </div>
-          );
-        })}
+          ) : null}
+        </DragOverlay>
       </div>
 
       {/* Post Detail Modal */}
@@ -517,6 +669,6 @@ export default function PostKanban() {
           </div>
         </div>
       </Modal>
-    </div>
+    </DndContext>
   );
 }

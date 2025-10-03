@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { PlayCircle } from 'phosphor-react';
+import { PlayCircle, Crown } from 'phosphor-react';
 
 interface MenuSection {
   title: string;
@@ -62,25 +62,36 @@ export default function LeftMenu({ sections, videoTitle, videoUrl }: LeftMenuPro
         {/* Video Tutorial Section */}
         {videoTitle && (
           <div className="bg-primary-light rounded-lg p-4">
-            <div className="flex items-start space-x-3">
-              <PlayCircle size={24} className="text-primary flex-shrink-0 mt-0.5" />
+            <div className="flex items-center space-x-3">
+              <PlayCircle size={24} className="text-primary flex-shrink-0" />
               <div>
-                <h4 className="text-sm font-medium text-black mb-1">
+                <h4 className="text-sm font-medium text-black">
                   {videoTitle}
                 </h4>
-                <p className="text-xs text-gray mb-3">
-                  Découvrez comment utiliser cette fonctionnalité
-                </p>
-                <button
-                  onClick={() => videoUrl && window.open(videoUrl, '_blank')}
-                  className="text-xs text-primary font-medium hover:underline"
-                >
-                  Regarder le tutoriel
-                </button>
               </div>
             </div>
           </div>
         )}
+
+        {/* Upsell Section */}
+        <div className="bg-white border border-gray/20 rounded-lg p-4">
+          <div className="text-center">
+            <div className="relative inline-block mb-3">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">B</span>
+              </div>
+              <div className="absolute top-0 -right-12 bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded text-xs font-medium shadow-sm">
+                Gratuit
+              </div>
+            </div>
+            <h4 className="text-sm font-medium text-black mb-1">Baptiste Li Mandri</h4>
+            <p className="text-xs text-gray mb-3">14 jours restants</p>
+            <button className="w-full bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-semibold py-2 px-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center space-x-1">
+              <Crown className="w-3 h-3" />
+              <span>Passer Pro</span>
+            </button>
+          </div>
+        </div>
       </div>
     </aside>
   );

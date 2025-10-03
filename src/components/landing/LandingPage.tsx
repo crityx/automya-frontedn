@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import RegistrationModal from '@/components/auth/RegistrationModal';
 import LoginModal from '@/components/auth/LoginModal';
-import { Lightning, TrendingUp, ChatCircle, CalendarBlank, Target, Users } from 'phosphor-react';
+import { Lightning, TrendUp, ChatCircle, CalendarBlank, Target, Users } from 'phosphor-react';
 
 interface LandingPageProps {
   onRegister: (userData: {
@@ -28,7 +28,7 @@ export default function LandingPage({ onRegister, onLogin }: LandingPageProps) {
       description: "Automatisez vos publications, réponses et interactions LinkedIn"
     },
     {
-      icon: <TrendingUp size={32} className="text-primary" />,
+      icon: <TrendUp size={32} className="text-primary" />,
       title: "Analytics avancés",
       description: "Suivez vos performances et optimisez votre stratégie"
     },

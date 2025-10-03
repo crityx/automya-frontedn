@@ -11,7 +11,7 @@ import {
   ChatCircle,
   ArrowSquareOut,
   Trophy,
-  Gem
+  Diamond
 } from 'phosphor-react';
 
 export default function ReferralProgram() {
@@ -132,7 +132,7 @@ export default function ReferralProgram() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-yellow-50">
-              <Gem size={24} className="text-yellow-600" />
+              <Diamond size={24} className="text-yellow-600" />
             </div>
           </div>
           <div>

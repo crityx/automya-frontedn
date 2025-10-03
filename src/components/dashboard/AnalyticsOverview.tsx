@@ -21,8 +21,8 @@ import {
   Share, 
   UserPlus, 
   Target,
-  TrendingUp,
-  TrendingDown,
+  TrendUp,
+  TrendDown,
   CalendarBlank
 } from 'phosphor-react';
 
@@ -125,9 +125,9 @@ export default function AnalyticsOverview() {
                 kpi.change >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
                 {kpi.change >= 0 ? (
-                  <TrendingUp size={16} />
+                  <TrendUp size={16} />
                 ) : (
-                  <TrendingDown size={16} />
+                  <TrendDown size={16} />
                 )}
                 <span>{Math.abs(kpi.change)}%</span>
               </div>

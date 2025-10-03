@@ -34,8 +34,8 @@ export default function Home() {
   }
 
   if (isAuthenticated) {
-    // Redirect to dashboard
-    window.location.href = '/dashboard';
+    // Redirect to posts page
+    window.location.href = '/post';
     return null;
   }
 

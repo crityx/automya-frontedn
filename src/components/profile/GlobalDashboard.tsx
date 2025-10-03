@@ -13,12 +13,12 @@ import {
   Area
 } from 'recharts';
 import { 
-  TrendingUp, 
+  TrendUp, 
   Users, 
   ChatCircle, 
   Target,
   CalendarBlank,
-  Gem,
+  Diamond,
   Award,
   Clock
 } from 'phosphor-react';
@@ -132,7 +132,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-primary-light">
-              <Gem size={20} className="text-primary" />
+              <Diamond size={20} className="text-primary" />
             </div>
           </div>
           <div>

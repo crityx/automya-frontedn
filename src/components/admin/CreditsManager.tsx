@@ -10,7 +10,7 @@ import {
   Minus, 
   Search, 
   History,
-  TrendingUp,
+  TrendUp,
   Users,
   Gift,
   Package
@@ -178,7 +178,7 @@ export default function CreditsManager() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <TrendingUp className="w-6 h-6 text-green-600" />
+              <TrendUp className="w-6 h-6 text-green-600" />
             </div>
           </div>
           <div>

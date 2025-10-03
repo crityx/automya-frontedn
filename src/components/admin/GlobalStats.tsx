@@ -20,7 +20,7 @@ import {
 import { 
   Users, 
   DollarSign, 
-  TrendingUp, 
+  TrendUp, 
   Globe,
   UserCheck,
   MessageSquare,
@@ -401,7 +401,7 @@ export default function GlobalStats() {
 
           <div className="text-center p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-center mb-2">
-              <TrendingUp className="w-5 h-5 text-green-600" />
+              <TrendUp className="w-5 h-5 text-green-600" />
             </div>
             <div className="text-2xl font-bold text-black mb-1">{globalStats.conversionRate}%</div>
             <div className="text-sm text-gray">Taux de conversion</div>

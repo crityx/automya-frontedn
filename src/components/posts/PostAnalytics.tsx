@@ -17,7 +17,7 @@ import {
 } from 'recharts';
 import { 
   ChartBar, 
-  TrendingUp, 
+  TrendUp, 
   Eye, 
   Heart,
   ChatCircle,
@@ -205,7 +205,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp size={24} className="text-primary" />
+              <TrendUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+8%</span>
           </div>
@@ -335,7 +335,7 @@ export default function PostAnalytics() {
                   </div>
                   <div>
                     <div className="flex items-center justify-center space-x-1 mb-1">
-                      <TrendingUp size={16} className="text-gray" />
+                      <TrendUp size={16} className="text-gray" />
                       <span className="text-sm font-medium text-primary">{post.engagementRate}%</span>
                     </div>
                     <span className="text-xs text-gray">Engagement</span>

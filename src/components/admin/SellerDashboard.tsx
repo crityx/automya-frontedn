@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button';
 import { 
   Users, 
   CreditCard, 
-  TrendingUp, 
+  TrendUp, 
   Eye, 
   Plus,
   MagnifyingGlass,
@@ -122,7 +122,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
                   Configuration globale
                 </Button>
                 <Button>
-                  <TrendingUp size={16} className="mr-2" />
+                  <TrendUp size={16} className="mr-2" />
                   Stats plateforme
                 </Button>
               </div>
@@ -162,7 +162,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <TrendingUp size={24} color="#9333ea" />
+              <TrendUp size={24} color="#9333ea" />
             </div>
             <span className="text-sm text-green-600 font-medium">+15%</span>
           </div>

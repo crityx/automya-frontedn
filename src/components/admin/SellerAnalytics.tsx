@@ -18,7 +18,7 @@ import {
   Area
 } from 'recharts';
 import { 
-  TrendingUp, 
+  TrendUp, 
   Users, 
   CreditCard, 
   CurrencyDollar,
@@ -201,7 +201,7 @@ export default function SellerAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <TrendingUp size={24} color="#ea580c" />
+              <TrendUp size={24} color="#ea580c" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
               <ArrowUp size={16} />

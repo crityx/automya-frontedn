@@ -10,7 +10,7 @@ import {
   PenTool, 
   Activity,
   Calendar,
-  TrendingUp,
+  TrendUp,
   Eye,
   Clock,
   Plus,

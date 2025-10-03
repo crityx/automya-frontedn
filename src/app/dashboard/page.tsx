@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import AnalyticsOverview from '@/components/dashboard/AnalyticsOverview';
-import { ChartBar, Users, TrendingUp, ChatCircle } from 'phosphor-react';
+import { ChartBar, Users, TrendUp, ChatCircle } from 'phosphor-react';
 
 const dashboardMenuSections = [
   {
@@ -21,7 +21,7 @@ const dashboardMenuSections = [
       {
         name: 'Engagement',
         href: '/dashboard/engagement',
-        icon: <TrendingUp size={20} />
+        icon: <TrendUp size={20} />
       },
       {
         name: 'Messages',

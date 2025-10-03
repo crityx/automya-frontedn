@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
-import { Gem, CreditCard, Lightning, Star, Check } from 'phosphor-react';
+import { Diamond, CreditCard, Lightning, Star, Check } from 'phosphor-react';
 
 const creditPackages = [
   {
@@ -77,7 +77,7 @@ export default function CreditsPurchase() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center">
-              <Gem size={24} className="text-primary" />
+              <Diamond size={24} className="text-primary" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-black">Crédits actuels</h3>
@@ -120,7 +120,7 @@ export default function CreditsPurchase() {
 
               <div className="text-center">
                 <div className="mb-4">
-                  <Gem size={48} className="text-primary mx-auto mb-2" />
+                  <Diamond size={48} className="text-primary mx-auto mb-2" />
                   <h3 className="text-lg font-semibold text-black">{pack.name}</h3>
                   <p className="text-sm text-gray">{pack.description}</p>
                 </div>

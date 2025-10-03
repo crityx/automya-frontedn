@@ -13,7 +13,7 @@ import {
   PenNib,
   CheckCircle,
   Clock,
-  TrendingUp
+  TrendUp
 } from 'phosphor-react';
 
 const objectiveTypes = [
@@ -42,7 +42,7 @@ const objectiveTypes = [
     id: 'nurturing',
     name: 'Lead nurturing',
     description: 'Maintenir la relation prospect',
-    icon: <TrendingUp size={20} />,
+    icon: <TrendUp size={20} />,
     color: 'bg-orange-50 text-orange-600 border-orange-200'
   }
 ];
@@ -195,7 +195,7 @@ export default function ConversationObjectives() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp size={24} className="text-primary" />
+              <TrendUp size={24} className="text-primary" />
             </div>
           </div>
           <div>

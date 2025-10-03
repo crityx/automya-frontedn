@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import PlatformConfig from '@/components/admin/PlatformConfig';
-import { Users, CreditCard, ChartBar, UserPlus, Gear, TrendingUp } from 'phosphor-react';
+import { Users, CreditCard, ChartBar, UserPlus, Gear, TrendUp } from 'phosphor-react';
 
 const adminMenuSections = [
   {
@@ -42,7 +42,7 @@ const adminMenuSections = [
       {
         name: 'Stats globales',
         href: '/admin/stats',
-        icon: <TrendingUp size={20} />
+        icon: <TrendUp size={20} />
       },
       {
         name: 'Configuration',
