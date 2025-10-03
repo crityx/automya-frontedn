@@ -6,7 +6,7 @@ import { Robot } from 'phosphor-react';
 
 const commentsMenuSections = [
   {
-    title: 'Automation',
+    title: 'Réponses aux commentaires',
     items: [
       {
         name: 'Configuration',

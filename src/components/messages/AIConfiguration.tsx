@@ -61,8 +61,7 @@ export default function AIConfiguration() {
   return (
     <div className="max-w-6xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">Configuration IA</h1>
-        <p className="text-gray">Personnalisez le comportement de votre assistant conversationnel</p>
+        <h1 className="text-3xl font-bold text-black mb-2">Votre assistant IA conversationnel</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

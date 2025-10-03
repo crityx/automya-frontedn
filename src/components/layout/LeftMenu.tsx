@@ -25,40 +25,43 @@ export default function LeftMenu({ sections }: LeftMenuProps) {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <aside className="w-64 bg-white border-r border-gray/20 min-h-screen">
-      <div className="p-6 space-y-8">
-        {/* Menu Sections */}
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex}>
-            <h3 className="text-xs font-semibold text-gray uppercase tracking-wide mb-3">
-              {section.title}
-            </h3>
-            <nav className="space-y-1">
-              {section.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
-                    isActive(item.href)
-                      ? 'bg-primary text-white'
-                      : 'text-gray hover:text-primary hover:bg-primary/10'
-                  )}
-                >
-                  {item.icon && (
-                    <span className="w-5 h-5 flex-shrink-0">
-                      {item.icon}
-                    </span>
-                  )}
-                  <span>{item.name}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-        ))}
+    <aside className="w-64 bg-white border-r border-gray/20 h-full flex flex-col">
+      {/* Menu Sections */}
+      <div className="flex-1 p-6 overflow-y-auto">
+        <div className="space-y-8">
+          {sections.map((section, sectionIndex) => (
+            <div key={sectionIndex}>
+              <h3 className="text-xs font-semibold text-gray uppercase tracking-wide mb-3">
+                {section.title}
+              </h3>
+              <nav className="space-y-1">
+                {section.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                      isActive(item.href)
+                        ? 'bg-primary text-white'
+                        : 'text-gray hover:text-primary hover:bg-primary/10'
+                    )}
+                  >
+                    {item.icon && (
+                      <span className="w-5 h-5 flex-shrink-0">
+                        {item.icon}
+                      </span>
+                    )}
+                    <span>{item.name}</span>
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          ))}
+        </div>
+      </div>
 
-
-        {/* Upsell Section */}
+      {/* Upsell Section */}
+      <div className="p-6 pt-0">
         <div className="bg-white border border-gray/20 rounded-lg p-4">
           <div className="text-center">
             <div className="relative inline-block mb-3">

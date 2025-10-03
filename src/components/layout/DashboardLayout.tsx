@@ -23,11 +23,11 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-gray/5">
       <Header user={mockUser} />
-      <div className="flex">
+      <div className="flex h-[calc(100vh-64px)]">
         <LeftMenu 
           sections={leftMenuSections}
         />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 overflow-y-auto">
           {children}
         </main>
       </div>

@@ -58,6 +58,12 @@ Always use Tailwind CSS custom colors defined in the design system:
 - **Font family**: Use the default system font stack
 - **Font weights**: `font-medium`, `font-semibold`, `font-bold`
 - **Text sizes**: `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`
+- **Text colors**: Always use `text-gray-800` for main text, `text-gray` for secondary text
+- **Consistency**: Maintain uniform text colors across all components
+- **Headings hierarchy**: 
+  - H1: `text-3xl font-bold` for page titles
+  - H2: `text-xl font-semibold` for main sections  
+  - H3: `text-lg font-semibold` for subsections and form labels
 
 ### Icons
 - **Library**: Phosphor React (`phosphor-react`)

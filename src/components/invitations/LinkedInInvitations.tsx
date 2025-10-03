@@ -6,7 +6,10 @@ import {
   Heart,
   ChatCircle,
   Robot,
-  Clock
+  Clock,
+  Sparkle,
+  Users,
+  Envelope
 } from 'phosphor-react';
 import Button from '@/components/ui/Button';
 
@@ -55,25 +58,17 @@ export default function LinkedInInvitations() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Invitations automatiques</h1>
-        <p className="text-gray">Invitez automatiquement les personnes qui interagissent avec vos posts</p>
       </div>
 
       {/* Main Configuration Card */}
       <div className="bg-white rounded-2xl p-8 border border-gray/20">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-3">
-            <UserPlus size={28} className="text-primary" />
-            <div>
-              <h2 className="text-xl font-semibold text-gray-800">Système d'invitations automatiques</h2>
-            </div>
-          </div>
-          
-        </div>
-
         <div className="space-y-8">
           {/* Qui inviter ? */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-800">Qui inviter ?</h3>
+            <h3 className="text-lg font-semibold text-gray-800">
+              <Users size={16} className="inline mr-2" />
+              Qui inviter ?
+            </h3>
             
             {/* Simple checkboxes for invitation types */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -114,7 +109,10 @@ export default function LinkedInInvitations() {
 
           {/* Type d'invitation */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-800">Type d'invitation</h3>
+            <h3 className="text-lg font-semibold text-gray-800">
+              <Envelope size={16} className="inline mr-2" />
+              Type d'invitation
+            </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Sans message */}
@@ -204,14 +202,15 @@ export default function LinkedInInvitations() {
             )}
 
             {config.messageType === 'ai' && (
-              <div className="bg-purple-50 rounded-lg p-6 border border-purple-200">
-                <label className="block text-sm font-medium text-gray-800 mb-3">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  <Sparkle size={16} className="inline mr-2" />
                   Instructions pour l'IA <span className="text-red-500">*</span>
-                </label>
+                </h3>
                 <textarea
                   value={config.aiPrompt}
                   onChange={(e) => handleConfigChange('aiPrompt', e.target.value)}
-                  rows={4}
+                  rows={6}
                   className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-colors resize-none"
                   placeholder="Ex: Rédigez un message d'invitation personnalisé en mentionnant l'interaction avec mon post. Ton professionnel mais chaleureux, maximum 250 caractères."
                   required
@@ -221,12 +220,12 @@ export default function LinkedInInvitations() {
           </div>
 
           {/* Horaires */}
-          <div className="bg-purple-50 rounded-lg p-6 border border-purple-200">
-            <h4 className="font-medium text-gray-800 mb-4">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
               <Clock size={16} className="inline mr-2" />
               Horaires d'envoi
-            </h4>
-            <div className="grid grid-cols-2 gap-4 max-w-md">
+            </h3>
+            <div className="grid grid-cols-2 gap-4 max-w-xs">
               <div>
                 <label className="block text-xs text-gray mb-2">Début</label>
                 <input
