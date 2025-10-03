@@ -59,247 +59,88 @@ export default function AIConfiguration() {
   };
 
   return (
-    <div className="max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">Votre assistant IA conversationnel</h1>
+    <div className="max-w-4xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Votre assistant IA conversationnel</h1>
+        </div>
+        
+        <button
+          onClick={() => handleConfigChange('autoResponse', !config.autoResponse)}
+          className={`relative inline-flex w-11 h-6 rounded-full transition-colors ${
+            config.autoResponse ? 'bg-primary' : 'bg-gray/30'
+          }`}
+        >
+          <span
+            className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
+              config.autoResponse ? 'translate-x-6' : 'translate-x-1'
+            } mt-1`}
+          />
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Configuration Panel */}
+      {/* Main Configuration Card */}
+      <div className="bg-white rounded-2xl p-8 border border-gray/20">
         <div className="space-y-8">
-          {/* Tone Configuration */}
-          <div className="bg-white rounded-2xl p-8 border border-gray/20">
-            <div className="flex items-center space-x-3 mb-6">
-              <ChatCircle size={24} className="text-primary" />
-              <h2 className="text-xl font-semibold text-black">Ton de réponse</h2>
-            </div>
-            
-            <div className="space-y-3">
-              {toneOptions.map((tone) => (
-                <div
-                  key={tone.id}
-                  onClick={() => handleConfigChange('tone', tone.id)}
-                  className={`p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                    config.tone === tone.id
-                      ? 'border-primary bg-primary/5'
-                      : 'border-gray/20 hover:border-gray/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-medium text-black">{tone.name}</h3>
-                    {config.tone === tone.id && (
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray">{tone.description}</p>
-                </div>
-              ))}
-            </div>
+          {/* Instructions pour l'IA */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              <Robot size={16} className="inline mr-2" />
+              Instructions pour l'IA
+            </h3>
+            <textarea
+              value={config.customPrompt}
+              onChange={(e) => handleConfigChange('customPrompt', e.target.value)}
+              rows={10}
+              className="w-full px-4 py-4 rounded-lg border border-gray/20 bg-white text-gray-800 placeholder-gray/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors resize-none"
+              placeholder="Ex: Je suis Baptiste, expert LinkedIn. Réponds avec un ton professionnel mais chaleureux. Pose toujours une question pour engager la conversation. Mentionne mes services de formation si pertinent..."
+            />
           </div>
 
-          {/* Response Settings */}
-          <div className="bg-white rounded-2xl p-8 border border-gray/20">
-            <div className="flex items-center space-x-3 mb-6">
-              <Clock size={24} className="text-primary" />
-              <h2 className="text-xl font-semibold text-black">Paramètres de réponse</h2>
-            </div>
-
-            <div className="space-y-6">
-              {/* Auto Response Toggle */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-black">Réponses automatiques</h3>
-                  <p className="text-sm text-gray">Activer les réponses automatisées</p>
-                </div>
-                <button
-                  onClick={() => handleConfigChange('autoResponse', !config.autoResponse)}
-                  className={`relative inline-flex w-11 h-6 rounded-full transition-colors ${
-                    config.autoResponse ? 'bg-primary' : 'bg-gray/30'
-                  }`}
-                >
-                  <span
-                    className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
-                      config.autoResponse ? 'translate-x-6' : 'translate-x-1'
-                    } mt-1`}
-                  />
-                </button>
-              </div>
-
-              {/* Response Delay */}
+          {/* Horaires */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              <Clock size={16} className="inline mr-2" />
+              Horaires de réponse
+            </h3>
+            <div className="grid grid-cols-2 gap-4 max-w-xs">
               <div>
-                <label className="block text-sm font-medium text-black mb-2">
-                  Délai de réponse (minutes)
-                </label>
+                <label className="block text-xs text-gray mb-2">Début</label>
                 <input
-                  type="range"
-                  min="5"
-                  max="120"
-                  value={config.responseDelay}
-                  onChange={(e) => handleConfigChange('responseDelay', parseInt(e.target.value))}
-                  className="w-full h-2 bg-gray/20 rounded-lg appearance-none cursor-pointer"
-                />
-                <div className="flex justify-between text-sm text-gray mt-1">
-                  <span>5 min</span>
-                  <span className="font-medium text-primary">{config.responseDelay} min</span>
-                  <span>2h</span>
-                </div>
-              </div>
-
-              {/* Working Hours */}
-              <div className="grid grid-cols-2 gap-4">
-                <Input
-                  label="Heure de début"
                   type="time"
                   value={config.workingHours.start}
-                  onChange={(e) => handleConfigChange('workingHours', { 
-                    ...config.workingHours, 
-                    start: e.target.value 
+                  onChange={(e) => handleConfigChange('workingHours', {
+                    ...config.workingHours,
+                    start: e.target.value
                   })}
+                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
-                <Input
-                  label="Heure de fin"
+              </div>
+              <div>
+                <label className="block text-xs text-gray mb-2">Fin</label>
+                <input
                   type="time"
                   value={config.workingHours.end}
-                  onChange={(e) => handleConfigChange('workingHours', { 
-                    ...config.workingHours, 
-                    end: e.target.value 
+                  onChange={(e) => handleConfigChange('workingHours', {
+                    ...config.workingHours,
+                    end: e.target.value
                   })}
+                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </div>
-
-              {/* Weekend Toggle */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-black">Actif le weekend</h3>
-                  <p className="text-sm text-gray">Répondre automatiquement le weekend</p>
-                </div>
-                <button
-                  onClick={() => handleConfigChange('enableWeekends', !config.enableWeekends)}
-                  className={`relative inline-flex w-11 h-6 rounded-full transition-colors ${
-                    config.enableWeekends ? 'bg-primary' : 'bg-gray/30'
-                  }`}
-                >
-                  <span
-                    className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
-                      config.enableWeekends ? 'translate-x-6' : 'translate-x-1'
-                    } mt-1`}
-                  />
-                </button>
-              </div>
-
-              {/* Daily Limit */}
-              <Input
-                label="Limite quotidienne de messages"
-                type="number"
-                value={config.maxMessagesPerDay}
-                onChange={(e) => handleConfigChange('maxMessagesPerDay', parseInt(e.target.value))}
-                min="1"
-                max="100"
-              />
             </div>
-          </div>
-        </div>
-
-        {/* Templates and Preview */}
-        <div className="space-y-8">
-          {/* Response Templates */}
-          <div className="bg-white rounded-2xl p-8 border border-gray/20">
-            <div className="flex items-center space-x-3 mb-6">
-              <Robot size={24} className="text-primary" />
-              <h2 className="text-xl font-semibold text-black">Modèles de réponse</h2>
-            </div>
-
-            <div className="space-y-4 mb-6">
-              {responseTemplates.map((template) => (
-                <div
-                  key={template.id}
-                  onClick={() => {
-                    setActiveTemplate(template.id);
-                    setCustomTemplate(template.template);
-                  }}
-                  className={`p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                    activeTemplate === template.id
-                      ? 'border-primary bg-primary/5'
-                      : 'border-gray/20 hover:border-gray/40'
-                  }`}
-                >
-                  <h3 className="font-medium text-black mb-2">{template.name}</h3>
-                  <p className="text-sm text-gray line-clamp-2">{template.template}</p>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-black mb-2">
-                Personnaliser le modèle
-              </label>
-              <textarea
-                value={customTemplate}
-                onChange={(e) => setCustomTemplate(e.target.value)}
-                rows={4}
-                className="w-full px-4 py-3 rounded-lg border border-gray bg-white text-black placeholder-gray/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors resize-none"
-                placeholder="Écrivez votre modèle personnalisé..."
-              />
-              <p className="text-xs text-gray mt-2">
-                Variables disponibles: {'{name}'}, {'{topic}'}, {'{expertise}'}
-              </p>
-            </div>
+            <p className="text-xs text-gray mt-2">
+              L'IA répondra uniquement pendant ces heures
+            </p>
           </div>
 
-          {/* AI Status and Testing */}
-          <div className="bg-white rounded-2xl p-8 border border-gray/20">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-black">Statut de l'IA</h2>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-green-600 font-medium">Actif</span>
-              </div>
-            </div>
-
-            <div className="space-y-4 mb-6">
-              <div className="flex justify-between items-center">
-                <span className="text-gray">Messages traités aujourd'hui</span>
-                <span className="font-medium text-black">12 / {config.maxMessagesPerDay}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray">Taux de réponse</span>
-                <span className="font-medium text-black">94%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray">Temps de réponse moyen</span>
-                <span className="font-medium text-black">{config.responseDelay} min</span>
-              </div>
-            </div>
-
-            <div className="flex space-x-4">
-              <Button onClick={testAI} variant="outline" className="flex-1">
-                <Play size={16} className="mr-2" />
-                Tester l'IA
-              </Button>
-              <Button
-                onClick={() => handleConfigChange('autoResponse', false)}
-                variant="ghost"
-                className="flex-1 text-red-600 hover:bg-red-50"
-              >
-                <Pause size={16} className="mr-2" />
-                Suspendre
-              </Button>
-            </div>
+          {/* Save Button */}
+          <div className="flex justify-end pt-6 border-t border-gray/20">
+            <Button size="lg">
+              Sauvegarder la configuration
+            </Button>
           </div>
-        </div>
-      </div>
-
-      {/* Save Configuration */}
-      <div className="mt-8 bg-white rounded-2xl p-8 border border-gray/20">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-black mb-2">Sauvegarder la configuration</h3>
-            <p className="text-gray">Les modifications seront appliquées immédiatement</p>
-          </div>
-          <Button onClick={handleSaveConfiguration} size="lg" className="px-8">
-            <Lightning size={16} className="mr-2" />
-            Sauvegarder
-          </Button>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ interface MenuSection {
     name: string;
     href: string;
     icon?: ReactNode;
+    disabled?: boolean;
   }[];
 }
 

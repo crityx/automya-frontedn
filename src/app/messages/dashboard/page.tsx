@@ -9,7 +9,7 @@ const messagesMenuSections = [
     title: 'IA Conversationnelle',
     items: [
       {
-        name: 'Configuration IA',
+        name: 'Votre assistant IA conversationnel',
         href: '/messages',
         icon: <Robot size={20} />
       },

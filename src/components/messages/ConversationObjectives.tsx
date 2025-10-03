@@ -13,120 +13,96 @@ import {
   PenNib,
   CheckCircle,
   Clock,
+  Lock,
   TrendUp
 } from 'phosphor-react';
 
 const objectiveTypes = [
-  {
-    id: 'rdv',
-    name: 'Prise de rendez-vous',
-    description: 'Organiser des meetings et appels',
-    icon: <CalendarBlank size={20} />,
-    color: 'bg-blue-50 text-blue-600 border-blue-200'
-  },
-  {
-    id: 'lead',
-    name: 'Génération de leads',
-    description: 'Capturer des prospects qualifiés',
-    icon: <Users size={20} />,
-    color: 'bg-green-50 text-green-600 border-green-200'
-  },
-  {
-    id: 'info',
-    name: 'Collecte d\'informations',
-    description: 'Recueillir des données prospects',
-    icon: <ChatCircle size={20} />,
-    color: 'bg-purple-50 text-purple-600 border-purple-200'
-  },
-  {
-    id: 'nurturing',
-    name: 'Lead nurturing',
-    description: 'Maintenir la relation prospect',
-    icon: <TrendUp size={20} />,
-    color: 'bg-orange-50 text-orange-600 border-orange-200'
-  }
+  { id: 'lead-gen', name: 'Génération de leads', icon: <Users size={20} />, color: 'text-blue-600' },
+  { id: 'qualification', name: 'Qualification', icon: <Target size={20} />, color: 'text-green-600' },
+  { id: 'nurturing', name: 'Nurturing', icon: <ChatCircle size={20} />, color: 'text-purple-600' },
+  { id: 'conversion', name: 'Conversion', icon: <CheckCircle size={20} />, color: 'text-orange-600' }
 ];
 
-const defaultScenarios = [
-  {
-    id: '1',
-    name: 'Première connexion',
-    objective: 'rdv',
-    description: 'Message de bienvenue pour nouvelle connexion',
-    trigger: 'new_connection',
-    steps: [
-      'Remercier pour la connexion',
-      'Présenter brièvement votre activité',
-      'Proposer un échange téléphonique'
-    ],
-    active: true
-  },
-  {
-    id: '2',
-    name: 'Suivi lead chaud',
-    objective: 'rdv',
-    description: 'Relance pour prospect intéressé',
-    trigger: 'engagement_high',
-    steps: [
-      'Référencer l\'interaction précédente',
-      'Proposer une solution adaptée',
-      'Planifier un rendez-vous'
-    ],
-    active: true
-  },
-  {
-    id: '3',
-    name: 'Collecte besoins',
-    objective: 'info',
-    description: 'Questionnaire pour qualifier le prospect',
-    trigger: 'profile_view',
-    steps: [
-      'Poser des questions ouvertes',
-      'Identifier les pain points',
-      'Qualifier le budget'
-    ],
-    active: false
-  }
-];
+interface ConversationStep {
+  id: string;
+  trigger: string;
+  message: string;
+  waitTime: number;
+}
+
+interface ConversationScenario {
+  id: string;
+  name: string;
+  objective: string;
+  active: boolean;
+  steps: ConversationStep[];
+  stats: {
+    conversations: number;
+    responses: number;
+    conversions: number;
+  };
+}
 
 export default function ConversationObjectives() {
-  const [scenarios, setScenarios] = useState(defaultScenarios);
-  const [selectedObjective, setSelectedObjective] = useState('rdv');
-  const [isCreating, setIsCreating] = useState(false);
-  const [editingScenario, setEditingScenario] = useState(null);
+  const [scenarios, setScenarios] = useState<ConversationScenario[]>([
+    {
+      id: '1',
+      name: 'Première connexion LinkedIn',
+      objective: 'lead-gen',
+      active: true,
+      steps: [
+        { id: '1', trigger: 'Connexion acceptée', message: 'Merci pour la connexion ! Je serais ravi d\'échanger sur votre activité.', waitTime: 24 },
+        { id: '2', trigger: 'Pas de réponse après 3 jours', message: 'J\'ai vu votre profil et je pense qu\'on pourrait avoir des synergies intéressantes. Avez-vous 15 minutes cette semaine ?', waitTime: 72 }
+      ],
+      stats: { conversations: 45, responses: 32, conversions: 8 }
+    },
+    {
+      id: '2',
+      name: 'Suivi prospect qualifié',
+      objective: 'qualification',
+      active: false,
+      steps: [
+        { id: '1', trigger: 'Lead qualifié', message: 'Suite à notre échange, j\'aimerais vous présenter notre solution. Êtes-vous disponible pour un call de 30 minutes ?', waitTime: 48 }
+      ],
+      stats: { conversations: 23, responses: 18, conversions: 12 }
+    }
+  ]);
 
-  const [newScenario, setNewScenario] = useState({
+  const [editingScenario, setEditingScenario] = useState<string | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const [newScenario, setNewScenario] = useState<Partial<ConversationScenario>>({
     name: '',
-    description: '',
-    objective: 'rdv',
-    trigger: 'manual',
-    steps: ['']
+    objective: 'lead-gen',
+    active: true,
+    steps: []
   });
 
   const stats = {
     totalScenarios: scenarios.length,
     activeScenarios: scenarios.filter(s => s.active).length,
-    avgConversionRate: 24.5,
-    totalConversations: 156
+    totalConversations: scenarios.reduce((acc, s) => acc + s.stats.conversations, 0),
+    averageResponseRate: Math.round(scenarios.reduce((acc, s) => acc + (s.stats.responses / s.stats.conversations * 100), 0) / scenarios.length)
   };
 
-  const handleCreateScenario = () => {
-    if (newScenario.name && newScenario.description) {
-      const scenario = {
+  const createScenario = () => {
+    if (newScenario.name && newScenario.objective) {
+      const scenario: ConversationScenario = {
         id: Date.now().toString(),
-        ...newScenario,
-        active: true
+        name: newScenario.name,
+        objective: newScenario.objective,
+        active: true,
+        steps: newScenario.steps || [],
+        stats: { conversations: 0, responses: 0, conversions: 0 }
       };
       setScenarios([...scenarios, scenario]);
-      setNewScenario({
-        name: '',
-        description: '',
-        objective: 'rdv',
-        trigger: 'manual',
-        steps: ['']
-      });
+      setNewScenario({ name: '', objective: 'lead-gen', active: true, steps: [] });
       setIsCreating(false);
     }
+  };
+
+  const deleteScenario = (id: string) => {
+    setScenarios(scenarios.filter(s => s.id !== id));
   };
 
   const toggleScenario = (id: string) => {
@@ -135,280 +111,214 @@ export default function ConversationObjectives() {
     ));
   };
 
-  const deleteScenario = (id: string) => {
-    setScenarios(scenarios.filter(s => s.id !== id));
-  };
-
   const addStep = () => {
     setNewScenario({
       ...newScenario,
-      steps: [...newScenario.steps, '']
+      steps: [...(newScenario.steps || []), { id: Date.now().toString(), trigger: '', message: '', waitTime: 24 }]
     });
   };
 
-  const updateStep = (index: number, value: string) => {
-    const newSteps = [...newScenario.steps];
-    newSteps[index] = value;
-    setNewScenario({ ...newScenario, steps: newSteps });
+  const updateStep = (index: number, field: keyof ConversationStep, value: string | number) => {
+    const updatedSteps = [...(newScenario.steps || [])];
+    updatedSteps[index] = { ...updatedSteps[index], [field]: value };
+    setNewScenario({ ...newScenario, steps: updatedSteps });
   };
 
   const removeStep = (index: number) => {
     setNewScenario({
       ...newScenario,
-      steps: newScenario.steps.filter((_, i) => i !== index)
+      steps: newScenario.steps?.filter((_, i) => i !== index) || []
     });
   };
 
   return (
-    <div className="max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">Objectifs de conversation</h1>
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Objectifs de conversation</h1>
         <p className="text-gray">Définissez vos stratégies conversationnelles pour maximiser les conversions</p>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-2xl p-6 border border-gray/20">
-          <div className="flex items-center justify-between mb-4">
-            <div className="p-2 rounded-lg bg-blue-50">
-              <Target size={24} color="#2563eb" />
+      {/* Coming Soon Card */}
+      <div className="bg-gray-50 rounded-2xl p-8 border border-gray/20">
+        <div className="text-center py-12">
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+              <Lock size={32} className="text-gray" />
             </div>
           </div>
-          <div>
-            <p className="text-2xl font-bold text-black mb-1">{stats.totalScenarios}</p>
-            <p className="text-sm text-gray">Scénarios créés</p>
-          </div>
+          <h2 className="text-2xl font-semibold text-gray mb-4">Bientôt disponible</h2>
+          <p className="text-gray mb-8 max-w-2xl mx-auto">
+            La configuration avancée des objectifs de conversation sera bientôt disponible pour optimiser vos stratégies conversationnelles.
+          </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 border border-gray/20">
-          <div className="flex items-center justify-between mb-4">
-            <div className="p-2 rounded-lg bg-green-50">
-              <CheckCircle size={24} color="#16a34a" />
-            </div>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-black mb-1">{stats.activeScenarios}</p>
-            <p className="text-sm text-gray">Scénarios actifs</p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 border border-gray/20">
-          <div className="flex items-center justify-between mb-4">
-            <div className="p-2 rounded-lg bg-primary-light">
-              <TrendUp size={24} className="text-primary" />
-            </div>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-black mb-1">{stats.avgConversionRate}%</p>
-            <p className="text-sm text-gray">Taux de conversion</p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 border border-gray/20">
-          <div className="flex items-center justify-between mb-4">
-            <div className="p-2 rounded-lg bg-orange-50">
-              <ChatCircle size={24} color="#ea580c" />
-            </div>
-          </div>
-          <div>
-            <p className="text-2xl font-bold text-black mb-1">{stats.totalConversations}</p>
-            <p className="text-sm text-gray">Conversations ce mois</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Objective Types */}
-      <div className="bg-white rounded-2xl p-8 border border-gray/20 mb-8">
-        <h2 className="text-xl font-semibold text-black mb-6">Types d'objectifs</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {objectiveTypes.map((type) => (
-            <div
-              key={type.id}
-              onClick={() => setSelectedObjective(type.id)}
-              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                selectedObjective === type.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-gray/20 hover:border-gray/40'
-              }`}
-            >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${type.color}`}>
-                {type.icon}
+        {/* Preview of existing features - grayed out */}
+        <div className="opacity-60 pointer-events-none">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-white rounded-2xl p-6 border border-gray/20">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2 rounded-lg bg-blue-50">
+                  <Target size={24} color="#2563eb" />
+                </div>
               </div>
-              <h3 className="font-medium text-black mb-2">{type.name}</h3>
-              <p className="text-sm text-gray">{type.description}</p>
+              <div>
+                <p className="text-2xl font-bold text-black mb-1">{stats.totalScenarios}</p>
+                <p className="text-sm text-gray">Scénarios créés</p>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Scenarios */}
-      <div className="bg-white rounded-2xl border border-gray/20">
-        <div className="p-6 border-b border-gray/20">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-black">Scénarios de conversation</h2>
-            <Button onClick={() => setIsCreating(true)} size="sm">
-              <Plus size={16} className="mr-2" />
-              Nouveau scénario
-            </Button>
+            <div className="bg-white rounded-2xl p-6 border border-gray/20">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2 rounded-lg bg-green-50">
+                  <CheckCircle size={24} color="#059669" />
+                </div>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-black mb-1">{stats.activeScenarios}</p>
+                <p className="text-sm text-gray">Scénarios actifs</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 border border-gray/20">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2 rounded-lg bg-purple-50">
+                  <ChatCircle size={24} color="#7c3aed" />
+                </div>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-black mb-1">{stats.totalConversations}</p>
+                <p className="text-sm text-gray">Conversations</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 border border-gray/20">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2 rounded-lg bg-orange-50">
+                  <TrendUp size={24} color="#ea580c" />
+                </div>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-black mb-1">{stats.averageResponseRate}%</p>
+                <p className="text-sm text-gray">Taux de réponse</p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className="p-6">
-          {/* Create New Scenario */}
-          {isCreating && (
-            <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-medium text-black mb-4">Créer un nouveau scénario</h3>
-              
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    label="Nom du scénario"
-                    value={newScenario.name}
-                    onChange={(e) => setNewScenario({ ...newScenario, name: e.target.value })}
-                    placeholder="Ex: Première connexion"
-                  />
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">Objectif</label>
-                    <select
-                      value={newScenario.objective}
-                      onChange={(e) => setNewScenario({ ...newScenario, objective: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg border border-gray bg-white text-black focus:border-primary focus:ring-2 focus:ring-primary/20"
-                    >
-                      {objectiveTypes.map((type) => (
-                        <option key={type.id} value={type.id}>{type.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+          {/* Existing Scenarios */}
+          <div className="bg-white rounded-2xl p-8 border border-gray/20 mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-black">Scénarios de conversation</h2>
+              <Button disabled className="opacity-50">
+                <Plus size={16} className="mr-2" />
+                Nouveau scénario
+              </Button>
+            </div>
 
-                <Input
-                  label="Description"
-                  value={newScenario.description}
-                  onChange={(e) => setNewScenario({ ...newScenario, description: e.target.value })}
-                  placeholder="Décrivez l'objectif de ce scénario"
-                />
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">Déclencheur</label>
-                  <select
-                    value={newScenario.trigger}
-                    onChange={(e) => setNewScenario({ ...newScenario, trigger: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg border border-gray bg-white text-black focus:border-primary focus:ring-2 focus:ring-primary/20"
-                  >
-                    <option value="manual">Manuel</option>
-                    <option value="new_connection">Nouvelle connexion</option>
-                    <option value="profile_view">Visite de profil</option>
-                    <option value="engagement_high">Forte interaction</option>
-                    <option value="time_based">Basé sur le temps</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">Étapes de conversation</label>
-                  <div className="space-y-2">
-                    {newScenario.steps.map((step, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <span className="text-sm text-gray w-8">{index + 1}.</span>
-                        <input
-                          type="text"
-                          value={step}
-                          onChange={(e) => updateStep(index, e.target.value)}
-                          placeholder="Décrivez cette étape..."
-                          className="flex-1 px-3 py-2 rounded-lg border border-gray bg-white text-black focus:border-primary focus:ring-2 focus:ring-primary/20"
-                        />
-                        {newScenario.steps.length > 1 && (
-                          <button
-                            onClick={() => removeStep(index)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                          >
-                            <Trash size={16} />
-                          </button>
-                        )}
+            <div className="space-y-4">
+              {scenarios.map((scenario) => (
+                <div key={scenario.id} className="border border-gray/20 rounded-lg p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <h3 className="font-semibold text-black">{scenario.name}</h3>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          objectiveTypes.find(t => t.id === scenario.objective)?.color || 'text-gray-600'
+                        } bg-gray-100`}>
+                          {objectiveTypes.find(t => t.id === scenario.objective)?.name}
+                        </span>
                       </div>
-                    ))}
-                    <Button variant="outline" size="sm" onClick={addStep}>
-                      <Plus size={16} className="mr-2" />
-                      Ajouter une étape
-                    </Button>
-                  </div>
-                </div>
+                      
+                      <div className="grid grid-cols-3 gap-4 text-sm mb-4">
+                        <div>
+                          <span className="text-gray">Conversations:</span>
+                          <span className="font-medium text-black ml-1">{scenario.stats.conversations}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray">Réponses:</span>
+                          <span className="font-medium text-black ml-1">{scenario.stats.responses}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray">Conversions:</span>
+                          <span className="font-medium text-black ml-1">{scenario.stats.conversions}</span>
+                        </div>
+                      </div>
 
-                <div className="flex space-x-4">
-                  <Button onClick={handleCreateScenario}>
-                    Créer le scénario
-                  </Button>
-                  <Button variant="outline" onClick={() => setIsCreating(false)}>
-                    Annuler
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Scenarios List */}
-          <div className="space-y-4">
-            {scenarios.map((scenario) => (
-              <div key={scenario.id} className="border border-gray/20 rounded-lg p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-medium text-black">{scenario.name}</h3>
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        objectiveTypes.find(t => t.id === scenario.objective)?.color || 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {objectiveTypes.find(t => t.id === scenario.objective)?.name}
-                      </span>
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        scenario.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {scenario.active ? 'Actif' : 'Inactif'}
-                      </span>
-                    </div>
-                    <p className="text-gray mb-3">{scenario.description}</p>
-                    
-                    <div>
-                      <h4 className="text-sm font-medium text-black mb-2">Étapes :</h4>
-                      <ol className="list-decimal list-inside space-y-1">
+                      <div className="space-y-2">
                         {scenario.steps.map((step, index) => (
-                          <li key={index} className="text-sm text-gray">{step}</li>
+                          <div key={step.id} className="text-sm bg-gray-50 p-3 rounded-lg">
+                            <div className="flex items-center space-x-2 mb-1">
+                              <span className="text-gray font-medium">Étape {index + 1}:</span>
+                              <span className="text-primary text-xs">{step.trigger}</span>
+                            </div>
+                            <p className="text-gray">{step.message}</p>
+                            <div className="flex items-center space-x-1 mt-1">
+                              <Clock size={12} className="text-gray" />
+                              <span className="text-xs text-gray">Attendre {step.waitTime}h</span>
+                            </div>
+                          </div>
                         ))}
-                      </ol>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 ml-4">
+                      <button
+                        disabled
+                        className={`relative inline-flex w-11 h-6 rounded-full transition-colors opacity-50 ${
+                          scenario.active ? 'bg-primary' : 'bg-gray/30'
+                        }`}
+                      >
+                        <span
+                          className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
+                            scenario.active ? 'translate-x-6' : 'translate-x-1'
+                          } mt-1`}
+                        />
+                      </button>
+                      
+                      <button
+                        disabled
+                        className="p-2 text-gray opacity-50 rounded-lg"
+                      >
+                        <PenNib size={16} />
+                      </button>
+                      
+                      <button
+                        disabled
+                        className="p-2 text-red-600 opacity-50 rounded-lg"
+                      >
+                        <Trash className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center space-x-2 ml-4">
-                    <button
-                      onClick={() => toggleScenario(scenario.id)}
-                      className={`relative inline-flex w-11 h-6 rounded-full transition-colors ${
-                        scenario.active ? 'bg-primary' : 'bg-gray/30'
-                      }`}
-                    >
-                      <span
-                        className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
-                          scenario.active ? 'translate-x-6' : 'translate-x-1'
-                        } mt-1`}
-                      />
-                    </button>
-                    
-                    <button
-                      onClick={() => setEditingScenario(scenario.id)}
-                      className="p-2 text-gray hover:bg-gray/10 rounded-lg"
-                    >
-                      <PenNib size={16} />
-                    </button>
-                    
-                    <button
-                      onClick={() => deleteScenario(scenario.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                    >
-                      <Trash className="w-4 h-4" />
-                    </button>
-                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-8">
+          <Button disabled className="opacity-50 cursor-not-allowed">
+            <Lock size={16} className="mr-2" />
+            Configuration verrouillée
+          </Button>
+        </div>
+      </div>
+
+      {/* Info Card */}
+      <div className="bg-blue-50 rounded-2xl p-6 border border-blue-200">
+        <h3 className="font-semibold text-blue-900 mb-2">Comment ça fonctionnera ?</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-blue-800">
+          <div>
+            <strong>1. Définition</strong><br />
+            Configurez vos objectifs de conversation selon vos stratégies business
+          </div>
+          <div>
+            <strong>2. Personnalisation</strong><br />
+            L'IA adaptera ses réponses pour atteindre vos objectifs définis
+          </div>
+          <div>
+            <strong>3. Optimisation</strong><br />
+            Analysez les performances et optimisez vos stratégies conversationnelles
           </div>
         </div>
       </div>

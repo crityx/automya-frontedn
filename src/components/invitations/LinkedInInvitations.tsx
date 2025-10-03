@@ -56,8 +56,23 @@ export default function LinkedInInvitations() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Invitations automatiques</h1>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Invitations automatiques</h1>
+        </div>
+        
+        <button
+          onClick={toggleSystem}
+          className={`relative inline-flex w-11 h-6 rounded-full transition-colors ${
+            config.enabled ? 'bg-primary' : 'bg-gray/30'
+          }`}
+        >
+          <span
+            className={`inline-block w-4 h-4 bg-white rounded-full transform transition-transform ${
+              config.enabled ? 'translate-x-6' : 'translate-x-1'
+            } mt-1`}
+          />
+        </button>
       </div>
 
       {/* Main Configuration Card */}
