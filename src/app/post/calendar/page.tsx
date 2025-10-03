@@ -1,7 +1,7 @@
 'use client';
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import EditorialCalendar from '@/components/posts/EditorialCalendar';
+import EditorialCalendar from '@/components/articles/EditorialCalendar';
 import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
 
 const postMenuSections = [

@@ -15,7 +15,7 @@ const messagesMenuSections = [
       },
       {
         name: 'Objectif de conversation',
-        href: '/messages/objectifs',
+        href: '/messages/objectives',
         icon: <Target size={20} />
       },
       {

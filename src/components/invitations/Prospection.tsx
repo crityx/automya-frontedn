@@ -128,9 +128,9 @@ export default function Prospection() {
       </div>
 
       {/* Info Card */}
-      <div className="bg-blue-50 rounded-2xl p-6 border border-blue-200">
-        <h3 className="font-semibold text-blue-900 mb-2">Comment ça fonctionnera ?</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-blue-800">
+      <div className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+        <h3 className="font-semibold text-purple-900 mb-2">Comment ça fonctionnera ?</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-purple-800">
           <div>
             <strong>1. Recherche</strong><br />
             L'IA recherchera des profils selon vos critères géographiques et sectoriels

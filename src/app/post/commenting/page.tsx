@@ -1,7 +1,7 @@
 'use client';
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import PostCommenting from '@/components/posts/PostCommenting';
+import PostCommenting from '@/components/articles/PostCommenting';
 import { PenNib, CalendarBlank, Image, Kanban, ChatCircle } from 'phosphor-react';
 
 const postMenuSections = [

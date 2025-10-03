@@ -15,7 +15,7 @@ const invitationsMenuSections = [
       },
       {
         name: 'Prospection',
-        href: '/invitations/prospection',
+        href: '/invitations/prospecting',
         icon: <MagnifyingGlass size={20} />
       }
     ]

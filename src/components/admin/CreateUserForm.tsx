@@ -86,7 +86,7 @@ export default function CreateUserForm() {
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 placeholder="jean.dupont@exemple.com"
-                icon={<Envelope size={16} />
+                icon={<Envelope size={16} />}
                 required
               />
               
@@ -95,7 +95,7 @@ export default function CreateUserForm() {
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
                 placeholder="+33 6 12 34 56 78"
-                icon={<Phone size={16} />
+                icon={<Phone size={16} />}
               />
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function CreateUserForm() {
               value={formData.company}
               onChange={(e) => handleChange('company', e.target.value)}
               placeholder="Nom de l'entreprise"
-              icon={<Buildings size={16} />
+              icon={<Buildings size={16} />}
             />
           </div>
 
@@ -141,7 +141,7 @@ export default function CreateUserForm() {
                 onChange={(e) => handleChange('initialCredits', parseInt(e.target.value))}
                 min="0"
                 max="5000"
-                icon={<CreditCard size={16} />
+                icon={<CreditCard size={16} />}
               />
             </div>
           </div>
