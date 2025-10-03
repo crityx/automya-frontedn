@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import PostKanban from '@/components/posts/PostKanban';
-import { PenTool, Calendar, Image, BarChart3, Kanban } from 'lucide-react';
+import { PenTool, Calendar, Image, Kanban } from 'lucide-react';
 
 const postMenuSections = [
   {
@@ -27,11 +27,6 @@ const postMenuSections = [
         name: 'Médias',
         href: '/post/medias',
         icon: <Image className="w-5 h-5" />
-      },
-      {
-        name: 'Dashboard des posts',
-        href: '/post/dashboard',
-        icon: <BarChart3 className="w-5 h-5" />
       }
     ]
   }

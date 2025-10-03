@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Bell, ChevronDown, Gem, Menu, X } from 'lucide-react';
+import { Bell, ChevronDown, Gem, Menu, X, User, CreditCard, Gift, Settings, Globe, Users } from 'lucide-react';
 
 interface HeaderProps {
   user: {
@@ -20,46 +20,53 @@ export default function Header({ user }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Profil', href: '/profil' },
+    { name: 'Posts', href: '/post' },
     { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Post', href: '/post' },
     { name: 'Messages', href: '/messages' },
+    { name: 'Prospection', href: '/prospection', isBeta: true },
   ];
 
   const isActive = (href: string) => pathname === href;
 
   return (
     <header className="bg-white border-b border-gray/20 sticky top-0 z-40">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/dashboard" className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">A</span>
-            </div>
-            <span className="text-xl font-bold text-black">Automya</span>
-          </Link>
+      <div className="w-full px-6">
+        <div className="flex items-center h-16 w-full">
+          {/* Section 1: Logo */}
+          <div className="flex items-center flex-1">
+            <Link href="/dashboard" className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold">A</span>
+              </div>
+              <span className="text-xl font-bold text-black">Automya</span>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Section 2: Navigation centrale */}
+          <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'px-3 py-2 rounded-lg font-medium transition-colors',
+                  'px-3 py-2 rounded-lg font-medium transition-colors relative',
                   isActive(item.href)
                     ? 'bg-primary text-white'
                     : 'text-gray hover:text-primary hover:bg-primary/10'
                 )}
               >
                 {item.name}
+                {item.isBeta && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
+                    β
+                  </span>
+                )}
               </Link>
             ))}
           </nav>
 
-          {/* Right Section */}
-          <div className="flex items-center space-x-4">
+          {/* Section 3: Utilitaires */}
+          <div className="flex items-center space-x-4 flex-1 justify-end">
             {/* Credits */}
             <div className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg">
               <Gem className="w-4 h-4 text-primary" />
@@ -76,7 +83,7 @@ export default function Header({ user }: HeaderProps) {
             <div className="relative">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray/10 transition-colors"
+                className="flex items-center p-2 rounded-lg hover:bg-gray/10 transition-colors"
               >
                 <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                   {user.avatar ? (
@@ -91,36 +98,70 @@ export default function Header({ user }: HeaderProps) {
                     </span>
                   )}
                 </div>
-                <ChevronDown className="w-4 h-4 text-gray hidden sm:block" />
               </button>
 
               {/* Dropdown Menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray/20 py-2">
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray/20 py-2">
                   <div className="px-4 py-2 border-b border-gray/20">
                     <p className="text-sm font-medium text-black">{user.name}</p>
                     <p className="text-xs text-gray">Gérer votre compte</p>
                   </div>
                   <Link
-                    href="/profil"
-                    className="block px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    href="/profile"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    Mon profil
+                    <User className="w-4 h-4" />
+                    Mes infos
                   </Link>
                   <Link
-                    href="/profil/abonnement"
-                    className="block px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    href="/profile/subscription"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
+                    <CreditCard className="w-4 h-4" />
                     Abonnement
                   </Link>
                   <Link
-                    href="/profil/parametres"
-                    className="block px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    href="/profile/credits"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
+                    <Gift className="w-4 h-4" />
+                    Acheter des crédits
+                  </Link>
+                  <Link
+                    href="/profile/referral"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <Gift className="w-4 h-4" />
+                    Parrainage
+                  </Link>
+                  <Link
+                    href="/profile/settings"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <Settings className="w-4 h-4" />
                     Paramètres
+                  </Link>
+                  <Link
+                    href="/profile/language"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <Globe className="w-4 h-4" />
+                    Langue
+                  </Link>
+                  <Link
+                    href="/profile/team"
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
+                    onClick={() => setIsProfileOpen(false)}
+                  >
+                    <Users className="w-4 h-4" />
+                    Équipe
                   </Link>
                   <hr className="my-2 border-gray/20" />
                   <button
@@ -159,7 +200,7 @@ export default function Header({ user }: HeaderProps) {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    'block px-3 py-2 rounded-lg font-medium transition-colors',
+                    'block px-3 py-2 rounded-lg font-medium transition-colors relative',
                     isActive(item.href)
                       ? 'bg-primary text-white'
                       : 'text-gray hover:text-primary hover:bg-primary/10'
@@ -167,6 +208,11 @@ export default function Header({ user }: HeaderProps) {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
+                  {item.isBeta && (
+                    <span className="absolute top-1 right-1 bg-primary text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
+                      β
+                    </span>
+                  )}
                 </Link>
               ))}
             </nav>

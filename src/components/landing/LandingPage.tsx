@@ -3,14 +3,23 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import RegistrationModal from '@/components/auth/RegistrationModal';
+import LoginModal from '@/components/auth/LoginModal';
 import { Zap, TrendingUp, MessageSquare, Calendar, Target, Users } from 'lucide-react';
 
 interface LandingPageProps {
-  onRegister: (email: string, password: string) => Promise<void>;
+  onRegister: (userData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    password: string;
+  }) => Promise<void>;
+  onLogin: (email: string, password: string) => Promise<void>;
 }
 
-export default function LandingPage({ onRegister }: LandingPageProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function LandingPage({ onRegister, onLogin }: LandingPageProps) {
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const features = [
     {
@@ -57,9 +66,19 @@ export default function LandingPage({ onRegister }: LandingPageProps) {
             <span className="text-2xl font-bold text-black">Automya</span>
           </div>
           
-          <Button onClick={() => setIsModalOpen(true)} size="lg">
-            S'inscrire
-          </Button>
+          <div className="flex items-center space-x-4">
+            <Button 
+              onClick={() => setIsLoginModalOpen(true)}
+              variant="outline" 
+              size="lg" 
+              className="text-primary border-primary hover:bg-primary-light hover:text-primary focus:outline-none focus:ring-0"
+            >
+              Connexion
+            </Button>
+            <Button onClick={() => setIsRegisterModalOpen(true)} size="lg">
+              S'inscrire
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -77,7 +96,7 @@ export default function LandingPage({ onRegister }: LandingPageProps) {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsRegisterModalOpen(true)}
             size="lg"
             className="px-8 py-4 text-lg"
           >
@@ -153,7 +172,7 @@ export default function LandingPage({ onRegister }: LandingPageProps) {
           avec moins d'effort.
         </p>
         <Button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsRegisterModalOpen(true)}
           size="lg"
           className="px-12 py-4 text-lg"
         >
@@ -184,9 +203,23 @@ export default function LandingPage({ onRegister }: LandingPageProps) {
       </footer>
 
       <RegistrationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isRegisterModalOpen}
+        onClose={() => setIsRegisterModalOpen(false)}
         onRegister={onRegister}
+        onSwitchToLogin={() => {
+          setIsRegisterModalOpen(false);
+          setIsLoginModalOpen(true);
+        }}
+      />
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLogin={onLogin}
+        onSwitchToRegister={() => {
+          setIsLoginModalOpen(false);
+          setIsRegisterModalOpen(true);
+        }}
       />
     </div>
   );

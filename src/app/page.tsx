@@ -8,8 +8,19 @@ export default function Home() {
   const [showAnimation, setShowAnimation] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleRegister = async (email: string, password: string) => {
-    console.log('Register:', { email, password });
+  const handleRegister = async (userData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    password: string;
+  }) => {
+    console.log('Register:', userData);
+    setShowAnimation(true);
+  };
+
+  const handleLogin = async (email: string, password: string) => {
+    console.log('Login:', { email, password });
     setShowAnimation(true);
   };
 
@@ -28,5 +39,5 @@ export default function Home() {
     return null;
   }
 
-  return <LandingPage onRegister={handleRegister} />;
+  return <LandingPage onRegister={handleRegister} onLogin={handleLogin} />;
 }

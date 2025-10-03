@@ -12,7 +12,8 @@ import {
   EyeOff,
   Trash2,
   Download,
-  Lock
+  Lock,
+  BarChart3
 } from 'lucide-react';
 
 export default function ProfileSettings() {
