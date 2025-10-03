@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle } from 'phosphor-react';
 
 interface MenuSection {
   title: string;
@@ -63,7 +63,7 @@ export default function LeftMenu({ sections, videoTitle, videoUrl }: LeftMenuPro
         {videoTitle && (
           <div className="bg-primary-light rounded-lg p-4">
             <div className="flex items-start space-x-3">
-              <PlayCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+              <PlayCircle size={24} className="text-primary flex-shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-medium text-black mb-1">
                   {videoTitle}

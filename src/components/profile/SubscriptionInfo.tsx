@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
-import { Check, Star, Zap } from 'lucide-react';
+import { Check, Star, Lightning } from 'phosphor-react';
 
 const plans = [
   {
@@ -91,7 +91,7 @@ export default function SubscriptionInfo() {
             <ul className="space-y-3">
               {currentPlan?.features.map((feature, index) => (
                 <li key={index} className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <Check size={20} className="text-green-500 flex-shrink-0" />
                   <span className="text-gray">{feature}</span>
                 </li>
               ))}
@@ -164,7 +164,7 @@ export default function SubscriptionInfo() {
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-primary text-white px-4 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
-                    <Star className="w-3 h-3" />
+                    <Star size={12} />
                     <span>Populaire</span>
                   </span>
                 </div>
@@ -190,7 +190,7 @@ export default function SubscriptionInfo() {
               <ul className="space-y-3 mb-6">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center space-x-3">
-                    <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                    <Check size={16} className="text-green-500 flex-shrink-0" />
                     <span className="text-sm text-gray">{feature}</span>
                   </li>
                 ))}

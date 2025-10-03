@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import EngagementAnalytics from '@/components/dashboard/EngagementAnalytics';
-import { BarChart3, Users, TrendingUp, MessageSquare } from 'lucide-react';
+import { ChartBar, Users, TrendingUp, ChatCircle } from 'phosphor-react';
 
 const dashboardMenuSections = [
   {
@@ -11,22 +11,22 @@ const dashboardMenuSections = [
       {
         name: 'Vue d\'ensemble',
         href: '/dashboard',
-        icon: <BarChart3 className="w-5 h-5" />
+        icon: <ChartBar size={20} />
       },
       {
         name: 'Leads captés',
         href: '/dashboard/leads',
-        icon: <Users className="w-5 h-5" />
+        icon: <Users size={20} />
       },
       {
         name: 'Engagement',
         href: '/dashboard/engagement',
-        icon: <TrendingUp className="w-5 h-5" />
+        icon: <TrendingUp size={20} />
       },
       {
         name: 'Messages',
         href: '/dashboard/messages',
-        icon: <MessageSquare className="w-5 h-5" />
+        icon: <ChatCircle size={20} />
       }
     ]
   }

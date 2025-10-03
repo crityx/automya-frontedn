@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { Sparkles, Calendar, Eye, Copy, RefreshCw } from 'lucide-react';
+import { MagicWand, CalendarBlank, Eye, Copy, ArrowClockwise } from 'phosphor-react';
 
 const writingStyles = [
   { id: 'professional', name: 'Professionnel', description: 'Ton formel et expertise' },
@@ -75,7 +75,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
         {/* Generation Form */}
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
-            <Sparkles className="w-6 h-6 text-primary" />
+            <MagicWand size={24} className="text-primary" />
             <h2 className="text-xl font-semibold text-black">Configuration du post</h2>
           </div>
 
@@ -125,7 +125,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
             className="w-full"
             size="lg"
           >
-            <Sparkles className="w-5 h-5 mr-2" />
+            <MagicWand size={20} className="mr-2" />
             {isGenerating ? 'Génération en cours...' : 'Générer le post'}
           </Button>
         </div>
@@ -134,7 +134,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-3">
-              <Eye className="w-6 h-6 text-primary" />
+              <Eye size={24} className="text-primary" />
               <h2 className="text-xl font-semibold text-black">Aperçu du post</h2>
             </div>
             {generatedPost && (
@@ -144,7 +144,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
                 onClick={handleGenerate}
                 className="p-2"
               >
-                <RefreshCw className="w-4 h-4" />
+                <ArrowClockwise size={16} />
               </Button>
             )}
           </div>
@@ -173,7 +173,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
                   onClick={handleSchedule}
                   className="flex-1"
                 >
-                  <Calendar className="w-4 h-4 mr-2" />
+                  <CalendarBlank size={16} className="mr-2" />
                   Planifier
                 </Button>
                 <Button
@@ -181,7 +181,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
                   onClick={handleCopyPost}
                   className="flex-1"
                 >
-                  <Copy className="w-4 h-4 mr-2" />
+                  <Copy size={16} className="mr-2" />
                   Copier
                 </Button>
               </div>
@@ -208,7 +208,7 @@ Et vous, qu'en pensez-vous ? Partagez votre expérience en commentaire ! 👇
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-center">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                <Sparkles className="w-8 h-8 text-gray" />
+                <MagicWand size={32} className="text-gray" />
               </div>
               <h3 className="text-lg font-medium text-black mb-2">
                 Prêt à créer du contenu ?

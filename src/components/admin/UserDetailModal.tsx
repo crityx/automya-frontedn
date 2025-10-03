@@ -24,7 +24,7 @@ import {
   CheckCircle,
   XCircle,
   RefreshCw
-} from 'lucide-react';
+} from 'phosphor-react';
 
 interface UserDetailModalProps {
   isOpen: boolean;
@@ -321,7 +321,7 @@ export default function UserDetailModal({ isOpen, onClose, user, onCreditAction 
                   {user.subscription}
                 </span>
                 <span className="flex items-center space-x-1 text-sm text-gray">
-                  <Calendar className="w-4 h-4" />
+                  <CalendarBlank size={16} />
                   <span>Inscrit le {new Date(details.stats.joinDate).toLocaleDateString('fr-FR')}</span>
                 </span>
               </div>

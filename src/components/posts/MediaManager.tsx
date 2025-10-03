@@ -5,16 +5,16 @@ import Button from '@/components/ui/Button';
 import { 
   Upload, 
   Image as ImageIcon, 
-  Video, 
-  Sparkles, 
+  VideoCamera, 
+  MagicWand, 
   Download,
-  Trash2,
+  Trash,
   Eye,
   Copy,
-  Search,
-  Filter,
+  MagnifyingGlass,
+  FunnelSimple,
   Plus
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const mockMedias = [
   {
@@ -54,19 +54,19 @@ const aiGenerationOptions = [
     id: 'text-to-image',
     name: 'Texte vers image',
     description: 'Générez une image à partir d\'une description',
-    icon: <Sparkles className="w-5 h-5" />
+    icon: <MagicWand size={20} />
   },
   {
     id: 'style-transfer',
     name: 'Transfert de style',
     description: 'Appliquez un style à une image existante',
-    icon: <ImageIcon className="w-5 h-5" />
+    icon: <ImageIcon size={20} />
   },
   {
     id: 'upscale',
     name: 'Amélioration qualité',
     description: 'Améliorez la résolution de vos images',
-    icon: <Upload className="w-5 h-5" />
+    icon: <Upload size={20} />
   }
 ];
 
@@ -154,7 +154,7 @@ export default function MediaManager() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <ImageIcon className="w-6 h-6 text-blue-600" />
+              <ImageIcon size={24} className="text-blue-600" />
             </div>
           </div>
           <div>
@@ -166,7 +166,7 @@ export default function MediaManager() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <ImageIcon className="w-6 h-6 text-green-600" />
+              <ImageIcon size={24} className="text-green-600" />
             </div>
           </div>
           <div>
@@ -178,7 +178,7 @@ export default function MediaManager() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Video className="w-6 h-6 text-purple-600" />
+              <VideoCamera size={24} className="text-purple-600" />
             </div>
           </div>
           <div>
@@ -190,7 +190,7 @@ export default function MediaManager() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <Upload className="w-6 h-6 text-orange-600" />
+              <Upload size={24} className="text-orange-600" />
             </div>
           </div>
           <div>
@@ -209,7 +209,7 @@ export default function MediaManager() {
           <div>
             <h3 className="text-lg font-medium text-black mb-4">Importer depuis l'ordinateur</h3>
             <div className="border-2 border-dashed border-gray/30 rounded-lg p-8 text-center hover:border-primary transition-colors">
-              <Upload className="w-12 h-12 text-gray mx-auto mb-4" />
+              <Upload size={48} className="text-gray mx-auto mb-4" />
               <h4 className="text-lg font-medium text-black mb-2">Glissez vos fichiers ici</h4>
               <p className="text-gray mb-4">ou cliquez pour sélectionner</p>
               <label className="cursor-pointer">
@@ -253,7 +253,7 @@ export default function MediaManager() {
                 loading={isGenerating}
                 className="w-full"
               >
-                <Sparkles className="w-4 h-4 mr-2" />
+                <MagicWand size={16} className="mr-2" />
                 {isGenerating ? 'Génération en cours...' : 'Générer avec l\'IA'}
               </Button>
 
@@ -286,7 +286,7 @@ export default function MediaManager() {
             <div className="flex items-center space-x-4">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
+                <MagnifyingGlass size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray" />
                 <input
                   type="text"
                   placeholder="Rechercher..."
@@ -317,11 +317,11 @@ export default function MediaManager() {
                 <div className="aspect-square bg-gray-200 flex items-center justify-center">
                   {media.type === 'image' ? (
                     <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-100 flex items-center justify-center">
-                      <ImageIcon className="w-12 h-12 text-primary" />
+                      <ImageIcon size={48} className="text-primary" />
                     </div>
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-                      <Video className="w-12 h-12 text-purple-600" />
+                      <VideoCamera size={48} className="text-purple-600" />
                     </div>
                   )}
                 </div>
@@ -333,19 +333,19 @@ export default function MediaManager() {
                       onClick={() => setSelectedMedia(media.id)}
                       className="p-2 bg-white rounded-lg text-black hover:bg-gray-100 transition-colors"
                     >
-                      <Eye className="w-4 h-4" />
+                      <Eye size={16} />
                     </button>
                     <button
                       onClick={() => copyMediaUrl(media.url)}
                       className="p-2 bg-white rounded-lg text-black hover:bg-gray-100 transition-colors"
                     >
-                      <Copy className="w-4 h-4" />
+                      <Copy size={16} />
                     </button>
                     <button
                       onClick={() => deleteMedia(media.id)}
                       className="p-2 bg-white rounded-lg text-red-600 hover:bg-gray-100 transition-colors"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash size={16} />
                     </button>
                   </div>
                 </div>
@@ -373,7 +373,7 @@ export default function MediaManager() {
 
           {filteredMedias.length === 0 && (
             <div className="text-center py-12">
-              <ImageIcon className="w-16 h-16 text-gray mx-auto mb-4" />
+              <ImageIcon size={64} className="text-gray mx-auto mb-4" />
               <h3 className="text-lg font-medium text-black mb-2">Aucun média trouvé</h3>
               <p className="text-gray">Importez ou générez vos premiers médias</p>
             </div>

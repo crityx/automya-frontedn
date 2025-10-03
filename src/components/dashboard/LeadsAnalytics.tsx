@@ -19,14 +19,14 @@ import {
   Users, 
   Target, 
   TrendingUp, 
-  Calendar,
+  CalendarBlank,
   Download,
-  Filter,
-  Search,
-  Mail,
+  FunnelSimple,
+  MagnifyingGlass,
+  Envelope,
   Phone,
-  Linkedin
-} from 'lucide-react';
+  LinkedinLogo
+} from 'phosphor-react';
 import Button from '@/components/ui/Button';
 
 const leadsData = [
@@ -135,7 +135,7 @@ export default function LeadsAnalytics() {
         
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-gray" />
+            <CalendarBlank size={16} className="text-gray" />
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -149,7 +149,7 @@ export default function LeadsAnalytics() {
           </div>
           
           <Button onClick={exportLeads} variant="outline" size="sm">
-            <Download className="w-4 h-4 mr-2" />
+            <Download size={16} className="mr-2" />
             Exporter
           </Button>
         </div>
@@ -160,7 +160,7 @@ export default function LeadsAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users size={24} color="#2563eb" />
             </div>
             <span className="text-sm text-green-600 font-medium">+18%</span>
           </div>
@@ -173,7 +173,7 @@ export default function LeadsAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <Target className="w-6 h-6 text-green-600" />
+              <Target size={24} color="#16a34a" />
             </div>
             <span className="text-sm text-green-600 font-medium">+12%</span>
           </div>
@@ -186,7 +186,7 @@ export default function LeadsAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp className="w-6 h-6 text-primary" />
+              <TrendingUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+5%</span>
           </div>
@@ -199,7 +199,7 @@ export default function LeadsAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-yellow-50">
-              <Target className="w-6 h-6 text-yellow-600" />
+              <Target size={24} color="#d97706" />
             </div>
             <span className="text-sm text-green-600 font-medium">+3%</span>
           </div>
@@ -266,7 +266,7 @@ export default function LeadsAnalytics() {
             <div className="flex items-center space-x-4">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
+                <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2" size={16} color="#6b7280" />
                 <input
                   type="text"
                   placeholder="Rechercher un lead..."
@@ -355,21 +355,21 @@ export default function LeadsAnalytics() {
                         className="p-2 hover:bg-gray/10 rounded-lg transition-colors"
                         title="Envoyer un email"
                       >
-                        <Mail className="w-4 h-4 text-gray" />
+                        <Envelope size={16} color="#6b7280" />
                       </button>
                       <button
                         onClick={() => contactLead(lead.id, 'linkedin')}
                         className="p-2 hover:bg-gray/10 rounded-lg transition-colors"
                         title="Contacter sur LinkedIn"
                       >
-                        <Linkedin className="w-4 h-4 text-gray" />
+                        <LinkedinLogo size={16} color="#6b7280" />
                       </button>
                       <button
                         onClick={() => contactLead(lead.id, 'phone')}
                         className="p-2 hover:bg-gray/10 rounded-lg transition-colors"
                         title="Appeler"
                       >
-                        <Phone className="w-4 h-4 text-gray" />
+                        <Phone size={16} color="#6b7280" />
                       </button>
                     </div>
                   </td>

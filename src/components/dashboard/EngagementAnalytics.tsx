@@ -14,14 +14,14 @@ import {
 } from 'recharts';
 import { 
   ThumbsUp, 
-  MessageSquare, 
-  Share2, 
+  ChatCircle, 
+  Share, 
   TrendingUp,
-  Calendar,
+  CalendarBlank,
   Eye,
   Heart,
   Users
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const engagementData = [
   { date: '01/10', likes: 45, comments: 12, shares: 8, views: 234 },
@@ -86,7 +86,7 @@ export default function EngagementAnalytics() {
         
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-gray" />
+            <CalendarBlank size={16} className="text-gray" />
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -117,7 +117,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-red-50">
-              <Heart className="w-6 h-6 text-red-600" />
+              <Heart size={24} color="#dc2626" />
             </div>
             <span className="text-sm text-green-600 font-medium">+12%</span>
           </div>
@@ -130,7 +130,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <MessageSquare className="w-6 h-6 text-blue-600" />
+              <ChatCircle size={24} color="#2563eb" />
             </div>
             <span className="text-sm text-green-600 font-medium">+8%</span>
           </div>
@@ -143,7 +143,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <Share2 className="w-6 h-6 text-green-600" />
+              <Share size={24} color="#16a34a" />
             </div>
             <span className="text-sm text-green-600 font-medium">+15%</span>
           </div>
@@ -156,7 +156,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Eye className="w-6 h-6 text-purple-600" />
+              <Eye size={24} color="#9333ea" />
             </div>
             <span className="text-sm text-green-600 font-medium">+22%</span>
           </div>
@@ -169,7 +169,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp className="w-6 h-6 text-primary" />
+              <TrendingUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+5%</span>
           </div>
@@ -182,7 +182,7 @@ export default function EngagementAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <Users className="w-6 h-6 text-orange-600" />
+              <Users size={24} color="#ea580c" />
             </div>
             <span className="text-sm text-green-600 font-medium">+18%</span>
           </div>

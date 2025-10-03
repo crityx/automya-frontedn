@@ -1,6 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { X } from 'lucide-react';
+import { X } from 'phosphor-react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -55,7 +55,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
                     onClick={onClose}
                     className="p-2 rounded-lg hover:bg-gray/10 transition-colors"
                   >
-                    <X className="w-5 h-5 text-gray" />
+                    <X size={20} className="text-gray" />
                   </button>
                 </div>
                 {children}

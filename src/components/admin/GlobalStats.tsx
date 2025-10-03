@@ -30,7 +30,7 @@ import {
   Download,
   ArrowUp,
   ArrowDown
-} from 'lucide-react';
+} from 'phosphor-react';
 import Button from '@/components/ui/Button';
 
 const platformGrowthData = [
@@ -100,9 +100,9 @@ export default function GlobalStats() {
 
   const getGrowthIcon = (isPositive: boolean) => {
     return isPositive ? (
-      <ArrowUp className="w-4 h-4 text-green-600" />
+      <ArrowUp size={16} color="#16a34a" />
     ) : (
-      <ArrowDown className="w-4 h-4 text-red-600" />
+      <ArrowDown size={16} color="#dc2626" />
     );
   };
 

@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import AIConfiguration from '@/components/messages/AIConfiguration';
-import { Bot, Target, BarChart3 } from 'lucide-react';
+import { Robot, Target, ChartBar } from 'phosphor-react';
 
 const messagesMenuSections = [
   {
@@ -11,17 +11,17 @@ const messagesMenuSections = [
       {
         name: 'Configuration IA',
         href: '/messages',
-        icon: <Bot className="w-5 h-5" />
+        icon: <Robot size={20} />
       },
       {
         name: 'Objectif de conversation',
         href: '/messages/objectifs',
-        icon: <Target className="w-5 h-5" />
+        icon: <Target size={20} />
       },
       {
         name: 'Dashboard des messages',
         href: '/messages/dashboard',
-        icon: <BarChart3 className="w-5 h-5" />
+        icon: <ChartBar size={20} />
       }
     ]
   }

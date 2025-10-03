@@ -6,13 +6,13 @@ import {
   Gift, 
   Users, 
   Copy, 
-  Share2, 
-  Mail, 
-  MessageSquare,
-  ExternalLink,
+  Share, 
+  Envelope, 
+  ChatCircle,
+  ArrowSquareOut,
   Trophy,
   Gem
-} from 'lucide-react';
+} from 'phosphor-react';
 
 export default function ReferralProgram() {
   const [referralCode] = useState('AUTOMYA-PG2024');
@@ -41,7 +41,7 @@ export default function ReferralProgram() {
   const shareOptions = [
     {
       name: 'Email',
-      icon: <Mail className="w-5 h-5" />,
+      icon: <Envelope size={20} />,
       action: () => {
         const subject = 'Découvrez Automya - Automatisation LinkedIn';
         const body = `Salut ! Je voulais te parler d'Automya, un outil incroyable pour automatiser LinkedIn. Utilise mon code de parrainage pour bénéficier d'avantages : https://automya.com/register?ref=${referralCode}`;
@@ -50,7 +50,7 @@ export default function ReferralProgram() {
     },
     {
       name: 'WhatsApp',
-      icon: <MessageSquare className="w-5 h-5" />,
+      icon: <ChatCircle size={20} />,
       action: () => {
         const message = `Découvre Automya pour automatiser ton LinkedIn ! Utilise mon lien de parrainage : https://automya.com/register?ref=${referralCode}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(message)}`);
@@ -58,7 +58,7 @@ export default function ReferralProgram() {
     },
     {
       name: 'LinkedIn',
-      icon: <ExternalLink className="w-5 h-5" />,
+      icon: <ArrowSquareOut size={20} />,
       action: () => {
         const message = `Je recommande Automya pour automatiser votre LinkedIn ! Lien de parrainage : https://automya.com/register?ref=${referralCode}`;
         window.open(`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://automya.com/register?ref=${referralCode}`)}`);
@@ -85,7 +85,7 @@ export default function ReferralProgram() {
             </div>
           </div>
           <div className="text-center">
-            <Trophy className="w-20 h-20 text-yellow-300 mx-auto mb-2" />
+            <Trophy size={80} className="text-yellow-300 mx-auto mb-2" />
             <p className="text-lg font-semibold">Parrain du mois</p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function ReferralProgram() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users size={24} className="text-blue-600" />
             </div>
           </div>
           <div>
@@ -108,7 +108,7 @@ export default function ReferralProgram() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <Users className="w-6 h-6 text-green-600" />
+              <Users size={24} className="text-green-600" />
             </div>
           </div>
           <div>
@@ -120,7 +120,7 @@ export default function ReferralProgram() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <Gift className="w-6 h-6 text-primary" />
+              <Gift size={24} className="text-primary" />
             </div>
           </div>
           <div>
@@ -132,7 +132,7 @@ export default function ReferralProgram() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-yellow-50">
-              <Gem className="w-6 h-6 text-yellow-600" />
+              <Gem size={24} className="text-yellow-600" />
             </div>
           </div>
           <div>
@@ -161,7 +161,7 @@ export default function ReferralProgram() {
                 size="sm"
                 className="px-4"
               >
-                <Copy className="w-4 h-4 mr-2" />
+                <Copy size={16} className="mr-2" />
                 {copied ? 'Copié !' : 'Copier'}
               </Button>
             </div>
@@ -239,7 +239,7 @@ export default function ReferralProgram() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-              <Share2 className="w-6 h-6 text-primary" />
+              <Share size={24} className="text-primary" />
             </div>
             <h3 className="font-medium text-black mb-2">1. Partagez</h3>
             <p className="text-sm text-gray">Partagez votre lien de parrainage avec vos amis et contacts</p>
@@ -247,7 +247,7 @@ export default function ReferralProgram() {
           
           <div className="text-center">
             <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-6 h-6 text-primary" />
+              <Users size={24} className="text-primary" />
             </div>
             <h3 className="font-medium text-black mb-2">2. Ils s'inscrivent</h3>
             <p className="text-sm text-gray">Vos filleuls créent leur compte et reçoivent 50 crédits bonus</p>
@@ -255,7 +255,7 @@ export default function ReferralProgram() {
           
           <div className="text-center">
             <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
-              <Gift className="w-6 h-6 text-primary" />
+              <Gift size={24} className="text-primary" />
             </div>
             <h3 className="font-medium text-black mb-2">3. Vous gagnez</h3>
             <p className="text-sm text-gray">Recevez 30€ quand ils souscrivent à un abonnement payant</p>

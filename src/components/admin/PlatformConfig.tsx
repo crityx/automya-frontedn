@@ -4,19 +4,19 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { 
-  Settings, 
-  Save, 
-  RefreshCw,
+  Gear, 
+  FloppyDisk, 
+  ArrowClockwise,
   Globe,
-  Mail,
+  Envelope,
   CreditCard,
   Shield,
-  Zap,
+  Lightning,
   Bell,
   Database,
   Key,
-  AlertTriangle
-} from 'lucide-react';
+  WarningTriangle
+} from 'phosphor-react';
 
 export default function PlatformConfig() {
   const [isLoading, setIsLoading] = useState(false);
@@ -111,7 +111,7 @@ export default function PlatformConfig() {
       {config.maintenanceMode && (
         <div className="mb-8 p-4 bg-orange-50 border border-orange-200 rounded-lg">
           <div className="flex items-center space-x-2">
-            <AlertTriangle className="w-5 h-5 text-orange-600" />
+            <WarningTriangle size={20} color="#ea580c" />
             <span className="font-medium text-orange-800">Mode maintenance activé</span>
           </div>
           <p className="text-sm text-orange-700 mt-1">
@@ -125,7 +125,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Globe className="w-5 h-5 text-blue-600" />
+              <Globe size={20} color="#2563eb" />
             </div>
             <h2 className="text-xl font-semibold text-black">Paramètres généraux</h2>
           </div>
@@ -148,7 +148,7 @@ export default function PlatformConfig() {
               type="email"
               value={config.supportEmail}
               onChange={(e) => updateConfig('supportEmail', e.target.value)}
-              icon={<Mail className="w-4 h-4" />}
+              icon={<Envelope size={16} />}
             />
             
             <Input
@@ -164,7 +164,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-primary-light">
-              <CreditCard className="w-5 h-5 text-primary" />
+              <CreditCard size={20} className="text-primary" />
             </div>
             <h2 className="text-xl font-semibold text-black">Système de crédits</h2>
           </div>
@@ -205,7 +205,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-green-50">
-              <CreditCard className="w-5 h-5 text-green-600" />
+              <CreditCard size={20} color="#16a34a" />
             </div>
             <h2 className="text-xl font-semibold text-black">Commissions vendeurs</h2>
           </div>
@@ -238,7 +238,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Zap className="w-5 h-5 text-blue-600" />
+              <Lightning size={20} color="#2563eb" />
             </div>
             <h2 className="text-xl font-semibold text-black">Limites LinkedIn</h2>
           </div>
@@ -278,7 +278,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-red-50">
-              <Shield className="w-5 h-5 text-red-600" />
+              <Shield size={20} color="#dc2626" />
             </div>
             <h2 className="text-xl font-semibold text-black">Sécurité</h2>
           </div>
@@ -323,7 +323,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-yellow-50">
-              <Bell className="w-5 h-5 text-yellow-600" />
+              <Bell size={20} color="#d97706" />
             </div>
             <h2 className="text-xl font-semibold text-black">Notifications</h2>
           </div>
@@ -365,7 +365,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Key className="w-5 h-5 text-purple-600" />
+              <Key size={20} color="#9333ea" />
             </div>
             <h2 className="text-xl font-semibold text-black">Clés API</h2>
           </div>
@@ -398,7 +398,7 @@ export default function PlatformConfig() {
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
             <div className="p-2 rounded-lg bg-gray-50">
-              <Database className="w-5 h-5 text-gray-600" />
+              <Database size={20} color="#4b5563" />
             </div>
             <h2 className="text-xl font-semibold text-black">Informations système</h2>
           </div>
@@ -428,7 +428,7 @@ export default function PlatformConfig() {
             loading={isLoading}
             className="flex-1"
           >
-            <Save className="w-4 h-4 mr-2" />
+            <FloppyDisk size={16} className="mr-2" />
             {isLoading ? 'Sauvegarde...' : 'Sauvegarder la configuration'}
           </Button>
           
@@ -437,7 +437,7 @@ export default function PlatformConfig() {
             onClick={handleReset}
             className="px-8"
           >
-            <RefreshCw className="w-4 h-4 mr-2" />
+            <ArrowClockwise size={16} className="mr-2" />
             Réinitialiser
           </Button>
         </div>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { UserPlus, Mail, User, CreditCard, Building, Phone } from 'lucide-react';
+import { UserPlus, Envelope, User, CreditCard, Buildings, Phone } from 'phosphor-react';
 
 export default function CreateUserForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function CreateUserForm() {
                 value={formData.firstName}
                 onChange={(e) => handleChange('firstName', e.target.value)}
                 placeholder="Jean"
-                icon={<User className="w-4 h-4" />}
+                icon={<User size={16} />}
                 required
               />
               
@@ -76,7 +76,7 @@ export default function CreateUserForm() {
                 value={formData.lastName}
                 onChange={(e) => handleChange('lastName', e.target.value)}
                 placeholder="Dupont"
-                icon={<User className="w-4 h-4" />}
+                icon={<User size={16} />}
                 required
               />
               
@@ -86,7 +86,7 @@ export default function CreateUserForm() {
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 placeholder="jean.dupont@exemple.com"
-                icon={<Mail className="w-4 h-4" />}
+                icon={<Envelope size={16} />
                 required
               />
               
@@ -95,7 +95,7 @@ export default function CreateUserForm() {
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
                 placeholder="+33 6 12 34 56 78"
-                icon={<Phone className="w-4 h-4" />}
+                icon={<Phone size={16} />
               />
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function CreateUserForm() {
               value={formData.company}
               onChange={(e) => handleChange('company', e.target.value)}
               placeholder="Nom de l'entreprise"
-              icon={<Building className="w-4 h-4" />}
+              icon={<Buildings size={16} />
             />
           </div>
 
@@ -141,7 +141,7 @@ export default function CreateUserForm() {
                 onChange={(e) => handleChange('initialCredits', parseInt(e.target.value))}
                 min="0"
                 max="5000"
-                icon={<CreditCard className="w-4 h-4" />}
+                icon={<CreditCard size={16} />
               />
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function CreateUserForm() {
               loading={isLoading}
               className="flex-1"
             >
-              <UserPlus className="w-4 h-4 mr-2" />
+              <UserPlus size={16} className="mr-2" />
               {isLoading ? 'Création en cours...' : 'Créer le compte'}
             </Button>
             

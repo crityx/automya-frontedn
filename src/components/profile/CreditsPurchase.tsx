@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
-import { Gem, CreditCard, Zap, Star, Check } from 'lucide-react';
+import { Gem, CreditCard, Lightning, Star, Check } from 'phosphor-react';
 
 const creditPackages = [
   {
@@ -44,7 +44,7 @@ const creditPackages = [
 ];
 
 const paymentMethods = [
-  { id: 'card', name: 'Carte bancaire', icon: <CreditCard className="w-5 h-5" /> },
+  { id: 'card', name: 'Carte bancaire', icon: <CreditCard size={20} /> },
   { id: 'paypal', name: 'PayPal', icon: <div className="w-5 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">P</div> },
 ];
 
@@ -77,7 +77,7 @@ export default function CreditsPurchase() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center">
-              <Gem className="w-6 h-6 text-primary" />
+              <Gem size={24} className="text-primary" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-black">Crédits actuels</h3>
@@ -112,7 +112,7 @@ export default function CreditsPurchase() {
               {pack.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-primary text-white px-4 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
-                    <Star className="w-3 h-3" />
+                    <Star size={12} />
                     <span>Populaire</span>
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export default function CreditsPurchase() {
 
               <div className="text-center">
                 <div className="mb-4">
-                  <Gem className="w-12 h-12 text-primary mx-auto mb-2" />
+                  <Gem size={48} className="text-primary mx-auto mb-2" />
                   <h3 className="text-lg font-semibold text-black">{pack.name}</h3>
                   <p className="text-sm text-gray">{pack.description}</p>
                 </div>
@@ -155,7 +155,7 @@ export default function CreditsPurchase() {
                 <div className="flex items-center justify-center">
                   {selectedPackage === pack.id && (
                     <div className="w-4 h-4 bg-primary rounded-full flex items-center justify-center">
-                      <Check className="w-3 h-3 text-white" />
+                      <Check size={12} className="text-white" />
                     </div>
                   )}
                 </div>
@@ -206,7 +206,7 @@ export default function CreditsPurchase() {
                 <span className="font-medium text-black">{method.name}</span>
                 {paymentMethod === method.id && (
                   <div className="ml-auto w-4 h-4 bg-primary rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-white" />
+                    <Check size={12} className="text-white" />
                   </div>
                 )}
               </div>
@@ -226,7 +226,7 @@ export default function CreditsPurchase() {
             size="lg"
             className="px-8"
           >
-            <Zap className="w-4 h-4 mr-2" />
+            <Lightning size={16} className="mr-2" />
             {processing ? 'Traitement...' : `Acheter pour ${selectedPack?.price}€`}
           </Button>
         </div>

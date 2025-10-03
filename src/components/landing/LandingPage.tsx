@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import RegistrationModal from '@/components/auth/RegistrationModal';
 import LoginModal from '@/components/auth/LoginModal';
-import { Zap, TrendingUp, MessageSquare, Calendar, Target, Users } from 'lucide-react';
+import { Lightning, TrendingUp, ChatCircle, CalendarBlank, Target, Users } from 'phosphor-react';
 
 interface LandingPageProps {
   onRegister: (userData: {
@@ -23,32 +23,32 @@ export default function LandingPage({ onRegister, onLogin }: LandingPageProps) {
 
   const features = [
     {
-      icon: <Zap className="w-8 h-8 text-primary" />,
+      icon: <Lightning size={32} className="text-primary" />,
       title: "Automatisation complète",
       description: "Automatisez vos publications, réponses et interactions LinkedIn"
     },
     {
-      icon: <TrendingUp className="w-8 h-8 text-primary" />,
+      icon: <TrendingUp size={32} className="text-primary" />,
       title: "Analytics avancés",
       description: "Suivez vos performances et optimisez votre stratégie"
     },
     {
-      icon: <MessageSquare className="w-8 h-8 text-primary" />,
+      icon: <ChatCircle size={32} className="text-primary" />,
       title: "IA conversationnelle",
       description: "Conversations intelligentes pour capturer plus de leads"
     },
     {
-      icon: <Calendar className="w-8 h-8 text-primary" />,
+      icon: <CalendarBlank size={32} className="text-primary" />,
       title: "Planification de contenu",
       description: "Calendrier éditorial intelligent avec génération IA"
     },
     {
-      icon: <Target className="w-8 h-8 text-primary" />,
+      icon: <Target size={32} className="text-primary" />,
       title: "Génération de leads",
       description: "Captez et convertissez automatiquement vos prospects"
     },
     {
-      icon: <Users className="w-8 h-8 text-primary" />,
+      icon: <Users size={32} className="text-primary" />,
       title: "Gestion d'équipe",
       description: "Collaborez efficacement avec votre équipe commerciale"
     }

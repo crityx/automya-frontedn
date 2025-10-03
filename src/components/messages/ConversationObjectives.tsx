@@ -5,44 +5,44 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { 
   Target, 
-  Calendar, 
+  CalendarBlank, 
   Users, 
-  MessageSquare,
+  ChatCircle,
   Plus,
-  Trash2,
-  Edit3,
+  Trash,
+  PenNib,
   CheckCircle,
   Clock,
   TrendingUp
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const objectiveTypes = [
   {
     id: 'rdv',
     name: 'Prise de rendez-vous',
     description: 'Organiser des meetings et appels',
-    icon: <Calendar className="w-5 h-5" />,
+    icon: <CalendarBlank size={20} />,
     color: 'bg-blue-50 text-blue-600 border-blue-200'
   },
   {
     id: 'lead',
     name: 'Génération de leads',
     description: 'Capturer des prospects qualifiés',
-    icon: <Users className="w-5 h-5" />,
+    icon: <Users size={20} />,
     color: 'bg-green-50 text-green-600 border-green-200'
   },
   {
     id: 'info',
     name: 'Collecte d\'informations',
     description: 'Recueillir des données prospects',
-    icon: <MessageSquare className="w-5 h-5" />,
+    icon: <ChatCircle size={20} />,
     color: 'bg-purple-50 text-purple-600 border-purple-200'
   },
   {
     id: 'nurturing',
     name: 'Lead nurturing',
     description: 'Maintenir la relation prospect',
-    icon: <TrendingUp className="w-5 h-5" />,
+    icon: <TrendingUp size={20} />,
     color: 'bg-orange-50 text-orange-600 border-orange-200'
   }
 ];
@@ -171,7 +171,7 @@ export default function ConversationObjectives() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Target className="w-6 h-6 text-blue-600" />
+              <Target size={24} color="#2563eb" />
             </div>
           </div>
           <div>
@@ -183,7 +183,7 @@ export default function ConversationObjectives() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <CheckCircle className="w-6 h-6 text-green-600" />
+              <CheckCircle size={24} color="#16a34a" />
             </div>
           </div>
           <div>
@@ -195,7 +195,7 @@ export default function ConversationObjectives() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp className="w-6 h-6 text-primary" />
+              <TrendingUp size={24} className="text-primary" />
             </div>
           </div>
           <div>
@@ -207,7 +207,7 @@ export default function ConversationObjectives() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <MessageSquare className="w-6 h-6 text-orange-600" />
+              <ChatCircle size={24} color="#ea580c" />
             </div>
           </div>
           <div>
@@ -248,7 +248,7 @@ export default function ConversationObjectives() {
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-black">Scénarios de conversation</h2>
             <Button onClick={() => setIsCreating(true)} size="sm">
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus size={16} className="mr-2" />
               Nouveau scénario
             </Button>
           </div>
@@ -323,13 +323,13 @@ export default function ConversationObjectives() {
                             onClick={() => removeStep(index)}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash size={16} />
                           </button>
                         )}
                       </div>
                     ))}
                     <Button variant="outline" size="sm" onClick={addStep}>
-                      <Plus className="w-4 h-4 mr-2" />
+                      <Plus size={16} className="mr-2" />
                       Ajouter une étape
                     </Button>
                   </div>
@@ -396,7 +396,7 @@ export default function ConversationObjectives() {
                       onClick={() => setEditingScenario(scenario.id)}
                       className="p-2 text-gray hover:bg-gray/10 rounded-lg"
                     >
-                      <Edit3 className="w-4 h-4" />
+                      <PenNib size={16} />
                     </button>
                     
                     <button

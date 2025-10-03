@@ -16,16 +16,16 @@ import {
   Cell
 } from 'recharts';
 import { 
-  MessageSquare, 
-  Send, 
-  Reply, 
+  ChatCircle, 
+  PaperPlaneRight, 
+  ArrowBendUpLeft, 
   Clock,
   TrendingUp,
   Users,
   Target,
   CheckCircle,
-  Calendar
-} from 'lucide-react';
+  CalendarBlank
+} from 'phosphor-react';
 
 const messagesData = [
   { date: '01/10', sent: 15, received: 8, responses: 6, leads: 2 },
@@ -123,7 +123,7 @@ export default function MessagesDashboard() {
         </div>
         
         <div className="flex items-center space-x-2 mt-4 md:mt-0">
-          <Calendar className="w-4 h-4 text-gray" />
+          <CalendarBlank size={16} className="text-gray" />
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -142,7 +142,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Send className="w-6 h-6 text-blue-600" />
+              <PaperPlaneRight size={24} color="#2563eb" />
             </div>
             <span className="text-sm text-green-600 font-medium">+15%</span>
           </div>
@@ -155,7 +155,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <Reply className="w-6 h-6 text-green-600" />
+              <ArrowBendUpLeft size={24} color="#16a34a" />
             </div>
             <span className="text-sm text-green-600 font-medium">+8%</span>
           </div>
@@ -168,7 +168,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp className="w-6 h-6 text-primary" />
+              <TrendingUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+5%</span>
           </div>
@@ -181,7 +181,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <Clock className="w-6 h-6 text-orange-600" />
+              <Clock size={24} color="#ea580c" />
             </div>
             <span className="text-sm text-green-600 font-medium">-12%</span>
           </div>
@@ -194,7 +194,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Target className="w-6 h-6 text-purple-600" />
+              <Target size={24} color="#9333ea" />
             </div>
             <span className="text-sm text-green-600 font-medium">+22%</span>
           </div>
@@ -207,7 +207,7 @@ export default function MessagesDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-red-50">
-              <MessageSquare className="w-6 h-6 text-red-600" />
+              <ChatCircle size={24} color="#dc2626" />
             </div>
             <span className="text-sm text-green-600 font-medium">+18%</span>
           </div>

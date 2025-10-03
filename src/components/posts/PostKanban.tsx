@@ -6,17 +6,17 @@ import Modal from '@/components/ui/Modal';
 import Input from '@/components/ui/Input';
 import { 
   Plus, 
-  Calendar, 
-  Edit3, 
-  Trash2,
+  CalendarBlank, 
+  PenNib, 
+  Trash,
   Clock,
   CheckCircle,
-  Sparkles,
+  MagicWand,
   Eye,
-  MoreVertical,
+  DotsThreeVertical,
   Copy,
   Share
-} from 'lucide-react';
+} from 'phosphor-react';
 
 interface Post {
   id: string;
@@ -106,19 +106,19 @@ const statusConfig = {
   draft: { 
     title: 'Brouillons', 
     color: 'bg-gray-100 text-gray-800', 
-    icon: <Edit3 className="w-4 h-4" />,
+    icon: <PenNib size={16} />,
     bgColor: 'bg-gray-50'
   },
   scheduled: { 
     title: 'Planifiés', 
     color: 'bg-blue-100 text-blue-800', 
-    icon: <Clock className="w-4 h-4" />,
+    icon: <Clock size={16} />,
     bgColor: 'bg-blue-50'
   },
   published: { 
     title: 'Publiés', 
     color: 'bg-green-100 text-green-800', 
-    icon: <CheckCircle className="w-4 h-4" />,
+    icon: <CheckCircle size={16} />,
     bgColor: 'bg-green-50'
   }
 };
@@ -216,7 +216,7 @@ export default function PostKanban() {
           </div>
           
           <Button onClick={() => setIsCreateModalOpen(true)}>
-            <Plus className="w-4 h-4 mr-2" />
+            <Plus size={16} className="mr-2" />
             Nouveau post
           </Button>
         </div>
@@ -291,7 +291,7 @@ export default function PostKanban() {
                           }}
                           className="p-1 hover:bg-gray/10 rounded"
                         >
-                          <MoreVertical className="w-4 h-4 text-gray" />
+                          <DotsThreeVertical size={16} className="text-gray" />
                         </button>
                       </div>
                     </div>
@@ -364,7 +364,7 @@ export default function PostKanban() {
                           }}
                           className="p-1 text-gray hover:text-black rounded"
                         >
-                          <Copy className="w-3 h-3" />
+                          <Copy size={12} />
                         </button>
                         <button
                           onClick={(e) => {
@@ -373,7 +373,7 @@ export default function PostKanban() {
                           }}
                           className="p-1 text-red-600 hover:text-red-800 rounded"
                         >
-                          <Trash2 className="w-3 h-3" />
+                          <Trash size={12} />
                         </button>
                       </div>
                     </div>
@@ -442,7 +442,7 @@ export default function PostKanban() {
 
             <div className="flex space-x-4">
               <Button onClick={() => handleCopyPost(selectedPost.content)} className="flex-1">
-                <Copy className="w-4 h-4 mr-2" />
+                <Copy size={16} className="mr-2" />
                 Copier le contenu
               </Button>
               <Button variant="outline" onClick={() => setIsDetailModalOpen(false)}>
@@ -508,7 +508,7 @@ export default function PostKanban() {
 
           <div className="flex space-x-4">
             <Button onClick={handleCreatePost} className="flex-1">
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus size={16} className="mr-2" />
               Créer le post
             </Button>
             <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>

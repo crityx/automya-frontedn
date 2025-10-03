@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import GlobalStats from '@/components/admin/GlobalStats';
-import { Users, CreditCard, BarChart3, UserPlus, Settings, TrendingUp } from 'lucide-react';
+import { Users, CreditCard, ChartBar, UserPlus, Gear, TrendingUp } from 'phosphor-react';
 
 const adminMenuSections = [
   {
@@ -12,22 +12,22 @@ const adminMenuSections = [
       {
         name: 'Mes utilisateurs',
         href: '/admin',
-        icon: <Users className="w-5 h-5" />
+        icon: <Users size={20} />
       },
       {
         name: 'Créer un compte',
         href: '/admin/create',
-        icon: <UserPlus className="w-5 h-5" />
+        icon: <UserPlus size={20} />
       },
       {
         name: 'Gestion crédits',
         href: '/admin/credits',
-        icon: <CreditCard className="w-5 h-5" />
+        icon: <CreditCard size={20} />
       },
       {
         name: 'Dashboard vendeur',
         href: '/admin/seller-dashboard',
-        icon: <BarChart3 className="w-5 h-5" />
+        icon: <ChartBar size={20} />
       }
     ]
   },
@@ -37,17 +37,17 @@ const adminMenuSections = [
       {
         name: 'Gestion vendeurs',
         href: '/admin/sellers',
-        icon: <Users className="w-5 h-5" />
+        icon: <Users size={20} />
       },
       {
         name: 'Stats globales',
         href: '/admin/stats',
-        icon: <TrendingUp className="w-5 h-5" />
+        icon: <TrendingUp size={20} />
       },
       {
         name: 'Configuration',
         href: '/admin/config',
-        icon: <Settings className="w-5 h-5" />
+        icon: <Gear size={20} />
       }
     ]
   }

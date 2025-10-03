@@ -21,13 +21,13 @@ import {
   TrendingUp, 
   Users, 
   CreditCard, 
-  DollarSign,
-  Calendar,
+  CurrencyDollar,
+  CalendarBlank,
   Target,
   Award,
   ArrowUp,
   ArrowDown
-} from 'lucide-react';
+} from 'phosphor-react';
 import Button from '@/components/ui/Button';
 
 const revenueData = [
@@ -128,7 +128,7 @@ export default function SellerAnalytics() {
         
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-gray" />
+            <CalendarBlank size={16} className="text-gray" />
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -142,7 +142,7 @@ export default function SellerAnalytics() {
           </div>
           
           <Button variant="outline">
-            <Target className="w-4 h-4 mr-2" />
+            <Target size={16} className="mr-2" />
             Définir objectifs
           </Button>
         </div>
@@ -153,10 +153,10 @@ export default function SellerAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <DollarSign className="w-6 h-6 text-green-600" />
+              <CurrencyDollar size={24} color="#16a34a" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp size={16} />
               <span className="text-sm font-medium">+{stats.monthlyGrowth}%</span>
             </div>
           </div>
@@ -169,10 +169,10 @@ export default function SellerAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users size={24} color="#2563eb" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp size={16} />
               <span className="text-sm font-medium">+18%</span>
             </div>
           </div>
@@ -185,10 +185,10 @@ export default function SellerAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <CreditCard className="w-6 h-6 text-primary" />
+              <CreditCard size={24} className="text-primary" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp size={16} />
               <span className="text-sm font-medium">+25%</span>
             </div>
           </div>
@@ -201,10 +201,10 @@ export default function SellerAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <TrendingUp className="w-6 h-6 text-orange-600" />
+              <TrendingUp size={24} color="#ea580c" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp size={16} />
               <span className="text-sm font-medium">+5%</span>
             </div>
           </div>
@@ -324,7 +324,7 @@ export default function SellerAnalytics() {
                 <p className="text-xl font-bold text-black">{stats.conversionRate}%</p>
               </div>
               <div className="flex items-center space-x-1 text-green-600">
-                <ArrowUp className="w-4 h-4" />
+                <ArrowUp size={16} />
                 <span className="text-sm font-medium">+3.2%</span>
               </div>
             </div>
@@ -335,7 +335,7 @@ export default function SellerAnalytics() {
                 <p className="text-xl font-bold text-black">{stats.churnRate}%</p>
               </div>
               <div className="flex items-center space-x-1 text-red-600">
-                <ArrowDown className="w-4 h-4" />
+                <ArrowDown size={16} />
                 <span className="text-sm font-medium">-1.1%</span>
               </div>
             </div>
@@ -358,7 +358,7 @@ export default function SellerAnalytics() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-black">Top utilisateurs performants</h2>
           <Button variant="outline" size="sm">
-            <Award className="w-4 h-4 mr-2" />
+            <Award size={16} className="mr-2" />
             Voir tous
           </Button>
         </div>

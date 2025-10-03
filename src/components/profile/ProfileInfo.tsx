@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { Camera, Linkedin, Link as LinkIcon, Unlink } from 'lucide-react';
+import { Camera, LinkedinLogo, Link, LinkBreak } from 'phosphor-react';
 
 export default function ProfileInfo() {
   const [profileData, setProfileData] = useState({
@@ -47,7 +47,7 @@ export default function ProfileInfo() {
                 {profileData.name.charAt(0)}
               </span>
               <button className="absolute bottom-2 right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors">
-                <Camera className="w-4 h-4 text-white" />
+                <Camera size={16} className="text-white" />
               </button>
             </div>
             <p className="text-sm text-gray text-center">
@@ -124,7 +124,7 @@ export default function ProfileInfo() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Linkedin className="w-6 h-6 text-blue-600" />
+              <LinkedinLogo size={24} className="text-blue-600" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-black">
@@ -146,12 +146,12 @@ export default function ProfileInfo() {
           >
             {profileData.linkedinConnected ? (
               <>
-                <Unlink className="w-4 h-4 mr-2" />
+                <LinkBreak size={16} className="mr-2" />
                 Déconnecter
               </>
             ) : (
               <>
-                <LinkIcon className="w-4 h-4 mr-2" />
+                <Link size={16} className="mr-2" />
                 Connecter LinkedIn
               </>
             )}

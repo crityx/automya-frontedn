@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeSlash } from 'phosphor-react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -38,9 +38,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray hover:text-primary transition-colors"
             >
               {showPassword ? (
-                <EyeOff className="w-5 h-5" />
+                <EyeSlash size={20} />
               ) : (
-                <Eye className="w-5 h-5" />
+                <Eye size={20} />
               )}
             </button>
           )}

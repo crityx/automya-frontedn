@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
-import { Globe, Check } from 'lucide-react';
+import { Globe, Check } from 'phosphor-react';
 
 const languages = [
   {
@@ -96,7 +96,7 @@ export default function LanguageSettings() {
         {/* Language Selection */}
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <div className="flex items-center space-x-3 mb-6">
-            <Globe className="w-6 h-6 text-primary" />
+            <Globe size={24} className="text-primary" />
             <h2 className="text-xl font-semibold text-black">Langue de l'interface</h2>
           </div>
 
@@ -125,7 +125,7 @@ export default function LanguageSettings() {
                   {language.supported ? (
                     selectedLanguage === language.code && (
                       <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-                        <Check className="w-3 h-3 text-white" />
+                        <Check size={12} className="text-white" />
                       </div>
                     )
                   ) : (

@@ -5,15 +5,15 @@ import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import Input from '@/components/ui/Input';
 import { 
-  Calendar as CalendarIcon, 
+  CalendarBlank as CalendarIcon, 
   Plus, 
   Clock, 
-  Edit3, 
-  Trash2,
-  ChevronLeft,
-  ChevronRight,
+  PenNib, 
+  Trash,
+  CaretLeft,
+  CaretRight,
   Eye
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const mockPosts = [
   {
@@ -184,7 +184,7 @@ export default function EditorialCalendar() {
             </div>
             
             <Button onClick={() => setIsModalOpen(true)}>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus size={16} className="mr-2" />
               Nouveau post
             </Button>
           </div>
@@ -205,7 +205,7 @@ export default function EditorialCalendar() {
                   onClick={() => navigateMonth('prev')}
                   className="p-2 hover:bg-gray/10 rounded-lg transition-colors"
                 >
-                  <ChevronLeft className="w-4 h-4 text-gray" />
+                  <CaretLeft size={16} className="text-gray" />
                 </button>
                 <button
                   onClick={() => setCurrentDate(new Date())}
@@ -217,7 +217,7 @@ export default function EditorialCalendar() {
                   onClick={() => navigateMonth('next')}
                   className="p-2 hover:bg-gray/10 rounded-lg transition-colors"
                 >
-                  <ChevronRight className="w-4 h-4 text-gray" />
+                  <CaretRight size={16} className="text-gray" />
                 </button>
               </div>
             </div>
@@ -266,7 +266,7 @@ export default function EditorialCalendar() {
                             title={post.title}
                           >
                             <div className="flex items-center space-x-1">
-                              <Clock className="w-3 h-3" />
+                              <Clock size={12} />
                               <span>{post.time}</span>
                             </div>
                             <div className="font-medium truncate">{post.title}</div>
@@ -317,16 +317,16 @@ export default function EditorialCalendar() {
                 
                 <div className="flex items-center space-x-2 ml-4">
                   <button className="p-2 text-gray hover:bg-gray/10 rounded-lg transition-colors">
-                    <Eye className="w-4 h-4" />
+                    <Eye size={16} />
                   </button>
                   <button className="p-2 text-gray hover:bg-gray/10 rounded-lg transition-colors">
-                    <Edit3 className="w-4 h-4" />
+                    <PenNib size={16} />
                   </button>
                   <button 
                     onClick={() => deletePost(post.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash size={16} />
                   </button>
                 </div>
               </div>
@@ -394,7 +394,7 @@ export default function EditorialCalendar() {
 
           <div className="flex space-x-4">
             <Button onClick={handleCreatePost} className="flex-1">
-              <CalendarIcon className="w-4 h-4 mr-2" />
+              <CalendarIcon size={16} className="mr-2" />
               Planifier le post
             </Button>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>

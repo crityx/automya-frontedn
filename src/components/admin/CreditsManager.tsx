@@ -14,7 +14,7 @@ import {
   Users,
   Gift,
   Package
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const mockUsers = [
   {
@@ -246,7 +246,7 @@ export default function CreditsManager() {
                       onClick={() => handleUserAction(user, 'add')}
                       className="px-3"
                     >
-                      <Plus className="w-4 h-4 mr-1" />
+                      <Plus size={16} className="mr-1" />
                       Ajouter
                     </Button>
                     <Button
@@ -255,7 +255,7 @@ export default function CreditsManager() {
                       onClick={() => handleUserAction(user, 'remove')}
                       className="px-3 text-red-600 hover:bg-red-50"
                     >
-                      <Minus className="w-4 h-4 mr-1" />
+                      <Minus size={16} className="mr-1" />
                       Retirer
                     </Button>
                   </div>
@@ -280,9 +280,9 @@ export default function CreditsManager() {
                       transaction.type === 'add' ? 'bg-green-50' : 'bg-red-50'
                     }`}>
                       {transaction.type === 'add' ? (
-                        <Plus className="w-4 h-4 text-green-600" />
+                        <Plus size={16} color="#16a34a" />
                       ) : (
-                        <Minus className="w-4 h-4 text-red-600" />
+                        <Minus size={16} color="#dc2626" />
                       )}
                     </div>
                     <div>

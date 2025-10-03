@@ -15,13 +15,13 @@ import {
 import { 
   TrendingUp, 
   Users, 
-  MessageSquare, 
+  ChatCircle, 
   Target,
-  Calendar,
+  CalendarBlank,
   Gem,
   Award,
   Clock
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const globalData = [
   { date: '01/10', posts: 3, leads: 2, messages: 12, engagement: 45 },
@@ -78,7 +78,7 @@ export default function GlobalDashboard() {
         </div>
         
         <div className="flex items-center space-x-2 mt-4 md:mt-0">
-          <Calendar className="w-4 h-4 text-gray" />
+          <CalendarBlank size={16} className="text-gray" />
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -96,7 +96,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-blue-50">
-              <MessageSquare className="w-5 h-5 text-blue-600" />
+              <ChatCircle size={20} className="text-blue-600" />
             </div>
           </div>
           <div>
@@ -108,7 +108,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-green-50">
-              <Target className="w-5 h-5 text-green-600" />
+              <Target size={20} className="text-green-600" />
             </div>
           </div>
           <div>
@@ -120,7 +120,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Users className="w-5 h-5 text-purple-600" />
+              <Users size={20} className="text-purple-600" />
             </div>
           </div>
           <div>
@@ -132,7 +132,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-primary-light">
-              <Gem className="w-5 h-5 text-primary" />
+              <Gem size={20} className="text-primary" />
             </div>
           </div>
           <div>
@@ -144,7 +144,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-orange-50">
-              <Award className="w-5 h-5 text-orange-600" />
+              <Award size={20} className="text-orange-600" />
             </div>
           </div>
           <div>
@@ -156,7 +156,7 @@ export default function GlobalDashboard() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-3">
             <div className="p-2 rounded-lg bg-gray-50">
-              <Clock className="w-5 h-5 text-gray-600" />
+              <Clock size={20} className="text-gray-600" />
             </div>
           </div>
           <div>

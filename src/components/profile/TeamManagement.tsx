@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Modal from '@/components/ui/Modal';
-import { Plus, Mail, User, Crown, Shield, Trash2, MoreVertical, Users } from 'lucide-react';
+import { Plus, Envelope, User, Crown, Shield, Trash, DotsThreeVertical, Users } from 'phosphor-react';
 
 interface TeamMember {
   id: string;
@@ -84,11 +84,11 @@ export default function TeamManagement() {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case 'owner':
-        return <Crown className="w-4 h-4 text-yellow-500" />;
+        return <Crown size={16} className="text-yellow-500" />;
       case 'admin':
-        return <Shield className="w-4 h-4 text-blue-500" />;
+        return <Shield size={16} className="text-blue-500" />;
       default:
-        return <User className="w-4 h-4 text-gray" />;
+        return <User size={16} className="text-gray" />;
     }
   };
 
@@ -126,7 +126,7 @@ export default function TeamManagement() {
           onClick={() => setIsInviteModalOpen(true)}
           className="flex items-center gap-2"
         >
-          <Plus className="w-4 h-4" />
+          <Plus size={16} />
           Inviter un membre
         </Button>
       </div>
@@ -139,7 +139,7 @@ export default function TeamManagement() {
               <p className="text-sm text-gray">Total membres</p>
               <p className="text-2xl font-bold text-black">{teamMembers.length}</p>
             </div>
-            <Users className="w-8 h-8 text-primary" />
+            <Users size={32} className="text-primary" />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg border border-gray/20">
@@ -148,7 +148,7 @@ export default function TeamManagement() {
               <p className="text-sm text-gray">Membres actifs</p>
               <p className="text-2xl font-bold text-black">{teamMembers.filter(m => m.status === 'active').length}</p>
             </div>
-            <User className="w-8 h-8 text-green-500" />
+            <User size={32} className="text-green-500" />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg border border-gray/20">
@@ -157,7 +157,7 @@ export default function TeamManagement() {
               <p className="text-sm text-gray">Invitations en attente</p>
               <p className="text-2xl font-bold text-black">{teamMembers.filter(m => m.status === 'pending').length}</p>
             </div>
-            <Mail className="w-8 h-8 text-yellow-500" />
+            <Envelope size={32} className="text-yellow-500" />
           </div>
         </div>
       </div>
@@ -213,7 +213,7 @@ export default function TeamManagement() {
                   <td className="px-6 py-4">
                     {member.role !== 'owner' && (
                       <button className="p-2 rounded-lg hover:bg-gray/10 transition-colors">
-                        <MoreVertical className="w-4 h-4 text-gray" />
+                        <DotsThreeVertical size={16} className="text-gray" />
                       </button>
                     )}
                   </td>

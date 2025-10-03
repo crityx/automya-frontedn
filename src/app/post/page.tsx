@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import PostGeneration from '@/components/posts/PostGeneration';
-import { PenTool, Calendar, Image, Kanban } from 'lucide-react';
+import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
 
 const postMenuSections = [
   {
@@ -11,22 +11,22 @@ const postMenuSections = [
       {
         name: 'Génération de post',
         href: '/post',
-        icon: <PenTool className="w-5 h-5" />
+        icon: <PenNib size={20} />
       },
       {
         name: 'Gestion des posts',
         href: '/post/kanban',
-        icon: <Kanban className="w-5 h-5" />
+        icon: <Kanban size={20} />
       },
       {
         name: 'Calendrier éditorial',
         href: '/post/calendar',
-        icon: <Calendar className="w-5 h-5" />
+        icon: <CalendarBlank size={20} />
       },
       {
         name: 'Médias',
         href: '/post/medias',
-        icon: <Image className="w-5 h-5" />
+        icon: <Image size={20} />
       }
     ]
   }

@@ -8,12 +8,12 @@ import {
   TrendingUp, 
   Eye, 
   Plus,
-  Search,
-  Filter,
-  MoreVertical,
-  Settings,
+  MagnifyingGlass,
+  FunnelSimple,
+  DotsThreeVertical,
+  Gear,
   UserPlus
-} from 'lucide-react';
+} from 'phosphor-react';
 import UserDetailModal from './UserDetailModal';
 
 const mockUsers = [
@@ -118,11 +118,11 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
               </div>
               <div className="flex items-center space-x-4">
                 <Button variant="outline">
-                  <Settings className="w-4 h-4 mr-2" />
+                  <Gear size={16} className="mr-2" />
                   Configuration globale
                 </Button>
                 <Button>
-                  <TrendingUp className="w-4 h-4 mr-2" />
+                  <TrendingUp size={16} className="mr-2" />
                   Stats plateforme
                 </Button>
               </div>
@@ -136,7 +136,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users size={24} color="#2563eb" />
             </div>
             <span className="text-sm text-green-600 font-medium">+12%</span>
           </div>
@@ -149,7 +149,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <CreditCard className="w-6 h-6 text-green-600" />
+              <CreditCard size={24} color="#16a34a" />
             </div>
             <span className="text-sm text-green-600 font-medium">+8%</span>
           </div>
@@ -162,7 +162,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <TrendingUp className="w-6 h-6 text-purple-600" />
+              <TrendingUp size={24} color="#9333ea" />
             </div>
             <span className="text-sm text-green-600 font-medium">+15%</span>
           </div>
@@ -175,7 +175,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <CreditCard className="w-6 h-6 text-primary" />
+              <CreditCard size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+5%</span>
           </div>
@@ -195,7 +195,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
             <div className="flex items-center space-x-4">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
+                <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2" size={16} color="#6b7280" />
                 <input
                   type="text"
                   placeholder="Rechercher un utilisateur..."
@@ -224,13 +224,13 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
                 onClick={() => setIsBulkCreditModalOpen(true)}
                 className="px-4"
               >
-                <UserPlus className="w-4 h-4 mr-2" />
+                <UserPlus size={16} className="mr-2" />
                 Crédits pour tous
               </Button>
 
               {/* Add User */}
               <Button size="sm" className="px-4">
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus size={16} className="mr-2" />
                 Ajouter un utilisateur
               </Button>
             </div>
@@ -311,11 +311,11 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
                         onClick={() => handleViewUser(user)}
                         className="px-3"
                       >
-                        <Eye className="w-4 h-4 mr-1" />
+                        <Eye size={16} className="mr-1" />
                         Détails
                       </Button>
                       <button className="p-2 hover:bg-gray/10 rounded-lg">
-                        <MoreVertical className="w-4 h-4 text-gray" />
+                        <DotsThreeVertical size={16} color="#6b7280" />
                       </button>
                     </div>
                   </td>
@@ -377,7 +377,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
             
             <div className="flex space-x-4 mt-6">
               <Button onClick={handleBulkCredits} className="flex-1">
-                <UserPlus className="w-4 h-4 mr-2" />
+                <UserPlus size={16} className="mr-2" />
                 Ajouter les crédits
               </Button>
               <Button 

@@ -16,15 +16,15 @@ import {
   Cell
 } from 'recharts';
 import { 
-  MessageSquare, 
+  ChatCircle, 
   ThumbsUp, 
-  Share2, 
+  Share, 
   UserPlus, 
   Target,
   TrendingUp,
   TrendingDown,
-  Calendar
-} from 'lucide-react';
+  CalendarBlank
+} from 'phosphor-react';
 
 const mockData = [
   { date: '01/10', comments: 12, reactions: 45, shares: 8, peopleAdded: 5, leadsCaptured: 3 },
@@ -41,35 +41,35 @@ const kpiData = [
     title: 'Commentaires',
     value: 151,
     change: +12.5,
-    icon: <MessageSquare className="w-6 h-6 text-blue-600" />,
+    icon: <ChatCircle size={24} color="#2563eb" />,
     color: '#3B82F6'
   },
   {
     title: 'Réactions',
     value: 467,
     change: +8.2,
-    icon: <ThumbsUp className="w-6 h-6 text-green-600" />,
+    icon: <ThumbsUp size={24} color="#16a34a" />,
     color: '#10B981'
   },
   {
     title: 'Partages',
     value: 95,
     change: -2.1,
-    icon: <Share2 className="w-6 h-6 text-orange-600" />,
+    icon: <Share size={24} color="#ea580c" />,
     color: '#F59E0B'
   },
   {
     title: 'Personnes ajoutées',
     value: 70,
     change: +15.3,
-    icon: <UserPlus className="w-6 h-6 text-purple-600" />,
+    icon: <UserPlus size={24} color="#9333ea" />,
     color: '#8B5CF6'
   },
   {
     title: 'Leads captés',
     value: 50,
     change: +22.8,
-    icon: <Target className="w-6 h-6 text-primary" />,
+    icon: <Target size={24} className="text-primary" />,
     color: '#8c20f5'
   }
 ];
@@ -100,7 +100,7 @@ export default function AnalyticsOverview() {
         
         {/* Period Filter */}
         <div className="flex items-center space-x-2 mt-4 md:mt-0">
-          <Calendar className="w-4 h-4 text-gray" />
+          <CalendarBlank size={16} className="text-gray" />
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -125,9 +125,9 @@ export default function AnalyticsOverview() {
                 kpi.change >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
                 {kpi.change >= 0 ? (
-                  <TrendingUp className="w-4 h-4" />
+                  <TrendingUp size={16} />
                 ) : (
-                  <TrendingDown className="w-4 h-4" />
+                  <TrendingDown size={16} />
                 )}
                 <span>{Math.abs(kpi.change)}%</span>
               </div>

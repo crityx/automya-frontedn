@@ -7,17 +7,17 @@ import Input from '@/components/ui/Input';
 import { 
   Users, 
   UserPlus, 
-  Search, 
-  MoreVertical,
-  Edit3,
-  Trash2,
+  MagnifyingGlass, 
+  DotsThreeVertical,
+  PenNib,
+  Trash,
   Eye,
-  DollarSign,
+  CurrencyDollar,
   TrendingUp,
   Award,
   Shield,
   ShieldCheck
-} from 'lucide-react';
+} from 'phosphor-react';
 
 const mockSellers = [
   {
@@ -173,7 +173,7 @@ export default function SellersManagement() {
           </div>
           
           <Button onClick={() => setIsCreateModalOpen(true)} className="mt-4 md:mt-0">
-            <UserPlus className="w-4 h-4 mr-2" />
+            <UserPlus size={16} className="mr-2" />
             Ajouter un vendeur
           </Button>
         </div>
@@ -184,7 +184,7 @@ export default function SellersManagement() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users size={24} color="#2563eb" />
             </div>
           </div>
           <div>
@@ -196,7 +196,7 @@ export default function SellersManagement() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <ShieldCheck className="w-6 h-6 text-green-600" />
+              <ShieldCheck size={24} color="#16a34a" />
             </div>
           </div>
           <div>
@@ -208,7 +208,7 @@ export default function SellersManagement() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <DollarSign className="w-6 h-6 text-primary" />
+              <CurrencyDollar size={24} className="text-primary" />
             </div>
           </div>
           <div>
@@ -220,7 +220,7 @@ export default function SellersManagement() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <TrendingUp className="w-6 h-6 text-orange-600" />
+              <TrendingUp size={24} color="#ea580c" />
             </div>
           </div>
           <div>
@@ -237,7 +237,7 @@ export default function SellersManagement() {
             <h2 className="text-xl font-semibold text-black">Liste des vendeurs</h2>
             
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
+              <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2" size={16} color="#6b7280" />
               <input
                 type="text"
                 placeholder="Rechercher un vendeur..."
@@ -288,7 +288,7 @@ export default function SellersManagement() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center space-x-2">
-                      <Users className="w-4 h-4 text-gray" />
+                      <Users size={16} color="#6b7280" />
                       <span className="text-sm font-medium text-black">{seller.usersCount}</span>
                     </div>
                   </td>
@@ -319,11 +319,11 @@ export default function SellersManagement() {
                         onClick={() => handleViewDetails(seller)}
                         className="px-3"
                       >
-                        <Eye className="w-4 h-4 mr-1" />
+                        <Eye size={16} className="mr-1" />
                         Voir
                       </Button>
                       <button className="p-2 hover:bg-gray/10 rounded-lg">
-                        <MoreVertical className="w-4 h-4 text-gray" />
+                        <DotsThreeVertical size={16} color="#6b7280" />
                       </button>
                     </div>
                   </td>
@@ -386,15 +386,15 @@ export default function SellersManagement() {
             <div className="border-t pt-4">
               <div className="flex space-x-4">
                 <Button variant="outline" className="flex-1">
-                  <Edit3 className="w-4 h-4 mr-2" />
+                  <PenNib size={16} className="mr-2" />
                   Modifier
                 </Button>
                 <Button variant="outline" className="flex-1">
-                  <Shield className="w-4 h-4 mr-2" />
+                  <Shield size={16} className="mr-2" />
                   Suspendre
                 </Button>
                 <Button variant="outline" className="text-red-600 hover:bg-red-50">
-                  <Trash2 className="w-4 h-4 mr-2" />
+                  <Trash size={16} className="mr-2" />
                   Supprimer
                 </Button>
               </div>
@@ -448,7 +448,7 @@ export default function SellersManagement() {
           
           <div className="flex space-x-4">
             <Button onClick={handleCreateSeller} className="flex-1">
-              <UserPlus className="w-4 h-4 mr-2" />
+              <UserPlus size={16} className="mr-2" />
               Créer le vendeur
             </Button>
             <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>

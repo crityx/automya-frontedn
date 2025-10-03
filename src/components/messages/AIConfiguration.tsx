@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
-import { Bot, MessageSquare, Clock, Zap, Play, Pause } from 'lucide-react';
+import { Robot, ChatCircle, Clock, Lightning, Play, Pause } from 'phosphor-react';
 
 const toneOptions = [
   { id: 'professional', name: 'Professionnel', description: 'Formel et respectueux' },
@@ -71,7 +71,7 @@ export default function AIConfiguration() {
           {/* Tone Configuration */}
           <div className="bg-white rounded-2xl p-8 border border-gray/20">
             <div className="flex items-center space-x-3 mb-6">
-              <MessageSquare className="w-6 h-6 text-primary" />
+              <ChatCircle size={24} className="text-primary" />
               <h2 className="text-xl font-semibold text-black">Ton de réponse</h2>
             </div>
             
@@ -101,7 +101,7 @@ export default function AIConfiguration() {
           {/* Response Settings */}
           <div className="bg-white rounded-2xl p-8 border border-gray/20">
             <div className="flex items-center space-x-3 mb-6">
-              <Clock className="w-6 h-6 text-primary" />
+              <Clock size={24} className="text-primary" />
               <h2 className="text-xl font-semibold text-black">Paramètres de réponse</h2>
             </div>
 
@@ -206,7 +206,7 @@ export default function AIConfiguration() {
           {/* Response Templates */}
           <div className="bg-white rounded-2xl p-8 border border-gray/20">
             <div className="flex items-center space-x-3 mb-6">
-              <Bot className="w-6 h-6 text-primary" />
+              <Robot size={24} className="text-primary" />
               <h2 className="text-xl font-semibold text-black">Modèles de réponse</h2>
             </div>
 
@@ -274,7 +274,7 @@ export default function AIConfiguration() {
 
             <div className="flex space-x-4">
               <Button onClick={testAI} variant="outline" className="flex-1">
-                <Play className="w-4 h-4 mr-2" />
+                <Play size={16} className="mr-2" />
                 Tester l'IA
               </Button>
               <Button
@@ -282,7 +282,7 @@ export default function AIConfiguration() {
                 variant="ghost"
                 className="flex-1 text-red-600 hover:bg-red-50"
               >
-                <Pause className="w-4 h-4 mr-2" />
+                <Pause size={16} className="mr-2" />
                 Suspendre
               </Button>
             </div>
@@ -298,7 +298,7 @@ export default function AIConfiguration() {
             <p className="text-gray">Les modifications seront appliquées immédiatement</p>
           </div>
           <Button onClick={handleSaveConfiguration} size="lg" className="px-8">
-            <Zap className="w-4 h-4 mr-2" />
+            <Lightning size={16} className="mr-2" />
             Sauvegarder
           </Button>
         </div>

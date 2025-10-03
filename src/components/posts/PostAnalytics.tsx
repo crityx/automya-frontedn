@@ -16,17 +16,17 @@ import {
   Cell
 } from 'recharts';
 import { 
-  BarChart3, 
+  ChartBar, 
   TrendingUp, 
   Eye, 
   Heart,
-  MessageCircle,
+  ChatCircle,
   Share,
   Users,
-  Calendar,
+  CalendarBlank,
   Award,
   Download
-} from 'lucide-react';
+} from 'phosphor-react';
 import Button from '@/components/ui/Button';
 
 const postPerformanceData = [
@@ -141,7 +141,7 @@ export default function PostAnalytics() {
         
         <div className="flex items-center space-x-4 mt-4 md:mt-0">
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-gray" />
+            <CalendarBlank size={16} className="text-gray" />
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -155,7 +155,7 @@ export default function PostAnalytics() {
           </div>
           
           <Button variant="outline">
-            <Download className="w-4 h-4 mr-2" />
+            <Download size={16} className="mr-2" />
             Exporter
           </Button>
         </div>
@@ -166,7 +166,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-blue-50">
-              <Eye className="w-6 h-6 text-blue-600" />
+              <Eye size={24} className="text-blue-600" />
             </div>
             <span className="text-sm text-green-600 font-medium">+23%</span>
           </div>
@@ -179,7 +179,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-red-50">
-              <Heart className="w-6 h-6 text-red-600" />
+              <Heart size={24} className="text-red-600" />
             </div>
             <span className="text-sm text-green-600 font-medium">+18%</span>
           </div>
@@ -192,7 +192,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <MessageCircle className="w-6 h-6 text-green-600" />
+              <ChatCircle size={24} className="text-green-600" />
             </div>
             <span className="text-sm text-green-600 font-medium">+12%</span>
           </div>
@@ -205,7 +205,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <TrendingUp className="w-6 h-6 text-primary" />
+              <TrendingUp size={24} className="text-primary" />
             </div>
             <span className="text-sm text-green-600 font-medium">+8%</span>
           </div>
@@ -281,7 +281,7 @@ export default function PostAnalytics() {
           </div>
           <div className="mt-4 p-4 bg-primary/10 rounded-lg">
             <div className="flex items-center space-x-2">
-              <Award className="w-5 h-5 text-primary" />
+              <Award size={20} className="text-primary" />
               <span className="text-sm font-medium text-primary">
                 Meilleur créneau : 10h00 - 11h00 (12.3% d'engagement)
               </span>
@@ -314,28 +314,28 @@ export default function PostAnalytics() {
                 <div className="grid grid-cols-4 gap-4 text-center">
                   <div>
                     <div className="flex items-center justify-center space-x-1 mb-1">
-                      <Eye className="w-4 h-4 text-gray" />
+                      <Eye size={16} className="text-gray" />
                       <span className="text-sm font-medium text-black">{post.views.toLocaleString()}</span>
                     </div>
                     <span className="text-xs text-gray">Vues</span>
                   </div>
                   <div>
                     <div className="flex items-center justify-center space-x-1 mb-1">
-                      <Heart className="w-4 h-4 text-gray" />
+                      <Heart size={16} className="text-gray" />
                       <span className="text-sm font-medium text-black">{post.likes}</span>
                     </div>
                     <span className="text-xs text-gray">Likes</span>
                   </div>
                   <div>
                     <div className="flex items-center justify-center space-x-1 mb-1">
-                      <MessageCircle className="w-4 h-4 text-gray" />
+                      <ChatCircle size={16} className="text-gray" />
                       <span className="text-sm font-medium text-black">{post.comments}</span>
                     </div>
                     <span className="text-xs text-gray">Commentaires</span>
                   </div>
                   <div>
                     <div className="flex items-center justify-center space-x-1 mb-1">
-                      <TrendingUp className="w-4 h-4 text-gray" />
+                      <TrendingUp size={16} className="text-gray" />
                       <span className="text-sm font-medium text-primary">{post.engagementRate}%</span>
                     </div>
                     <span className="text-xs text-gray">Engagement</span>
@@ -352,7 +352,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-purple-50">
-              <Users className="w-6 h-6 text-purple-600" />
+              <Users size={24} className="text-purple-600" />
             </div>
           </div>
           <div>
@@ -365,7 +365,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <BarChart3 className="w-6 h-6 text-orange-600" />
+              <ChartBar size={24} className="text-orange-600" />
             </div>
           </div>
           <div>
@@ -378,7 +378,7 @@ export default function PostAnalytics() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <Award className="w-6 h-6 text-green-600" />
+              <Award size={24} className="text-green-600" />
             </div>
           </div>
           <div>

@@ -4,7 +4,19 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Bell, ChevronDown, Gem, Menu, X, User, CreditCard, Gift, Settings, Globe, Users } from 'lucide-react';
+import { 
+  Bell, 
+  CaretDown, 
+  List, 
+  X, 
+  User, 
+  CreditCard, 
+  Gift, 
+  Gear, 
+  Globe, 
+  Users,
+  Coins 
+} from 'phosphor-react';
 
 interface HeaderProps {
   user: {
@@ -69,14 +81,16 @@ export default function Header({ user }: HeaderProps) {
           <div className="flex items-center space-x-4 flex-1 justify-end">
             {/* Credits */}
             <div className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg">
-              <Gem className="w-4 h-4 text-primary" />
+              <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits}</span>
             </div>
 
             {/* Notifications */}
             <button className="p-2 rounded-lg hover:bg-gray/10 transition-colors relative">
-              <Bell className="w-5 h-5 text-gray" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+              <Bell size={24} className="text-gray" />
+              <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-medium">3</span>
+              </span>
             </button>
 
             {/* Profile Dropdown */}
@@ -112,7 +126,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <User className="w-4 h-4" />
+                    <User size={16} />
                     Mes infos
                   </Link>
                   <Link
@@ -120,7 +134,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <CreditCard className="w-4 h-4" />
+                    <CreditCard size={16} />
                     Abonnement
                   </Link>
                   <Link
@@ -128,7 +142,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <Gift className="w-4 h-4" />
+                    <Gift size={16} />
                     Acheter des crédits
                   </Link>
                   <Link
@@ -136,7 +150,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <Gift className="w-4 h-4" />
+                    <Gift size={16} />
                     Parrainage
                   </Link>
                   <Link
@@ -144,7 +158,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <Settings className="w-4 h-4" />
+                    <Gear size={16} />
                     Paramètres
                   </Link>
                   <Link
@@ -152,7 +166,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <Globe className="w-4 h-4" />
+                    <Globe size={16} />
                     Langue
                   </Link>
                   <Link
@@ -160,7 +174,7 @@ export default function Header({ user }: HeaderProps) {
                     className="flex items-center gap-3 px-4 py-2 text-sm text-gray hover:bg-gray/10 transition-colors"
                     onClick={() => setIsProfileOpen(false)}
                   >
-                    <Users className="w-4 h-4" />
+                    <Users size={16} />
                     Équipe
                   </Link>
                   <hr className="my-2 border-gray/20" />
@@ -183,9 +197,9 @@ export default function Header({ user }: HeaderProps) {
               className="md:hidden p-2 rounded-lg hover:bg-gray/10 transition-colors"
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-gray" />
+                <X size={20} className="text-gray" />
               ) : (
-                <Menu className="w-5 h-5 text-gray" />
+                <List size={20} className="text-gray" />
               )}
             </button>
           </div>
@@ -219,7 +233,7 @@ export default function Header({ user }: HeaderProps) {
             
             {/* Mobile Credits */}
             <div className="flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg mt-4 w-fit">
-              <Gem className="w-4 h-4 text-primary" />
+              <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits} crédits</span>
             </div>
           </div>

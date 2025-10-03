@@ -6,15 +6,15 @@ import Input from '@/components/ui/Input';
 import { 
   Shield, 
   Bell, 
-  Mail, 
-  Smartphone, 
+  Envelope, 
+  DeviceMobile, 
   Eye, 
-  EyeOff,
-  Trash2,
+  EyeSlash,
+  Trash,
   Download,
   Lock,
-  BarChart3
-} from 'lucide-react';
+  ChartBar
+} from 'phosphor-react';
 
 export default function ProfileSettings() {
   const [settings, setSettings] = useState({
@@ -59,10 +59,10 @@ export default function ProfileSettings() {
   };
 
   const tabs = [
-    { id: 'security', name: 'Sécurité', icon: <Shield className="w-4 h-4" /> },
-    { id: 'notifications', name: 'Notifications', icon: <Bell className="w-4 h-4" /> },
-    { id: 'privacy', name: 'Confidentialité', icon: <Eye className="w-4 h-4" /> },
-    { id: 'account', name: 'Compte', icon: <Lock className="w-4 h-4" /> }
+    { id: 'security', name: 'Sécurité', icon: <Shield size={16} /> },
+    { id: 'notifications', name: 'Notifications', icon: <Bell size={16} /> },
+    { id: 'privacy', name: 'Confidentialité', icon: <Eye size={16} /> },
+    { id: 'account', name: 'Compte', icon: <Lock size={16} /> }
   ];
 
   return (
@@ -166,7 +166,7 @@ export default function ProfileSettings() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between p-4 border border-gray/20 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-gray" />
+                    <Envelope size={20} className="text-gray" />
                     <div>
                       <h3 className="font-medium text-black">Notifications par email</h3>
                       <p className="text-sm text-gray">Recevez des emails pour les activités importantes</p>
@@ -188,7 +188,7 @@ export default function ProfileSettings() {
 
                 <div className="flex items-center justify-between p-4 border border-gray/20 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <Smartphone className="w-5 h-5 text-gray" />
+                    <DeviceMobile size={20} className="text-gray" />
                     <div>
                       <h3 className="font-medium text-black">Notifications push</h3>
                       <p className="text-sm text-gray">Notifications sur votre navigateur</p>
@@ -210,7 +210,7 @@ export default function ProfileSettings() {
 
                 <div className="flex items-center justify-between p-4 border border-gray/20 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-gray" />
+                    <Envelope size={20} className="text-gray" />
                     <div>
                       <h3 className="font-medium text-black">Emails marketing</h3>
                       <p className="text-sm text-gray">Conseils, nouveautés et offres spéciales</p>
@@ -232,7 +232,7 @@ export default function ProfileSettings() {
 
                 <div className="flex items-center justify-between p-4 border border-gray/20 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <BarChart3 className="w-5 h-5 text-gray" />
+                    <ChartBar size={20} className="text-gray" />
                     <div>
                       <h3 className="font-medium text-black">Rapport hebdomadaire</h3>
                       <p className="text-sm text-gray">Résumé de vos performances chaque semaine</p>
@@ -316,7 +316,7 @@ export default function ProfileSettings() {
                       <p className="text-sm text-gray">Téléchargez une copie de toutes vos données</p>
                     </div>
                     <Button onClick={handleExportData} variant="outline">
-                      <Download className="w-4 h-4 mr-2" />
+                      <Download size={16} className="mr-2" />
                       Exporter
                     </Button>
                   </div>
@@ -336,7 +336,7 @@ export default function ProfileSettings() {
                       variant="ghost"
                       className="text-red-600 hover:bg-red-100 border-red-200"
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
+                      <Trash size={16} className="mr-2" />
                       Supprimer le compte
                     </Button>
                   </div>
