@@ -85,7 +85,7 @@ export default function Header({ user }: HeaderProps) {
             {/* Credits */}
             <button 
               onClick={() => setIsCreditsModalOpen(true)}
-              className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg hover:bg-primary/20 transition-colors"
+              className="hidden sm:flex items-center space-x-2 px-3 py-2 hover:bg-gray/10 rounded-lg transition-colors"
             >
               <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits}</span>
@@ -243,7 +243,7 @@ export default function Header({ user }: HeaderProps) {
             {/* Mobile Credits */}
             <button 
               onClick={() => setIsCreditsModalOpen(true)}
-              className="flex items-center space-x-2 px-3 py-2 bg-primary-light rounded-lg mt-4 w-fit hover:bg-primary/20 transition-colors"
+              className="flex items-center space-x-2 px-3 py-2 hover:bg-gray/10 rounded-lg mt-4 w-fit transition-colors"
             >
               <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits} crédits</span>

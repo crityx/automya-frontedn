@@ -27,30 +27,54 @@ interface ImageOption {
   icon: JSX.Element;
 }
 
-const imageOptions: ImageOption[] = [
+const mainImageCategories: ImageOption[] = [
   {
     id: 'generate-from-text',
-    name: 'Générer une image à partir du texte',
-    description: 'IA crée une image basée sur votre post',
+    name: 'Générer à partir du texte',
+    description: 'Créer une image avec l\'IA en utilisant du texte',
     icon: <MagicWand size={20} />
   },
   {
+    id: 'from-existing-images',
+    name: 'Depuis images existantes',
+    description: 'Utiliser ou transformer vos images disponibles',
+    icon: <ImageIcon size={20} />
+  }
+];
+
+const textGenerationOptions: ImageOption[] = [
+  {
+    id: 'generate-from-post',
+    name: 'Générer à partir du post',
+    description: 'IA crée une image basée sur le contenu de votre post',
+    icon: <MagicWand size={20} />
+  },
+  {
+    id: 'generate-from-description',
+    name: 'Générer à partir d\'une description',
+    description: 'Décrivez l\'image que vous voulez créer',
+    icon: <Palette size={20} />
+  }
+];
+
+const existingImageOptions: ImageOption[] = [
+  {
     id: 'upload-file',
-    name: 'Ajouter depuis vos fichiers',
-    description: 'Importer une image de votre ordinateur',
+    name: 'Importer depuis mes fichiers',
+    description: 'Choisir une image de votre ordinateur',
     icon: <Upload size={20} />
   },
   {
     id: 'from-gallery',
-    name: 'Choisir dans la galerie',
+    name: 'Choisir depuis la galerie',
     description: 'Sélectionner parmi vos images existantes',
     icon: <ImageIcon size={20} />
   },
   {
-    id: 'generate-style',
-    name: 'Générer avec un style',
-    description: 'IA avec un style visuel spécifique',
-    icon: <Palette size={20} />
+    id: 'generate-from-image',
+    name: 'Générer à partir d\'une image',
+    description: 'Transformer ou améliorer une image existante',
+    icon: <ArrowClockwise size={20} />
   }
 ];
 
@@ -63,6 +87,10 @@ export default function PostGeneration() {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
+  const [currentImageCategory, setCurrentImageCategory] = useState<string | null>(null);
+  const [currentImageAction, setCurrentImageAction] = useState<string | null>(null);
+  const [imageDescription, setImageDescription] = useState('');
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   const handleGenerateFromDescription = async () => {
     if (writingMode === 'ai' && !description.trim()) return;
@@ -94,14 +122,25 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
     navigator.clipboard.writeText(postContent);
   };
 
+  const handleCategorySelect = (categoryId: string) => {
+    setCurrentImageCategory(categoryId);
+  };
+
   const handleImageOptionSelect = (optionId: string) => {
-    setIsImageModalOpen(false);
-    
     switch (optionId) {
-      case 'generate-from-text':
-        console.log('Générer image à partir du texte:', postContent);
+      case 'generate-from-post':
+        if (!postContent.trim()) {
+          alert('Veuillez d\'abord écrire ou générer votre post');
+          return;
+        }
+        // Génération directe sans étape supplémentaire
+        handleGenerateImage();
+        break;
+      case 'generate-from-description':
+        setCurrentImageAction('generate-from-description');
         break;
       case 'upload-file':
+        setIsImageModalOpen(false);
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
@@ -115,12 +154,36 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
         input.click();
         break;
       case 'from-gallery':
-        console.log('Ouvrir galerie');
+        setCurrentImageAction('from-gallery');
         break;
-      case 'generate-style':
-        console.log('Générer avec style');
+      case 'generate-from-image':
+        setCurrentImageAction('generate-from-image');
         break;
     }
+  };
+
+  const handleGenerateImage = async () => {
+    setIsGeneratingImage(true);
+    
+    setTimeout(() => {
+      const mockImageUrl = '/api/placeholder/400/300';
+      setSelectedImage(mockImageUrl);
+      setIsGeneratingImage(false);
+      setCurrentImageAction(null);
+      setImageDescription('');
+      setIsImageModalOpen(false);
+    }, 3000);
+  };
+
+  const handleBackToImageOptions = () => {
+    setCurrentImageAction(null);
+    setImageDescription('');
+  };
+
+  const handleBackToCategories = () => {
+    setCurrentImageCategory(null);
+    setCurrentImageAction(null);
+    setImageDescription('');
   };
 
   return (
@@ -351,7 +414,34 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
                 </div>
 
                 {/* Image Section */}
-                {selectedImage ? (
+                <button
+                  onClick={() => setIsImageModalOpen(true)}
+                  className="w-full border-2 border-dashed border-gray/20 rounded-lg p-6 text-center hover:border-primary transition-colors mb-4 flex items-center justify-center space-x-3"
+                >
+                  {selectedImage ? (
+                    <>
+                      <img
+                        src={selectedImage}
+                        alt="Image sélectionnée"
+                        className="w-12 h-12 rounded object-cover"
+                      />
+                      <div className="text-left">
+                        <p className="text-gray font-medium">Modifier l'image</p>
+                        <p className="text-sm text-gray/60">Cliquez pour changer</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={24} className="text-gray" />
+                      <div className="text-left">
+                        <p className="text-gray font-medium">Ajouter une image</p>
+                        <p className="text-sm text-gray/60">Cliquez pour choisir une option</p>
+                      </div>
+                    </>
+                  )}
+                </button>
+                
+                {selectedImage && (
                   <div className="mb-4">
                     <img
                       src={selectedImage}
@@ -359,15 +449,6 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
                       className="w-full rounded-lg object-cover max-h-80"
                     />
                   </div>
-                ) : (
-                  <button
-                    onClick={() => setIsImageModalOpen(true)}
-                    className="w-full border-2 border-dashed border-gray/20 rounded-lg p-8 text-center hover:border-primary transition-colors mb-4"
-                  >
-                    <Plus size={32} className="text-gray mx-auto mb-3" />
-                    <p className="text-gray font-medium">Ajouter une image</p>
-                    <p className="text-sm text-gray/60 mt-1">Cliquez pour choisir une option</p>
-                  </button>
                 )}
 
                 {/* LinkedIn Interactions */}
@@ -392,17 +473,6 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
                 </div>
               </div>
 
-              {/* Copy Button Only */}
-              {postContent && (
-                <Button
-                  variant="outline"
-                  onClick={handleCopyPost}
-                  className="w-full"
-                >
-                  <Copy size={16} className="mr-2" />
-                  Copier le contenu
-                </Button>
-              )}
             </div>
         </div>
       </div>
@@ -410,31 +480,170 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
       {/* Image Options Modal */}
       <Modal
         isOpen={isImageModalOpen}
-        onClose={() => setIsImageModalOpen(false)}
-        title="Ajouter une image"
+        onClose={() => {
+          setIsImageModalOpen(false);
+          setCurrentImageAction(null);
+          setImageDescription('');
+        }}
+        title={
+          currentImageAction 
+            ? currentImageAction === 'generate-from-post' 
+              ? 'Générer à partir du post'
+              : currentImageAction === 'generate-from-description'
+              ? 'Générer à partir d\'une description'
+              : currentImageAction === 'from-gallery'
+              ? 'Choisir depuis la galerie'
+              : currentImageAction === 'generate-from-image'
+              ? 'Générer à partir d\'une image'
+              : 'Ajouter une image'
+            : 'Ajouter une image'
+        }
         size="md"
       >
-        <div className="space-y-4">
-          <p className="text-gray mb-6">Choisissez comment vous souhaitez ajouter une image à votre post :</p>
-          
-          {imageOptions.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => handleImageOptionSelect(option.id)}
-              className="w-full p-4 border border-gray/20 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left"
-            >
-              <div className="flex items-start space-x-3">
-                <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                  {option.icon}
+        {!currentImageCategory ? (
+          /* Main Categories */
+          <div className="space-y-4">
+            <p className="text-gray mb-6">Choisissez comment vous souhaitez ajouter une image à votre post :</p>
+            
+            {mainImageCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategorySelect(category.id)}
+                className="w-full p-4 border border-gray/20 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left"
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                    {category.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-black mb-1">{category.name}</h3>
+                    <p className="text-sm text-gray">{category.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-black mb-1">{option.name}</h3>
-                  <p className="text-sm text-gray">{option.description}</p>
+              </button>
+            ))}
+          </div>
+        ) : !currentImageAction ? (
+          /* Sub-options */
+          <div className="space-y-4">
+            {/* Breadcrumb */}
+            <div className="flex items-center space-x-2 text-sm text-gray mb-4">
+              <button
+                onClick={handleBackToCategories}
+                className="hover:text-black transition-colors"
+              >
+                Ajouter une image
+              </button>
+              <span>›</span>
+              <span className="text-primary font-medium">
+                {currentImageCategory === 'generate-from-text' 
+                  ? 'Générer à partir du texte'
+                  : 'Depuis images existantes'
+                }
+              </span>
+            </div>
+            
+            {(currentImageCategory === 'generate-from-text' ? textGenerationOptions : existingImageOptions).map((option) => (
+              <button
+                key={option.id}
+                onClick={() => handleImageOptionSelect(option.id)}
+                className="w-full p-4 border border-gray/20 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left"
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                    {option.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-black mb-1">{option.name}</h3>
+                    <p className="text-sm text-gray">{option.description}</p>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
-        </div>
+              </button>
+            ))}
+          </div>
+        ) : currentImageAction === 'generate-from-post' ? (
+          /* Generate from Post */
+          <div className="space-y-4">
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h4 className="font-medium text-blue-900 mb-2">Contenu du post :</h4>
+              <p className="text-sm text-blue-800 line-clamp-4">{postContent}</p>
+            </div>
+            <p className="text-gray">L'IA va créer une image basée sur le contenu de votre post.</p>
+            <div className="flex space-x-3">
+              <Button
+                onClick={handleGenerateImage}
+                loading={isGeneratingImage}
+                className="flex-1"
+              >
+                <MagicWand size={16} className="mr-2" />
+                {isGeneratingImage ? 'Génération...' : 'Générer l\'image'}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleBackToCategories}
+              >
+                Retour
+              </Button>
+            </div>
+          </div>
+        ) : currentImageAction === 'generate-from-description' ? (
+          /* Generate from Description */
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-black mb-2">
+                Décrivez l'image que vous souhaitez
+              </label>
+              <textarea
+                value={imageDescription}
+                onChange={(e) => setImageDescription(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-3 rounded-lg border border-gray/20 bg-white text-black placeholder-gray/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors resize-none"
+                placeholder="Ex: Une illustration moderne montrant des graphiques de croissance avec des couleurs bleues et vertes"
+              />
+            </div>
+            <div className="flex space-x-3">
+              <Button
+                onClick={handleGenerateImage}
+                loading={isGeneratingImage}
+                disabled={!imageDescription.trim()}
+                className="flex-1"
+              >
+                <MagicWand size={16} className="mr-2" />
+                {isGeneratingImage ? 'Génération...' : 'Générer l\'image'}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleBackToCategories}
+              >
+                Retour
+              </Button>
+            </div>
+          </div>
+        ) : currentImageAction === 'from-gallery' ? (
+          /* Gallery Selection */
+          <div className="space-y-4">
+            <div className="text-center py-8">
+              <ImageIcon size={48} className="text-gray mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-black mb-2">Galerie de médias</h3>
+              <p className="text-gray mb-4">Sélectionnez une image depuis votre galerie</p>
+              <Button variant="outline" onClick={handleBackToImageOptions}>
+                Retour aux options
+              </Button>
+            </div>
+          </div>
+        ) : currentImageAction === 'generate-from-image' ? (
+          /* Generate from Image */
+          <div className="space-y-4">
+            <div className="text-center py-8">
+              <ArrowClockwise size={48} className="text-gray mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-black mb-2">Générer à partir d'une image</h3>
+              <p className="text-gray mb-4">Transformez ou améliorez une image existante</p>
+              <Button variant="outline" onClick={handleBackToImageOptions}>
+                Retour aux options
+              </Button>
+            </div>
+          </div>
+        ) : null}
       </Modal>
     </div>
   );
