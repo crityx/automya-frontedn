@@ -358,7 +358,7 @@ export default function SellerAnalytics() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-black">Top utilisateurs performants</h2>
           <Button variant="outline" size="sm">
-            <Award size={16} className="mr-2" />
+            <Trophy size={16} className="mr-2" />
             Voir tous
           </Button>
         </div>

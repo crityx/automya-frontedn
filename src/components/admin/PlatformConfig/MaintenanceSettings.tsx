@@ -7,7 +7,7 @@ import { PlatformConfigData } from './types';
 
 interface MaintenanceSettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const MaintenanceSettings = memo(function MaintenanceSettings({ config, onChange }: MaintenanceSettingsProps) {

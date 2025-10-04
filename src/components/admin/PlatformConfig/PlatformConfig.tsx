@@ -17,7 +17,7 @@ function PlatformConfig() {
   const [config, setConfig] = useState<PlatformConfigData>(defaultConfig);
   const [activeSection, setActiveSection] = useState('general');
 
-  const handleConfigChange = useCallback((field: keyof PlatformConfigData, value: any) => {
+  const handleConfigChange = useCallback((field: keyof PlatformConfigData, value: string | number | boolean) => {
     setConfig(prev => ({ ...prev, [field]: value }));
   }, []);
 

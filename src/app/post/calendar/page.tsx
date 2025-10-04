@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
+import { PenNib, CalendarBlank, Image as ImageIcon, Kanban } from 'phosphor-react';
 
 const EditorialCalendar = dynamic(() => import('@/components/articles/EditorialCalendar'), {
   loading: () => (
@@ -35,7 +35,7 @@ const postMenuSections = [
       {
         name: 'Médias',
         href: '/post/medias',
-        icon: <Image size={20} />
+        icon: <ImageIcon size={20} />
       }
     ]
   }

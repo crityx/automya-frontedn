@@ -7,7 +7,7 @@ import { PlatformConfigData } from './types';
 
 interface GeneralSettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const GeneralSettings = memo(function GeneralSettings({ config, onChange }: GeneralSettingsProps) {

@@ -7,7 +7,7 @@ import { PlatformConfigData } from './types';
 
 interface SecuritySettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const SecuritySettings = memo(function SecuritySettings({ config, onChange }: SecuritySettingsProps) {

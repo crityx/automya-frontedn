@@ -7,7 +7,7 @@ import { PlatformConfigData } from './types';
 
 interface CreditsSettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const CreditsSettings = memo(function CreditsSettings({ config, onChange }: CreditsSettingsProps) {

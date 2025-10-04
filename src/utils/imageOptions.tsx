@@ -16,7 +16,14 @@ const iconComponents = {
   Upload: Upload
 };
 
-function createImageOption(data: any): ImageOption {
+interface ImageOptionData {
+  id: string;
+  name: string;
+  description: string;
+  iconType: keyof typeof iconComponents;
+}
+
+function createImageOption(data: ImageOptionData): ImageOption {
   const IconComponent = iconComponents[data.iconType];
   return {
     ...data,

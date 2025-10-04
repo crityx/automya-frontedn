@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-interface UseApiOptions {
+interface UseApiOptions<T> {
   immediate?: boolean;
-  dependencies?: any[];
-  onSuccess?: (data: any) => void;
+  dependencies?: React.DependencyList;
+  onSuccess?: (data: T) => void;
   onError?: (error: Error) => void;
 }
 
@@ -15,9 +15,9 @@ interface ApiState<T> {
   error: Error | null;
 }
 
-export function useApi<T = any>(
+export function useApi<T = unknown>(
   apiFunction: () => Promise<T>,
-  options: UseApiOptions = {}
+  options: UseApiOptions<T> = {}
 ) {
   const {
     immediate = true,
@@ -56,7 +56,7 @@ export function useApi<T = any>(
     if (immediate) {
       execute();
     }
-  }, dependencies);
+  }, [immediate, execute, ...dependencies]);
 
   return {
     ...state,

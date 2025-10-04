@@ -207,7 +207,7 @@ export default function CreditsModal({
                   : 'text-gray border-transparent hover:text-black'
               }`}
             >
-              Historique d'utilisation
+              Historique d&apos;utilisation
             </button>
           </nav>
         </div>

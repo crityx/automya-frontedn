@@ -43,15 +43,15 @@ class ErrorBoundary extends Component<Props, State> {
               <AlertTriangle size={48} className="text-red-500 mx-auto" />
             </div>
             <h2 className="text-xl font-semibold text-black mb-2">
-              Une erreur s'est produite
+              Une erreur s&apos;est produite
             </h2>
             <p className="text-gray mb-4">
-              Désolé, quelque chose s'est mal passé. Veuillez rafraîchir la page ou essayer plus tard.
+              Désolé, quelque chose s&apos;est mal passé. Veuillez rafraîchir la page ou essayer plus tard.
             </p>
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mb-4 text-left bg-gray-50 p-4 rounded-lg">
                 <summary className="cursor-pointer font-medium">
-                  Détails de l'erreur (dev)
+                  Détails de l&apos;erreur (dev)
                 </summary>
                 <pre className="text-sm text-red-600 mt-2 whitespace-pre-wrap">
                   {this.state.error.message}

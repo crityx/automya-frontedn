@@ -7,7 +7,7 @@ import { PlatformConfigData } from './types';
 
 interface LinkedInSettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const LinkedInSettings = memo(function LinkedInSettings({ config, onChange }: LinkedInSettingsProps) {

@@ -8,7 +8,7 @@ import { PlatformConfigData } from './types';
 
 interface ApiSettingsProps {
   config: PlatformConfigData;
-  onChange: (field: keyof PlatformConfigData, value: any) => void;
+  onChange: (field: keyof PlatformConfigData, value: string | number | boolean) => void;
 }
 
 const ApiSettings = memo(function ApiSettings({ config, onChange }: ApiSettingsProps) {

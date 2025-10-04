@@ -59,8 +59,8 @@ export default function ScheduleConfirmationModal({
           </div>
           
           <p className="text-gray">
-            Votre post sera automatiquement publié à la date et l'heure prévues. 
-            Vous pouvez le modifier ou l'annuler depuis le calendrier éditorial.
+            Votre post sera automatiquement publié à la date et l&apos;heure prévues. 
+            Vous pouvez le modifier ou l&apos;annuler depuis le calendrier éditorial.
           </p>
         </div>
 

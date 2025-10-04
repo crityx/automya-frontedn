@@ -9,12 +9,20 @@ import {
   Plus, 
   Minus, 
   MagnifyingGlass, 
-  History,
   TrendUp,
   Users,
-  Gift,
   Package
 } from 'phosphor-react';
+
+interface CreditUser {
+  id: string;
+  name: string;
+  email: string;
+  currentCredits: number;
+  totalSpent: number;
+  subscription: string;
+  lastActivity: string;
+}
 
 const mockUsers = [
   {
@@ -86,7 +94,7 @@ const recentTransactions = [
 
 export default function CreditsManager() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<CreditUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [creditAction, setCreditAction] = useState<'add' | 'remove'>('add');
   const [creditAmount, setCreditAmount] = useState(50);
@@ -101,7 +109,7 @@ export default function CreditsManager() {
     avgCreditsPerUser: Math.round(mockUsers.reduce((sum, user) => sum + user.currentCredits, 0) / mockUsers.length)
   };
 
-  const handleUserAction = (user: any, action: 'add' | 'remove') => {
+  const handleUserAction = (user: CreditUser, action: 'add' | 'remove') => {
     setSelectedUser(user);
     setCreditAction(action);
     setIsModalOpen(true);

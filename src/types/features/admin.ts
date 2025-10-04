@@ -24,7 +24,7 @@ export interface CreditTransaction {
   reason: string;
   adminId?: string;
   createdAt: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface PlatformConfig {
