@@ -33,7 +33,7 @@ export default function ImageOptionsSelector({
     return null;
   }
 
-  let options;
+  let options: any[];
   switch (currentImageCategory) {
     case 'generate-from-text':
       options = textGenerationOptions;

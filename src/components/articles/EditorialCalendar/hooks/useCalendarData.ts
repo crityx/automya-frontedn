@@ -105,8 +105,8 @@ export function useCalendarData() {
     }
 
     // Synchroniser vers le Kanban si c'est un post planifié ou publié
-    if (updatedPost && (updatedPost.status === 'scheduled' || updatedPost.status === 'published')) {
-      syncToKanban(updatedPost);
+    if (updatedPost && (updatedPost as any).status && ((updatedPost as any).status === 'scheduled' || (updatedPost as any).status === 'published')) {
+      syncToKanban(updatedPost as any);
     }
   }, [syncToKanban]);
 

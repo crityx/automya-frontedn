@@ -8,6 +8,7 @@ import {
   Calendar,
   TrendUp,
   Shield,
+  Envelope as Mail,
   Envelope,
   PhoneCall,
   Buildings

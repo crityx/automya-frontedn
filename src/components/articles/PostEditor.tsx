@@ -136,7 +136,7 @@ export default function PostEditor({
             </div>
           )}
           
-          {(postContent || writingMode === 'manual') && (
+          {(postContent || writingMode !== 'ai') && (
             <div className="pt-4 border-t border-gray/10">
               <PublishButtonWithDropdown
                 onSchedule={onSchedule}

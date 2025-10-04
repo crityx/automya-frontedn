@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button';
 import { MagicWand } from 'phosphor-react';
 
 interface GenerateFromPostProps {
-  postContent: string;
+  postContent: string | null;
   isGeneratingImage: boolean;
   onGenerateImage: () => void;
   onBackToCategories: () => void;
@@ -20,7 +20,7 @@ export default function GenerateFromPost({
     <div className="space-y-4">
       <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <h4 className="font-medium text-blue-900 mb-2">Contenu du post :</h4>
-        <p className="text-sm text-blue-800 line-clamp-4">{postContent}</p>
+        <p className="text-sm text-blue-800 line-clamp-4">{postContent || 'Aucun contenu disponible'}</p>
       </div>
       <p className="text-gray">L'IA va créer une image basée sur le contenu de votre post.</p>
       <div className="flex space-x-3">
