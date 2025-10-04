@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import CreditsModal from '@/components/ui/CreditsModal';
 import NotificationsModal from '@/components/ui/NotificationsModal';
+import LanguageSelector from '@/components/ui/LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Bell, 
   CaretDown, 
@@ -30,17 +32,18 @@ interface HeaderProps {
 
 export default function Header({ user }: HeaderProps) {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false);
   const [isNotificationsModalOpen, setIsNotificationsModalOpen] = useState(false);
 
   const navigation = [
-    { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Posts', href: '/post' },
-    { name: 'Commentaires', href: '/comments' },
-    { name: 'Invitations', href: '/invitations' },
-    { name: 'Messages', href: '/messages' },
+    { name: t('nav.dashboard'), href: '/dashboard' },
+    { name: t('nav.posts'), href: '/post' },
+    { name: t('nav.comments'), href: '/comments' },
+    { name: t('nav.invitations'), href: '/invitations' },
+    { name: t('nav.messages'), href: '/messages' },
   ];
 
   const isActive = (href: string) => {
@@ -105,7 +108,11 @@ export default function Header({ user }: HeaderProps) {
             >
               <Coins size={16} className="text-primary" />
               <span className="text-primary font-medium">{user.credits}</span>
+              <span className="text-primary text-sm ml-1">{t('header.credits')}</span>
             </button>
+
+            {/* Language Selector - seulement si ce n'est pas la page d'accueil */}
+            {pathname !== '/' && <LanguageSelector />}
 
             {/* Notifications */}
             <button 
@@ -144,7 +151,7 @@ export default function Header({ user }: HeaderProps) {
                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray/20 py-2">
                   <div className="px-4 py-2 border-b border-gray/20">
                     <p className="text-sm font-medium text-black">{user.name}</p>
-                    <p className="text-xs text-gray">Gérer votre compte</p>
+                    <p className="text-xs text-gray">{t('header.manage_account')}</p>
                   </div>
                   <Link
                     href="/profile"
@@ -152,7 +159,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <User size={16} />
-                    Mes infos
+                    {t('header.my_info')}
                   </Link>
                   <Link
                     href="/profile/subscription"
@@ -160,7 +167,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <CreditCard size={16} />
-                    Abonnement
+                    {t('header.subscription')}
                   </Link>
                   <Link
                     href="/profile/credits"
@@ -168,7 +175,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <Gift size={16} />
-                    Acheter des crédits
+                    {t('header.buy_credits')}
                   </Link>
                   <Link
                     href="/profile/referral"
@@ -176,7 +183,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <Gift size={16} />
-                    Parrainage
+                    {t('profile.referral')}
                   </Link>
                   <Link
                     href="/profile/settings"
@@ -184,7 +191,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <Gear size={16} />
-                    Paramètres
+                    {t('header.settings')}
                   </Link>
                   <Link
                     href="/profile/language"
@@ -192,7 +199,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <Globe size={16} />
-                    Langue
+                    {t('profile.language')}
                   </Link>
                   <Link
                     href="/profile/team"
@@ -200,7 +207,7 @@ export default function Header({ user }: HeaderProps) {
                     onClick={() => setIsProfileOpen(false)}
                   >
                     <Users size={16} />
-                    Équipe
+                    {t('header.team')}
                   </Link>
                   <hr className="my-2 border-gray/20" />
                   <button
@@ -210,7 +217,7 @@ export default function Header({ user }: HeaderProps) {
                       // TODO: Implement logout logic
                     }}
                   >
-                    Se déconnecter
+                    {t('header.logout')}
                   </button>
                 </div>
               )}
@@ -262,7 +269,7 @@ export default function Header({ user }: HeaderProps) {
               className="flex items-center space-x-2 px-3 py-2 hover:bg-gray/10 rounded-lg mt-4 w-fit transition-colors"
             >
               <Coins size={16} className="text-primary" />
-              <span className="text-primary font-medium">{user.credits} crédits</span>
+              <span className="text-primary font-medium">{user.credits} {t('header.credits')}</span>
             </button>
           </div>
         )}

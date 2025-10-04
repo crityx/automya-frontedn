@@ -19,8 +19,10 @@ import SchedulePostModal from './SchedulePostModal';
 import PostDetailModal from './PostDetailModal';
 import { Post, NewPost, KanbanColumn as KanbanColumnType } from './types';
 import { mockPosts } from './mockData';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 function PostKanban() {
+  const { t } = useLanguage();
   const [posts, setPosts] = useState<Post[]>(mockPosts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -40,26 +42,26 @@ function PostKanban() {
   const columns: KanbanColumnType[] = useMemo(() => [
     {
       id: 'draft',
-      title: 'Brouillons',
+      title: t('posts.drafts'),
       status: 'draft',
       posts: posts.filter(post => post.status === 'draft'),
       color: 'bg-gray-100 text-gray-700'
     },
     {
       id: 'scheduled',
-      title: 'Programmés',
+      title: t('posts.scheduled'),
       status: 'scheduled',
       posts: posts.filter(post => post.status === 'scheduled'),
       color: 'bg-blue-100 text-blue-700'
     },
     {
       id: 'published',
-      title: 'Publiés',
+      title: t('posts.published'),
       status: 'published',
       posts: posts.filter(post => post.status === 'published'),
       color: 'bg-green-100 text-green-700'
     }
-  ], [posts]);
+  ], [posts, t]);
 
   const handleDragStart = useCallback((event: DragStartEvent) => {
     const activePost = posts.find(post => post.id === event.active.id);
@@ -193,8 +195,8 @@ function PostKanban() {
     <>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">Kanban des Posts</h1>
-          <p className="text-gray">Gérez vos contenus LinkedIn par glisser-déposer</p>
+          <h1 className="text-3xl font-bold text-black mb-2">{t('posts.kanban_title')}</h1>
+          <p className="text-gray">{t('posts.manage_content_drag_drop')}</p>
         </div>
 
         <DndContext

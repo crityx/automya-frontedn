@@ -13,6 +13,7 @@ import {
 } from 'phosphor-react';
 import Button from '@/components/ui/Button';
 import TimeSelector from '@/components/ui/TimeSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LinkedInInvitationConfig {
   enabled: boolean;
@@ -26,6 +27,7 @@ interface LinkedInInvitationConfig {
 }
 
 export default function LinkedInInvitations() {
+  const { t } = useLanguage();
   const [config, setConfig] = useState<LinkedInInvitationConfig>({
     enabled: false,
     inviteReactions: false,
@@ -46,12 +48,12 @@ export default function LinkedInInvitations() {
   };
 
   const reactionTypeOptions = [
-    { id: 'like', label: 'J\'aime', icon: '👍' },
-    { id: 'love', label: 'J\'adore', icon: '❤️' },
-    { id: 'celebrate', label: 'Bravo', icon: '🎉' },
-    { id: 'support', label: 'Soutien', icon: '🙌' },
-    { id: 'insightful', label: 'Instructif', icon: '💡' },
-    { id: 'funny', label: 'Amusant', icon: '😂' }
+    { id: 'like', labelKey: 'reactions.like', icon: '👍' },
+    { id: 'love', labelKey: 'reactions.love', icon: '❤️' },
+    { id: 'celebrate', labelKey: 'reactions.celebrate', icon: '🎉' },
+    { id: 'support', labelKey: 'reactions.support', icon: '🙌' },
+    { id: 'insightful', labelKey: 'reactions.insightful', icon: '💡' },
+    { id: 'funny', labelKey: 'reactions.funny', icon: '😂' }
   ];
 
   return (
@@ -59,7 +61,7 @@ export default function LinkedInInvitations() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Invitations automatiques</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('invitations.automatic_invitations')}</h1>
         </div>
         
         <button
@@ -83,7 +85,7 @@ export default function LinkedInInvitations() {
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-gray-800">
               <Users size={16} className="inline mr-2" />
-              Qui inviter ?
+              {t('invitations.who_to_invite')}
             </h3>
             
             {/* Simple checkboxes for invitation types */}
@@ -99,7 +101,7 @@ export default function LinkedInInvitations() {
                 />
                 <label htmlFor="inviteComments" className="flex items-center space-x-3 cursor-pointer flex-1">
                   <div>
-                    <h4 className="font-medium text-gray-800">Personnes ayant commenté</h4>
+                    <h4 className="font-medium text-gray-800">{t('invitations.people_who_commented')}</h4>
                   </div>
                 </label>
               </div>
@@ -115,7 +117,7 @@ export default function LinkedInInvitations() {
                 />
                 <label htmlFor="inviteReactions" className="flex items-center space-x-3 cursor-pointer flex-1">
                   <div>
-                    <h4 className="font-medium text-gray-800">Personnes ayant réagi</h4>
+                    <h4 className="font-medium text-gray-800">{t('invitations.people_who_reacted')}</h4>
                   </div>
                 </label>
               </div>
@@ -127,7 +129,7 @@ export default function LinkedInInvitations() {
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-gray-800">
               <Envelope size={16} className="inline mr-2" />
-              Type d'invitation
+              {t('invitations.invitation_type')}
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -149,7 +151,7 @@ export default function LinkedInInvitations() {
                     onChange={() => handleConfigChange('messageType', 'none')}
                     className="w-4 h-4 text-purple-600 mb-3"
                   />
-                  <h6 className="font-medium text-gray-800 mb-2">Sans message</h6>
+                  <h6 className="font-medium text-gray-800 mb-2">{t('invitations.no_message')}</h6>
                 </div>
               </div>
 
@@ -171,7 +173,7 @@ export default function LinkedInInvitations() {
                     onChange={() => handleConfigChange('messageType', 'fixed')}
                     className="w-4 h-4 text-purple-600 mb-3"
                   />
-                  <h6 className="font-medium text-gray-800 mb-2">Message fixe</h6>
+                  <h6 className="font-medium text-gray-800 mb-2">{t('invitations.fixed_message')}</h6>
                 </div>
               </div>
 
@@ -193,7 +195,7 @@ export default function LinkedInInvitations() {
                     onChange={() => handleConfigChange('messageType', 'ai')}
                     className="w-4 h-4 text-purple-600 mb-3"
                   />
-                  <h6 className="font-medium text-gray-800 mb-2">Généré par IA</h6>
+                  <h6 className="font-medium text-gray-800 mb-2">{t('invitations.ai_generated')}</h6>
                 </div>
               </div>
             </div>
@@ -202,7 +204,7 @@ export default function LinkedInInvitations() {
             {config.messageType === 'fixed' && (
               <div className="bg-purple-50 rounded-lg p-6 border border-purple-200">
                 <label className="block text-sm font-medium text-gray-800 mb-3">
-                  Votre message fixe <span className="text-red-500">*</span>
+                  {t('invitations.your_fixed_message')} <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   value={config.fixedMessage}
@@ -210,10 +212,10 @@ export default function LinkedInInvitations() {
                   rows={4}
                   maxLength={300}
                   className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-colors resize-none"
-                  placeholder="Ex: Bonjour, j'ai remarqué votre intérêt pour mon post. J'aimerais me connecter pour échanger. Cordialement, Baptiste"
+                  placeholder={t('invitations.fixed_message_placeholder')}
                   required
                 />
-                <p className="text-xs text-gray-600 mt-2">{config.fixedMessage.length}/300 caractères</p>
+                <p className="text-xs text-gray-600 mt-2">{config.fixedMessage.length}/300 {t('common.characters')}</p>
               </div>
             )}
 
@@ -221,14 +223,14 @@ export default function LinkedInInvitations() {
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">
                   <Sparkle size={16} className="inline mr-2" />
-                  Instructions pour l'IA <span className="text-red-500">*</span>
+                  {t('invitations.ai_instructions')} <span className="text-red-500">*</span>
                 </h3>
                 <textarea
                   value={config.aiPrompt}
                   onChange={(e) => handleConfigChange('aiPrompt', e.target.value)}
                   rows={6}
                   className="w-full px-4 py-3 rounded-lg border border-purple-200 bg-white text-gray-800 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-colors resize-none"
-                  placeholder="Ex: Rédigez un message d'invitation personnalisé en mentionnant l'interaction avec mon post. Ton professionnel mais chaleureux, maximum 250 caractères."
+                  placeholder={t('invitations.ai_prompt_placeholder')}
                   required
                 />
               </div>
@@ -239,7 +241,7 @@ export default function LinkedInInvitations() {
           <div>
             <h3 className="text-lg font-semibold text-gray-800 mb-6">
               <Clock size={16} className="inline mr-2" />
-              Horaires d'envoi
+              {t('invitations.sending_schedule')}
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -250,7 +252,7 @@ export default function LinkedInInvitations() {
                     ...config.inviteHours,
                     start: time
                   })}
-                  label="Heure de début"
+                  label={t('common.start_time')}
                 />
               </div>
               
@@ -261,20 +263,20 @@ export default function LinkedInInvitations() {
                     ...config.inviteHours,
                     end: time
                   })}
-                  label="Heure de fin"
+                  label={t('common.end_time')}
                 />
               </div>
             </div>
             
             <p className="text-sm text-purple-700 mt-6 p-4 bg-purple-50 rounded-lg">
-              📧 Les invitations LinkedIn seront envoyées automatiquement pendant ces créneaux horaires
+              📧 {t('invitations.schedule_info')}
             </p>
           </div>
 
           {/* Save Button */}
           <div className="flex justify-end pt-6 border-t border-gray/20">
             <Button size="lg">
-              Sauvegarder la configuration
+              {t('common.save_configuration')}
             </Button>
           </div>
         </div>
@@ -282,19 +284,19 @@ export default function LinkedInInvitations() {
 
       {/* Info Card */}
       <div className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
-        <h3 className="font-semibold text-purple-900 mb-2">Comment ça fonctionne ?</h3>
+        <h3 className="font-semibold text-purple-900 mb-2">{t('invitations.how_it_works')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-purple-800">
           <div>
-            <strong>1. Détection</strong><br />
-            L'IA surveille les interactions sur vos posts
+            <strong>1. {t('invitations.detection')}</strong><br />
+            {t('invitations.detection_description')}
           </div>
           <div>
-            <strong>2. Ciblage</strong><br />
-            Elle identifie les personnes selon vos critères (réactions/commentaires)
+            <strong>2. {t('invitations.targeting')}</strong><br />
+            {t('invitations.targeting_description')}
           </div>
           <div>
-            <strong>3. Invitation</strong><br />
-            Elle envoie des invitations pendant vos créneaux horaires
+            <strong>3. {t('invitations.invitation')}</strong><br />
+            {t('invitations.invitation_description')}
           </div>
         </div>
       </div>

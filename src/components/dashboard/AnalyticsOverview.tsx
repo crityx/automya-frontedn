@@ -25,6 +25,7 @@ import {
   TrendDown,
   CalendarBlank
 } from 'phosphor-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const mockData = [
   { date: '01/10', comments: 12, reactions: 45, shares: 8, peopleAdded: 5, leadsCaptured: 3 },
@@ -36,66 +37,67 @@ const mockData = [
   { date: '07/10', comments: 25, reactions: 67, shares: 14, peopleAdded: 9, leadsCaptured: 7 }
 ];
 
-const kpiData = [
-  {
-    title: 'Commentaires',
-    value: 151,
-    change: +12.5,
-    icon: <ChatCircle size={24} color="#2563eb" />,
-    color: '#3B82F6'
-  },
-  {
-    title: 'Réactions',
-    value: 467,
-    change: +8.2,
-    icon: <ThumbsUp size={24} color="#16a34a" />,
-    color: '#10B981'
-  },
-  {
-    title: 'Partages',
-    value: 95,
-    change: -2.1,
-    icon: <Share size={24} color="#ea580c" />,
-    color: '#F59E0B'
-  },
-  {
-    title: 'Personnes ajoutées',
-    value: 70,
-    change: +15.3,
-    icon: <UserPlus size={24} color="#9333ea" />,
-    color: '#8B5CF6'
-  },
-  {
-    title: 'Leads captés',
-    value: 50,
-    change: +22.8,
-    icon: <Target size={24} className="text-primary" />,
-    color: '#8c20f5'
-  }
-];
+  const kpiData = [
+    {
+      titleKey: 'dashboard.comments',
+      value: 151,
+      change: +12.5,
+      icon: <ChatCircle size={24} color="#2563eb" />,
+      color: '#3B82F6'
+    },
+    {
+      titleKey: 'dashboard.reactions',
+      value: 467,
+      change: +8.2,
+      icon: <ThumbsUp size={24} color="#16a34a" />,
+      color: '#10B981'
+    },
+    {
+      titleKey: 'dashboard.shares',
+      value: 95,
+      change: -2.1,
+      icon: <Share size={24} color="#ea580c" />,
+      color: '#F59E0B'
+    },
+    {
+      titleKey: 'dashboard.people_added',
+      value: 70,
+      change: +15.3,
+      icon: <UserPlus size={24} color="#9333ea" />,
+      color: '#8B5CF6'
+    },
+    {
+      titleKey: 'dashboard.leads_captured',
+      value: 50,
+      change: +22.8,
+      icon: <Target size={24} className="text-primary" />,
+      color: '#8c20f5'
+    }
+  ];
 
-const engagementData = [
-  { name: 'Commentaires', value: 151, color: '#3B82F6' },
-  { name: 'Réactions', value: 467, color: '#10B981' },
-  { name: 'Partages', value: 95, color: '#F59E0B' },
-];
+  const engagementData = [
+    { nameKey: 'dashboard.comments', value: 151, color: '#3B82F6' },
+    { nameKey: 'dashboard.reactions', value: 467, color: '#10B981' },
+    { nameKey: 'dashboard.shares', value: 95, color: '#F59E0B' },
+  ];
 
 export default function AnalyticsOverview() {
   const [selectedPeriod, setSelectedPeriod] = useState('week');
+  const { t } = useLanguage();
 
   const periods = [
-    { key: 'day', label: 'Jour' },
-    { key: 'week', label: 'Semaine' },
-    { key: 'month', label: 'Mois' },
-    { key: 'year', label: 'Année' }
+    { key: 'day', labelKey: 'common.day' },
+    { key: 'week', labelKey: 'common.week' },
+    { key: 'month', labelKey: 'common.month' },
+    { key: 'year', labelKey: 'common.year' }
   ];
 
   return (
     <div className="max-w-7xl">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-black mb-2">Analytics - Vue d'ensemble</h1>
-          <p className="text-gray">Suivez les performances de votre activité LinkedIn</p>
+          <h1 className="text-3xl font-bold text-black mb-2">{t('dashboard.analytics_overview')}</h1>
+          <p className="text-gray">{t('dashboard.track_linkedin_performance')}</p>
         </div>
         
         {/* Period Filter */}
@@ -107,7 +109,7 @@ export default function AnalyticsOverview() {
             className="px-3 py-2 border border-gray/30 rounded-lg text-sm focus:border-primary focus:ring-2 focus:ring-primary/20"
           >
             {periods.map(period => (
-              <option key={period.key} value={period.key}>{period.label}</option>
+              <option key={period.key} value={period.key}>{t(period.labelKey)}</option>
             ))}
           </select>
         </div>
@@ -134,7 +136,7 @@ export default function AnalyticsOverview() {
             </div>
             <div>
               <p className="text-2xl font-bold text-black mb-1">{kpi.value}</p>
-              <p className="text-sm text-gray">{kpi.title}</p>
+              <p className="text-sm text-gray">{t(kpi.titleKey)}</p>
             </div>
           </div>
         ))}
@@ -144,9 +146,9 @@ export default function AnalyticsOverview() {
       <div className="bg-white rounded-2xl p-8 border border-gray/20 mb-8">
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-black mb-2">
-            Évolution des performances
+            {t('dashboard.performance_evolution')}
           </h2>
-          <p className="text-gray">Analyse détaillée de vos métriques sur la période sélectionnée</p>
+          <p className="text-gray">{t('dashboard.detailed_metrics_analysis')}</p>
         </div>
         
         <div className="h-80">
@@ -168,35 +170,35 @@ export default function AnalyticsOverview() {
                 dataKey="comments" 
                 stroke="#3B82F6" 
                 strokeWidth={2}
-                name="Commentaires"
+                name={t('dashboard.comments')}
               />
               <Line 
                 type="monotone" 
                 dataKey="reactions" 
                 stroke="#10B981" 
                 strokeWidth={2}
-                name="Réactions"
+                name={t('dashboard.reactions')}
               />
               <Line 
                 type="monotone" 
                 dataKey="shares" 
                 stroke="#F59E0B" 
                 strokeWidth={2}
-                name="Partages"
+                name={t('dashboard.shares')}
               />
               <Line 
                 type="monotone" 
                 dataKey="peopleAdded" 
                 stroke="#8B5CF6" 
                 strokeWidth={2}
-                name="Personnes ajoutées"
+                name={t('dashboard.people_added')}
               />
               <Line 
                 type="monotone" 
                 dataKey="leadsCaptured" 
                 stroke="#8c20f5" 
                 strokeWidth={2}
-                name="Leads captés"
+                name={t('dashboard.leads_captured')}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -207,7 +209,7 @@ export default function AnalyticsOverview() {
         {/* Engagement Breakdown */}
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <h2 className="text-xl font-semibold text-black mb-6">
-            Répartition de l'engagement
+            {t('dashboard.engagement_breakdown')}
           </h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -217,7 +219,10 @@ export default function AnalyticsOverview() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={(entry) => {
+                    const data = engagementData[entry.index];
+                    return `${t(data.nameKey)} ${(entry.percent * 100).toFixed(0)}%`;
+                  }}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
@@ -235,7 +240,7 @@ export default function AnalyticsOverview() {
         {/* Top Performing Content */}
         <div className="bg-white rounded-2xl p-8 border border-gray/20">
           <h2 className="text-xl font-semibold text-black mb-6">
-            Contenu le plus performant
+            {t('dashboard.top_performing_content')}
           </h2>
           <div className="space-y-4">
             {[
@@ -248,9 +253,9 @@ export default function AnalyticsOverview() {
                   {post.title}
                 </h3>
                 <div className="flex items-center space-x-4 text-sm text-gray">
-                  <span>{post.engagement} interactions</span>
+                  <span>{post.engagement} {t('dashboard.interactions')}</span>
                   <span>•</span>
-                  <span>{post.leads} leads générés</span>
+                  <span>{post.leads} {t('dashboard.leads_generated')}</span>
                 </div>
               </div>
             ))}

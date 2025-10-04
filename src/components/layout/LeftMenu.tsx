@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Crown } from 'phosphor-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface MenuSection {
   title: string;
@@ -22,6 +23,7 @@ interface LeftMenuProps {
 
 export default function LeftMenu({ sections }: LeftMenuProps) {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const isActive = (href: string) => pathname === href;
 
@@ -70,14 +72,14 @@ export default function LeftMenu({ sections }: LeftMenuProps) {
                 <span className="text-white text-sm font-bold">B</span>
               </div>
               <div className="absolute top-0 -right-12 bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded text-xs font-medium shadow-sm">
-                Gratuit
+                {t('common.free')}
               </div>
             </div>
             <h4 className="text-sm font-medium text-black mb-1">Baptiste Li Mandri</h4>
-            <p className="text-xs text-gray mb-3">14 jours restants</p>
+            <p className="text-xs text-gray mb-3">{t('common.days_remaining', { days: 14 })}</p>
             <button className="w-full bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-semibold py-2 px-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center space-x-1">
               <Crown className="w-3 h-3" />
-              <span>Passer Pro</span>
+              <span>{t('common.upgrade_pro')}</span>
             </button>
           </div>
         </div>
