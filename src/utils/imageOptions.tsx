@@ -3,7 +3,9 @@ import { ImageOption } from '@/types/post';
 import { 
   mainImageCategoriesData, 
   textGenerationOptionsData, 
-  existingImageOptionsData 
+  existingImageOptionsData,
+  useExistingImagesOptionsData,
+  aiGenerationOptionsData
 } from '@/constants/imageOptions';
 
 const iconComponents = {
@@ -25,3 +27,5 @@ function createImageOption(data: any): ImageOption {
 export const mainImageCategories: ImageOption[] = mainImageCategoriesData.map(createImageOption);
 export const textGenerationOptions: ImageOption[] = textGenerationOptionsData.map(createImageOption);
 export const existingImageOptions: ImageOption[] = existingImageOptionsData.map(createImageOption);
+export const useExistingImagesOptions: ImageOption[] = useExistingImagesOptionsData.map(createImageOption);
+export const aiGenerationOptions: ImageOption[] = aiGenerationOptionsData.map(createImageOption);

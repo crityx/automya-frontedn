@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
+import ImageSelectionModal from './ImageSelectionModal';
 import { 
   Upload, 
   Image as ImageIcon, 
   MagicWand, 
   Trash,
-  Eye,
-  X
+  Eye
 } from 'phosphor-react';
 
 const mockMedias = [
@@ -34,42 +34,25 @@ const mockMedias = [
   }
 ];
 
-const aiGenerationOptions = [
-  {
-    id: 'text-to-image',
-    name: 'Texte vers image',
-    description: 'Générez une image à partir d\'une description',
-    icon: <MagicWand size={20} />
-  },
-  {
-    id: 'image-to-image',
-    name: 'Image vers image',
-    description: 'Transformez une image existante avec l\'IA',
-    icon: <ImageIcon size={20} />
-  },
-  {
-    id: 'style-transfer',
-    name: 'Transfert de style',
-    description: 'Appliquez un style à une image existante',
-    icon: <MagicWand size={20} />
-  },
-  {
-    id: 'upscale',
-    name: 'Amélioration qualité',
-    description: 'Améliorez la résolution de vos images',
-    icon: <Upload size={20} />
-  }
-];
-
 export default function MediaManager() {
   const [medias, setMedias] = useState(mockMedias);
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generationPrompt, setGenerationPrompt] = useState('');
-  const [selectedInputImages, setSelectedInputImages] = useState<{id: string, name: string, url: string}[]>([]);
   const [activeSection, setActiveSection] = useState<'import' | 'ai-generation'>('import');
-  const [generationType, setGenerationType] = useState<'text-to-image' | 'image-to-image'>('text-to-image');
-  const [showImageSelector, setShowImageSelector] = useState(false);
+  
+  // États pour le modal de génération d'images
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [currentImageCategory, setCurrentImageCategory] = useState<string | null>(null);
+  const [currentImageAction, setCurrentImageAction] = useState<string | null>(null);
+  const [imageDescription, setImageDescription] = useState('');
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [sourceImage, setSourceImage] = useState<string | null>(null);
+  const [selectedSourceImages, setSelectedSourceImages] = useState<string[]>([]);
+  const [generationParams, setGenerationParams] = useState({
+    style: 'realistic',
+    strength: 0.7,
+    prompt: ''
+  });
+  
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -92,28 +75,24 @@ export default function MediaManager() {
     }
   };
 
-  // Fonction supprimée - plus d'import direct dans transformation
+  // Handlers pour le modal de génération d'images
+  const handleCategorySelect = (category: string) => {
+    setCurrentImageCategory(category);
+  };
 
-  const addExistingImage = (media: any) => {
-    if (selectedInputImages.length < 8 && media.type === 'image') {
-      const imageRef = { id: media.id, name: media.name, url: media.url };
-      if (!selectedInputImages.some(img => img.id === media.id)) {
-        setSelectedInputImages(prev => [...prev, imageRef]);
-      }
+  const handleImageOptionSelect = (action: string) => {
+    if (action === 'generate-from-image') {
+      // Même logique que dans usePostGeneration
+      setCurrentImageAction('generate-from-image');
+    } else {
+      setCurrentImageAction(action);
     }
   };
 
-  const removeSelectedImage = (index: number) => {
-    setSelectedInputImages(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const handleAIGeneration = async () => {
-    if (!generationPrompt.trim()) return;
-    if (generationType === 'image-to-image' && selectedInputImages.length === 0) return;
+  const handleGenerateImage = async () => {
+    setIsGeneratingImage(true);
     
-    setIsGenerating(true);
-    
-    // Simuler la génération IA
+    // Simuler la génération d'image
     setTimeout(() => {
       const newMedia = {
         id: Date.now().toString(),
@@ -122,22 +101,95 @@ export default function MediaManager() {
         size: '1.2 MB',
         url: '/api/placeholder/400/400',
         uploadDate: new Date().toISOString().split('T')[0],
-        tags: generationType === 'image-to-image' ? ['ai-generated', 'image-to-image', `${selectedInputImages.length}-images`] : ['ai-generated'],
+        tags: ['ai-generated'],
         usedInPosts: 0
       };
       setMedias(prev => [newMedia, ...prev]);
-      setGenerationPrompt('');
-      setSelectedInputImages([]);
-      setIsGenerating(false);
-    }, 3000);
+      setIsGeneratingImage(false);
+      setIsImageModalOpen(false);
+      setImageDescription('');
+    }, 2000);
+  };
+
+  const handleGenerateFromImage = () => {
+    handleGenerateImage();
+  };
+
+  const handleImageSelect = (imageUrl: string) => {
+    // Pour MediaManager, on peut simplement fermer le modal
+    setIsImageModalOpen(false);
+  };
+
+  const handleMultipleImageSelect = (imageUrl: string) => {
+    setSelectedSourceImages(prev => {
+      if (prev.includes(imageUrl)) {
+        return prev.filter(url => url !== imageUrl);
+      } else {
+        return [...prev, imageUrl];
+      }
+    });
+  };
+
+  const handleImportForGeneration = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = (e) => {
+      const files = (e.target as HTMLInputElement).files;
+      if (files) {
+        const newImages: string[] = [];
+        Array.from(files).forEach(file => {
+          if (file.type.startsWith('image/')) {
+            const url = URL.createObjectURL(file);
+            const newMedia = {
+              id: Date.now().toString() + Math.random(),
+              name: file.name,
+              type: 'image' as const,
+              size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
+              url: url,
+              uploadDate: new Date().toISOString().split('T')[0],
+              tags: ['imported'],
+              usedInPosts: 0
+            };
+            
+            setMedias(prev => [newMedia, ...prev]);
+            newImages.push(url);
+          }
+        });
+        
+        // Auto-sélectionner les nouvelles images pour la génération
+        setSelectedSourceImages(prev => [...prev, ...newImages]);
+      }
+    };
+    input.click();
+  };
+
+  const clearSelectedSourceImages = () => {
+    setSelectedSourceImages([]);
+  };
+
+  const handleBackToImageOptions = () => {
+    setCurrentImageAction(null);
+  };
+
+  const handleBackToCategories = () => {
+    setCurrentImageCategory(null);
+    setCurrentImageAction(null);
   };
 
   const deleteMedia = (mediaId: string) => {
     setMedias(medias.filter(m => m.id !== mediaId));
   };
 
-
   const filteredMedias = medias.filter(media => media.type === 'image');
+  
+  // Convertir les médias en format GalleryImage pour compatibilité
+  const galleryImages = filteredMedias.map(media => ({
+    id: media.id,
+    name: media.name,
+    url: media.url
+  }));
 
   const stats = {
     totalMedias: medias.length,
@@ -150,6 +202,7 @@ export default function MediaManager() {
     <div className="max-w-7xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-black mb-2">Gestionnaire de médias</h1>
+        <p className="text-gray">Importez et générez vos images pour LinkedIn</p>
       </div>
 
       {/* Main Sections */}
@@ -159,7 +212,7 @@ export default function MediaManager() {
           <div className="flex">
             <button
               onClick={() => setActiveSection('import')}
-              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-2 px-6 py-4 border-b-2 transition-colors ${
                 activeSection === 'import'
                   ? 'text-primary border-b-2 border-primary bg-primary/5'
                   : 'text-gray hover:text-black'
@@ -168,17 +221,16 @@ export default function MediaManager() {
               <Upload size={20} />
               <span>Importer</span>
             </button>
-            
             <button
               onClick={() => setActiveSection('ai-generation')}
-              className={`flex items-center space-x-2 px-6 py-4 text-sm font-medium transition-colors ${
+              className={`flex items-center space-x-2 px-6 py-4 border-b-2 transition-colors ${
                 activeSection === 'ai-generation'
                   ? 'text-primary border-b-2 border-primary bg-primary/5'
                   : 'text-gray hover:text-black'
               }`}
             >
               <MagicWand size={20} />
-              <span>Génération IA</span>
+              <span>Générer</span>
             </button>
           </div>
         </div>
@@ -188,7 +240,8 @@ export default function MediaManager() {
           {activeSection === 'import' && (
             <label className="block border-2 border-dashed border-gray/20 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
               <Upload size={48} className="text-gray mx-auto mb-4" />
-              <p className="text-gray/60 text-sm">Importer vos photos</p>
+              <p className="text-lg font-medium text-black mb-2">Cliquez pour importer vos images</p>
+              <p className="text-gray/60 text-sm">Formats supportés: JPG, PNG, WebP (Max 10MB)</p>
               <input
                 type="file"
                 multiple
@@ -200,183 +253,19 @@ export default function MediaManager() {
           )}
 
           {activeSection === 'ai-generation' && (
-            <div className="space-y-6">
-              <div className="text-center">
-                <h3 className="text-lg font-medium text-black mb-2">Génération IA</h3>
-                <p className="text-gray mb-6">Créez et transformez des images avec l'intelligence artificielle</p>
-              </div>
-
-              {/* AI Generation Type */}
-              <div className="flex justify-center space-x-4">
-                <button
-                  onClick={() => setGenerationType('text-to-image')}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
-                    generationType === 'text-to-image'
-                      ? 'bg-primary text-white'
-                      : 'bg-gray/10 text-gray hover:bg-gray/20'
-                  }`}
-                >
-                  <MagicWand size={20} />
-                  <span>Générer depuis texte</span>
-                </button>
-                
-                <button
-                  onClick={() => setGenerationType('image-to-image')}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
-                    generationType === 'image-to-image'
-                      ? 'bg-primary text-white'
-                      : 'bg-gray/10 text-gray hover:bg-gray/20'
-                  }`}
-                >
-                  <ImageIcon size={20} />
-                  <span>Transformer images</span>
-                </button>
-              </div>
-
-              {/* Image Selection for transformation */}
-              {generationType === 'image-to-image' && (
-                <div className="space-y-4">
-                  {/* Selected Images Display */}
-                  {selectedInputImages.length > 0 && (
-                    <div className="border border-gray/20 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-black">
-                          Images sélectionnées ({selectedInputImages.length}/8)
-                        </span>
-                        <button
-                          onClick={() => setSelectedInputImages([])}
-                          className="text-sm text-red-600 hover:text-red-800"
-                        >
-                          Tout supprimer
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-4 gap-2">
-                        {selectedInputImages.map((image, index) => (
-                          <div key={index} className="relative group">
-                            <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <ImageIcon size={20} className="text-primary" />
-                            </div>
-                            <button
-                              onClick={() => removeSelectedImage(index)}
-                              className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                            >
-                              <X size={12} />
-                            </button>
-                            <p className="text-xs text-gray mt-1 truncate" title={image.name}>
-                              {image.name}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Select from Gallery */}
-                  <button
-                    onClick={() => setShowImageSelector(!showImageSelector)}
-                    className={`w-full border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
-                      selectedInputImages.length >= 8 
-                        ? 'border-gray/20 text-gray/50 cursor-not-allowed' 
-                        : 'border-gray/20 text-gray hover:border-primary hover:text-primary'
-                    }`}
-                    disabled={selectedInputImages.length >= 8}
-                  >
-                    <ImageIcon size={32} className="mx-auto mb-3" />
-                    <p className="text-lg font-medium mb-1">
-                      {selectedInputImages.length === 0 
-                        ? 'Sélectionner des images à transformer'
-                        : `${selectedInputImages.length}/8 images sélectionnées`
-                      }
-                    </p>
-                    <p className="text-sm text-gray">
-                      {selectedInputImages.length >= 8 
-                        ? 'Limite atteinte (8 images maximum)' 
-                        : 'Choisissez parmi vos images importées'
-                      }
-                    </p>
-                  </button>
-
-                  {/* Image Gallery Selector */}
-                  {showImageSelector && (
-                    <div className="border border-gray/20 rounded-lg p-4 bg-gray/5">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-black">Sélectionnez des images</span>
-                        <button
-                          onClick={() => setShowImageSelector(false)}
-                          className="text-gray hover:text-black"
-                        >
-                          <X size={16} />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 max-h-48 overflow-y-auto">
-                        {medias.filter(media => media.type === 'image').length === 0 ? (
-                          <div className="col-span-full text-center py-8">
-                            <ImageIcon size={48} className="text-gray mx-auto mb-3" />
-                            <p className="text-gray">Aucune image dans la galerie</p>
-                            <p className="text-sm text-gray">Utilisez l'onglet "Importer" pour ajouter des images</p>
-                          </div>
-                        ) : (
-                          medias.filter(media => media.type === 'image').map((media) => {
-                            const isSelected = selectedInputImages.some(img => img.id === media.id);
-                            return (
-                              <button
-                                key={media.id}
-                                onClick={() => addExistingImage(media)}
-                                disabled={selectedInputImages.length >= 8 && !isSelected}
-                                className={`relative w-16 h-16 rounded-lg flex items-center justify-center transition-all ${
-                                  isSelected 
-                                    ? 'bg-primary/20 border-2 border-primary' 
-                                    : selectedInputImages.length >= 8
-                                    ? 'bg-gray/10 border border-gray/20 opacity-50 cursor-not-allowed'
-                                    : 'bg-primary/10 border border-gray/20 hover:border-primary'
-                                }`}
-                              >
-                                <ImageIcon size={20} className={isSelected ? 'text-primary' : 'text-gray'} />
-                                {isSelected && (
-                                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white rounded-full flex items-center justify-center">
-                                    <span className="text-xs">✓</span>
-                                  </div>
-                                )}
-                              </button>
-                            );
-                          })
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Text Input for AI Generation */}
-              <div className="relative">
-                <textarea
-                  value={generationPrompt}
-                  onChange={(e) => setGenerationPrompt(e.target.value)}
-                  rows={3}
-                  className="w-full px-4 py-3 pr-24 rounded-lg border border-gray/20 bg-white text-black placeholder-gray/60 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors resize-none"
-                  placeholder={generationType === 'text-to-image' 
-                    ? "Décrivez l'image que vous voulez générer..."
-                    : "Comment voulez-vous transformer ces images ?"
-                  }
-                />
-                <Button
-                  onClick={handleAIGeneration}
-                  loading={isGenerating}
-                  size="sm"
-                  className="absolute right-2 bottom-2"
-                  disabled={(generationType === 'image-to-image' && selectedInputImages.length === 0) || !generationPrompt.trim()}
-                >
-                  {isGenerating ? (
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <MagicWand size={16} />
-                  )}
-                </Button>
-              </div>
+            <div className="text-center">
+              <Button
+                onClick={() => setIsImageModalOpen(true)}
+                className="px-8 py-4 text-lg"
+              >
+                <MagicWand size={20} className="mr-3" />
+                Générer une image
+              </Button>
             </div>
           )}
         </div>
       </div>
+
 
       {/* Media Gallery */}
       <div className="bg-white rounded-2xl border border-gray/20">
@@ -394,18 +283,29 @@ export default function MediaManager() {
                   </div>
                 </div>
 
+                {/* Media Info */}
+                <div className="p-3">
+                  <p className="text-xs font-medium text-black truncate" title={media.name}>
+                    {media.name}
+                  </p>
+                  <p className="text-xs text-gray">{media.size}</p>
+                  <p className="text-xs text-gray">Utilisé {media.usedInPosts} fois</p>
+                </div>
+
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => setSelectedMedia(media.id)}
                       className="p-2 bg-white rounded-lg text-black hover:bg-gray-100 transition-colors"
+                      title="Voir l'image"
                     >
                       <Eye size={14} />
                     </button>
                     <button
                       onClick={() => deleteMedia(media.id)}
                       className="p-2 bg-white rounded-lg text-red-600 hover:bg-gray-100 transition-colors"
+                      title="Supprimer"
                     >
                       <Trash size={14} />
                     </button>
@@ -424,6 +324,35 @@ export default function MediaManager() {
           )}
         </div>
       </div>
+
+      {/* Image Selection Modal */}
+      <ImageSelectionModal
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+        currentImageCategory={currentImageCategory}
+        currentImageAction={currentImageAction}
+        postContent={null} // Pas de contenu de post dans MediaManager
+        imageDescription={imageDescription}
+        setImageDescription={setImageDescription}
+        isGeneratingImage={isGeneratingImage}
+        sourceImage={sourceImage}
+        setSourceImage={setSourceImage}
+        selectedSourceImages={selectedSourceImages}
+        generationParams={generationParams}
+        setGenerationParams={setGenerationParams}
+        galleryImages={galleryImages}
+        onCategorySelect={handleCategorySelect}
+        onImageOptionSelect={handleImageOptionSelect}
+        onGenerateImage={handleGenerateImage}
+        onGenerateFromImage={handleGenerateFromImage}
+        onImageSelect={handleImageSelect}
+        onMultipleImageSelect={handleMultipleImageSelect}
+        onImportForGeneration={handleImportForGeneration}
+        clearSelectedSourceImages={clearSelectedSourceImages}
+        onBackToImageOptions={handleBackToImageOptions}
+        onBackToCategories={handleBackToCategories}
+        context="media"
+      />
     </div>
   );
 }

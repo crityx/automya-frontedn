@@ -43,7 +43,21 @@ export default function Header({ user }: HeaderProps) {
     { name: 'Messages', href: '/messages' },
   ];
 
-  const isActive = (href: string) => pathname === href;
+  const isActive = (href: string) => {
+    if (href === '/post') {
+      return pathname.startsWith('/post');
+    }
+    if (href === '/invitations') {
+      return pathname.startsWith('/invitations');
+    }
+    if (href === '/messages') {
+      return pathname.startsWith('/messages');
+    }
+    if (href === '/comments') {
+      return pathname.startsWith('/comments');
+    }
+    return pathname === href;
+  };
 
   return (
     <header className="bg-white border-b border-gray/20 sticky top-0 z-40">

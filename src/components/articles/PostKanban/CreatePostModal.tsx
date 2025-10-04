@@ -41,6 +41,36 @@ const CreatePostModal = memo(function CreatePostModal({
     onClose();
   };
 
+  const handlePublishNow = () => {
+    if (!newPost.title.trim() || !newPost.content.trim()) {
+      alert('Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+    onCreatePost({ ...newPost, publishNow: true, scheduledFor: '' });
+    setNewPost({
+      title: '',
+      content: '',
+      type: 'educational',
+      scheduledFor: ''
+    });
+    onClose();
+  };
+
+  const handleSaveDraft = () => {
+    if (!newPost.title.trim() || !newPost.content.trim()) {
+      alert('Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+    onCreatePost({ ...newPost, scheduledFor: '' });
+    setNewPost({
+      title: '',
+      content: '',
+      type: 'educational',
+      scheduledFor: ''
+    });
+    onClose();
+  };
+
   const postTypes: Array<{ value: Post['type']; label: string; description: string }> = [
     { value: 'educational', label: 'Éducatif', description: 'Contenu informatif et pédagogique' },
     { value: 'strategy', label: 'Stratégie', description: 'Conseils et méthodes business' },
@@ -121,10 +151,15 @@ const CreatePostModal = memo(function CreatePostModal({
           </p>
         </div>
 
-        <div className="flex space-x-4 pt-4 border-t border-gray/10">
-          <Button onClick={handleSubmit} className="flex-1">
-            <Plus size={16} className="mr-2" />
-            Créer le post
+        <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray/10">
+          <Button onClick={handlePublishNow} className="flex-1">
+            Publier maintenant
+          </Button>
+          <Button onClick={handleSubmit} className="flex-1" variant="outline">
+            Planifier
+          </Button>
+          <Button onClick={handleSaveDraft} className="flex-1" variant="outline">
+            Enregistrer comme brouillon
           </Button>
           <Button variant="outline" onClick={onClose}>
             Annuler

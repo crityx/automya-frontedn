@@ -20,6 +20,7 @@ export interface NewPost {
   content: string;
   type: Post['type'];
   scheduledFor: string;
+  publishNow?: boolean;
 }
 
 export interface KanbanColumn {

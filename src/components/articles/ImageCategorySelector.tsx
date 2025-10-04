@@ -4,14 +4,25 @@ import { mainImageCategories } from '@/utils/imageOptions';
 
 interface ImageCategorySelectorProps {
   onCategorySelect: (categoryId: string) => void;
+  context?: 'post' | 'media';
 }
 
-export default function ImageCategorySelector({ onCategorySelect }: ImageCategorySelectorProps) {
+export default function ImageCategorySelector({ onCategorySelect, context = 'post' }: ImageCategorySelectorProps) {
+  // Filtrer les catégories selon le contexte
+  const filteredCategories = context === 'media' 
+    ? mainImageCategories.filter(category => category.id === 'generate-with-ai')
+    : mainImageCategories;
+
   return (
     <div className="space-y-4">
-      <p className="text-gray mb-6">Choisissez comment vous souhaitez ajouter une image à votre post :</p>
+      <p className="text-gray mb-6">
+        {context === 'media' 
+          ? 'Choisissez comment vous souhaitez générer une image :' 
+          : 'Choisissez comment vous souhaitez ajouter une image à votre post :'
+        }
+      </p>
       
-      {mainImageCategories.map((category) => (
+      {filteredCategories.map((category) => (
         <button
           key={category.id}
           onClick={() => onCategorySelect(category.id)}

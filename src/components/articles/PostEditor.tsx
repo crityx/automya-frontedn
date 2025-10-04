@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
+import PublishButtonWithDropdown from '@/components/ui/PublishButtonWithDropdown';
 import { 
   MagicWand, 
-  CalendarBlank, 
-  Copy, 
-  FloppyDisk
+  Copy
 } from 'phosphor-react';
 import { WritingMode } from '@/types/post';
 
@@ -20,6 +19,8 @@ interface PostEditorProps {
   isGenerating: boolean;
   onGenerate: () => void;
   onSchedule: () => void;
+  onSaveDraft?: () => void;
+  onPublishNow?: () => void;
 }
 
 export default function PostEditor({
@@ -31,7 +32,9 @@ export default function PostEditor({
   setDescription,
   isGenerating,
   onGenerate,
-  onSchedule
+  onSchedule,
+  onSaveDraft = () => {},
+  onPublishNow = () => {}
 }: PostEditorProps) {
   if (!writingMode) {
     return (
@@ -134,24 +137,13 @@ export default function PostEditor({
           )}
           
           {(postContent || writingMode === 'manual') && (
-            <div className="pt-4 border-t border-gray/10 space-y-3">
-              <Button
-                onClick={onSchedule}
+            <div className="pt-4 border-t border-gray/10">
+              <PublishButtonWithDropdown
+                onSchedule={onSchedule}
+                onSaveDraft={onSaveDraft}
+                onPublishNow={onPublishNow}
                 className="w-full"
-              >
-                <CalendarBlank size={16} className="mr-2" />
-                Planifier la publication
-              </Button>
-              <Button
-                onClick={() => {
-                  // TODO: Implement save as draft
-                }}
-                variant="ghost"
-                className="w-full text-gray hover:text-black"
-              >
-                <FloppyDisk size={16} className="mr-2" />
-                Enregistrer comme brouillon
-              </Button>
+              />
             </div>
           )}
         </div>
@@ -166,24 +158,13 @@ export default function PostEditor({
           />
           
           {postContent && (
-            <div className="pt-4 border-t border-gray/10 space-y-3">
-              <Button
-                onClick={onSchedule}
+            <div className="pt-4 border-t border-gray/10">
+              <PublishButtonWithDropdown
+                onSchedule={onSchedule}
+                onSaveDraft={onSaveDraft}
+                onPublishNow={onPublishNow}
                 className="w-full"
-              >
-                <CalendarBlank size={16} className="mr-2" />
-                Planifier la publication
-              </Button>
-              <Button
-                onClick={() => {
-                  // TODO: Implement save as draft
-                }}
-                variant="ghost"
-                className="w-full text-gray hover:text-black"
-              >
-                <FloppyDisk size={16} className="mr-2" />
-                Enregistrer comme brouillon
-              </Button>
+              />
             </div>
           )}
         </>

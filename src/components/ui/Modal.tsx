@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   children: ReactNode;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '4xl';
 }
 
 const Modal = memo(function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
@@ -16,9 +16,10 @@ const Modal = memo(function Modal({ isOpen, onClose, title, children, size = 'md
       sm: 'max-w-md',
       md: 'max-w-lg',
       lg: 'max-w-2xl',
-      xl: 'max-w-4xl'
+      xl: 'max-w-4xl',
+      '4xl': 'max-w-6xl'
     };
-    return sizes[size];
+    return sizes[size as keyof typeof sizes];
   }, [size]);
 
   return (

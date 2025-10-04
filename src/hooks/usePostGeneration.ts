@@ -88,6 +88,9 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
       case 'generate-from-description':
         setCurrentImageAction('generate-from-description');
         break;
+      case 'generate-from-text':
+        setCurrentImageAction('generate-from-text');
+        break;
       case 'upload-file':
         const input = document.createElement('input');
         input.type = 'file';
@@ -118,6 +121,31 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
       case 'generate-from-image':
         setShowGallery(true);
         setCurrentImageAction('generate-from-image');
+        break;
+      case 'upload-single-file':
+        const singleInput = document.createElement('input');
+        singleInput.type = 'file';
+        singleInput.accept = 'image/*';
+        singleInput.onchange = (e) => {
+          const file = (e.target as HTMLInputElement).files?.[0];
+          if (file) {
+            const url = URL.createObjectURL(file);
+            const newImage = {
+              id: Date.now().toString(),
+              name: file.name,
+              url: url
+            };
+            
+            setGalleryImages(prev => [newImage, ...prev]);
+            setSelectedImage(url);
+            setIsImageModalOpen(false);
+          }
+        };
+        singleInput.click();
+        break;
+      case 'from-gallery-single':
+        setShowGallery(true);
+        setCurrentImageAction('from-gallery-single');
         break;
     }
   };
@@ -152,6 +180,9 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
 
   const handleImageSelect = (imageUrl: string) => {
     if (currentImageAction === 'from-gallery') {
+      setSelectedImage(imageUrl);
+      setIsImageModalOpen(false);
+    } else if (currentImageAction === 'from-gallery-single') {
       setSelectedImage(imageUrl);
       setIsImageModalOpen(false);
     } else if (currentImageAction === 'generate-from-image') {

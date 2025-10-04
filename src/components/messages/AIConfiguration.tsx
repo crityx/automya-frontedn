@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import TimeSelector from '@/components/ui/TimeSelector';
 import { Robot, ChatCircle, Clock, Lightning, Play, Pause } from 'phosphor-react';
 
 const toneOptions = [
@@ -33,7 +34,7 @@ const responseTemplates = [
 export default function AIConfiguration() {
   const [config, setConfig] = useState({
     tone: 'professional',
-    autoResponse: true,
+    autoResponse: false,
     responseDelay: 30,
     workingHours: {
       start: '09:00',
@@ -100,38 +101,37 @@ export default function AIConfiguration() {
 
           {/* Horaires */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">
               <Clock size={16} className="inline mr-2" />
               Horaires de réponse
             </h3>
-            <div className="grid grid-cols-2 gap-4 max-w-xs">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <label className="block text-xs text-gray mb-2">Début</label>
-                <input
-                  type="time"
+                <TimeSelector
                   value={config.workingHours.start}
-                  onChange={(e) => handleConfigChange('workingHours', {
+                  onChange={(time) => handleConfigChange('workingHours', {
                     ...config.workingHours,
-                    start: e.target.value
+                    start: time
                   })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  label="Heure de début"
                 />
               </div>
+              
               <div>
-                <label className="block text-xs text-gray mb-2">Fin</label>
-                <input
-                  type="time"
+                <TimeSelector
                   value={config.workingHours.end}
-                  onChange={(e) => handleConfigChange('workingHours', {
+                  onChange={(time) => handleConfigChange('workingHours', {
                     ...config.workingHours,
-                    end: e.target.value
+                    end: time
                   })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  label="Heure de fin"
                 />
               </div>
             </div>
-            <p className="text-xs text-gray mt-2">
-              L'IA répondra uniquement pendant ces heures
+            
+            <p className="text-sm text-gray mt-6 p-4 bg-blue-50 rounded-lg">
+              🤖 L'IA répondra automatiquement aux messages uniquement pendant ces créneaux horaires
             </p>
           </div>
 

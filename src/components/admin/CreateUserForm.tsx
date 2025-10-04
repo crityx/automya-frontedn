@@ -120,7 +120,7 @@ export default function CreateUserForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-black mb-2">
-                  Plan d'abonnement
+                  Plan d&apos;abonnement
                 </label>
                 <select
                   value={formData.subscription}

@@ -15,6 +15,7 @@ import {
 import KanbanColumn from './KanbanColumn';
 import PostCard from './PostCard';
 import CreatePostModal from './CreatePostModal';
+import SchedulePostModal from './SchedulePostModal';
 import PostDetailModal from './PostDetailModal';
 import { Post, NewPost, KanbanColumn as KanbanColumnType } from './types';
 import { mockPosts } from './mockData';
@@ -25,6 +26,8 @@ function PostKanban() {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [activePost, setActivePost] = useState<Post | null>(null);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [postToScheduleId, setPostToScheduleId] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -105,6 +108,12 @@ function PostKanban() {
             : post
         )
       );
+
+      // Demander la date/heure lorsqu'on passe en Programmé
+      if (newStatus === 'scheduled') {
+        setPostToScheduleId(activePostId);
+        setIsScheduleModalOpen(true);
+      }
     }
   }, [posts]);
 
@@ -112,23 +121,54 @@ function PostKanban() {
     setActivePost(null);
   }, []);
 
+  const syncToCalendar = useCallback((post: Post) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const key = 'calendarPosts';
+      const existing = JSON.parse(window.localStorage.getItem(key) || '[]');
+      const dateISO = post.scheduledFor ? new Date(post.scheduledFor) : null;
+      if (!dateISO) return;
+      const date = dateISO.toISOString().split('T')[0];
+      const time = dateISO.toTimeString().slice(0,5);
+      const record = {
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        date,
+        time,
+        status: 'scheduled',
+        type: post.type
+      };
+      const updated = Array.isArray(existing)
+        ? [...existing.filter((p: any) => p.id !== post.id), record]
+        : [record];
+      window.localStorage.setItem(key, JSON.stringify(updated));
+    } catch (e) {
+      // TODO: Implement proper error handling for calendar sync failures
+    }
+  }, []);
+
   const handleCreatePost = useCallback((newPostData: NewPost) => {
+    const publishNow = !!newPostData.publishNow;
     const newPost: Post = {
       id: Date.now().toString(),
       title: newPostData.title,
       content: newPostData.content,
       type: newPostData.type,
-      status: newPostData.scheduledFor ? 'scheduled' : 'draft',
+      status: publishNow ? 'published' : (newPostData.scheduledFor ? 'scheduled' : 'draft'),
       createdAt: new Date().toISOString(),
-      ...(newPostData.scheduledFor ? { scheduledFor: newPostData.scheduledFor } : {})
+      ...(newPostData.scheduledFor ? { scheduledFor: newPostData.scheduledFor } : {}),
+      ...(publishNow ? { publishedAt: new Date().toISOString() } : {})
     };
 
     setPosts(prev => [newPost, ...prev]);
-  }, []);
+    if (newPost.status === 'scheduled' && newPost.scheduledFor) {
+      syncToCalendar(newPost);
+    }
+  }, [syncToCalendar]);
 
   const handleEditPost = useCallback((post: Post) => {
-    // TODO: Implement edit functionality
-    console.log('Edit post:', post);
+    // TODO: Implement edit functionality for post editing
   }, []);
 
   const handleDeletePost = useCallback((postId: string) => {
@@ -204,6 +244,21 @@ function PostKanban() {
         onClose={handleCloseDetailModal}
         onEdit={handleEditPost}
         onDelete={handleDeletePost}
+      />
+
+      <SchedulePostModal
+        isOpen={isScheduleModalOpen}
+        onClose={() => { setIsScheduleModalOpen(false); setPostToScheduleId(null); }}
+        onConfirm={(datetime) => {
+          if (!postToScheduleId) return;
+          setPosts(prev => prev.map(p => p.id === postToScheduleId ? { ...p, scheduledFor: datetime, status: 'scheduled' } : p));
+          const scheduledPost = posts.find(p => p.id === postToScheduleId);
+          if (scheduledPost) {
+            syncToCalendar({ ...scheduledPost, scheduledFor: datetime, status: 'scheduled' });
+          }
+          setIsScheduleModalOpen(false);
+          setPostToScheduleId(null);
+        }}
       />
     </>
   );

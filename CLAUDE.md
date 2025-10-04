@@ -11,6 +11,75 @@ Automya is a Next.js application for LinkedIn automation and lead generation. Th
 - **Break down large components**: Split complex components into smaller, reusable parts
 - **Use composition over inheritance**: Prefer component composition patterns
 
+### ✅ Component Decomposition Architecture (Applied)
+
+Nous avons implémenté une architecture modulaire pour les gros composants suivant ces principes :
+
+#### **Structure modulaire type :**
+```
+ComponentName/
+├── ComponentName.tsx        # Composant principal (< 200 lignes)
+├── SubComponent1.tsx        # Sous-composants spécialisés
+├── SubComponent2.tsx        # (100-200 lignes chacun)
+├── ComponentModal.tsx       # Modals séparés
+├── types.ts                 # Types TypeScript dédiés
+├── mockData.ts             # Données de test séparées
+├── utils.ts                # Utilitaires spécifiques
+└── index.ts                # Export centralisé
+```
+
+#### **Exemples d'implémentation réussie :**
+
+**PostKanban** (675 → 197 lignes) :
+```
+PostKanban/
+├── PostKanban.tsx          # Logique principale + DnD
+├── PostCard.tsx            # Carte individuelle avec actions
+├── KanbanColumn.tsx        # Colonne avec drop zone
+├── CreatePostModal.tsx     # Modal création avec validation
+├── PostDetailModal.tsx     # Détails avec métriques
+├── SchedulePostModal.tsx   # Modal planification
+├── types.ts               # Interfaces Post, NewPost, KanbanColumn
+├── mockData.ts            # Données de démonstration
+└── index.ts               # Exports publics
+```
+
+**SellersManagement** (463 → 142 lignes) :
+```
+SellersManagement/
+├── SellersManagement.tsx   # Gestion principale + état
+├── SellerCard.tsx         # Carte vendeur avec métriques
+├── SellersStats.tsx       # Statistiques visuelles
+├── CreateSellerModal.tsx  # Formulaire création
+├── SellerDetailModal.tsx  # Vue détaillée + actions
+├── types.ts              # Seller, NewSeller, Stats
+├── mockData.ts           # Données vendeurs
+└── index.ts              # Exports
+```
+
+**PlatformConfig** (446 → 142 lignes) :
+```
+PlatformConfig/
+├── PlatformConfig.tsx     # Navigation + état global
+├── GeneralSettings.tsx    # Paramètres généraux
+├── CreditsSettings.tsx    # Système de crédits
+├── LinkedInSettings.tsx   # Limites d'automation
+├── SecuritySettings.tsx   # Sécurité et 2FA
+├── ApiSettings.tsx        # Clés API sécurisées
+├── MaintenanceSettings.tsx # Maintenance et monitoring
+├── types.ts              # Configuration interfaces
+├── defaultConfig.ts      # Valeurs par défaut
+└── index.ts              # Exports
+```
+
+### **Principes de décomposition appliqués :**
+
+1. **Single Responsibility** : Chaque fichier a une responsabilité unique
+2. **Separation of Concerns** : UI, logique, types et données séparés
+3. **Composition over Inheritance** : Composants composables
+4. **Feature-based Organization** : Organisation par fonctionnalité
+5. **Predictable Structure** : Structure cohérente entre modules
+
 ### File Naming Conventions
 - **All files and folders**: Use English names only
 - **Components**: PascalCase (e.g., `UserProfile.tsx`, `PostGeneration.tsx`)

@@ -111,7 +111,7 @@ export default function GlobalStats() {
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-black mb-2">Statistiques globales</h1>
-          <p className="text-gray">Vue d'ensemble de la performance de la plateforme Automya</p>
+          <p className="text-gray">Vue d&apos;ensemble de la performance de la plateforme Automya</p>
         </div>
         
         <div className="flex items-center space-x-4 mt-4 md:mt-0">

@@ -9,6 +9,7 @@ import {
   Sparkle
 } from 'phosphor-react';
 import Button from '@/components/ui/Button';
+import TimeSelector from '@/components/ui/TimeSelector';
 
 interface CommentAutomationConfig {
   enabled: boolean;
@@ -85,39 +86,34 @@ export default function CommentsAutomation() {
 
           {/* Horaires */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">
               <Clock size={16} className="inline mr-2" />
               Horaires de réponse
             </h3>
-            <div className="grid grid-cols-2 gap-4 max-w-xs">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <label className="block text-xs text-gray mb-2">Début</label>
-                <input
-                  type="time"
+                <TimeSelector
                   value={config.responseHours.start}
-                  onChange={(e) => handleConfigChange('responseHours', {
+                  onChange={(time) => handleConfigChange('responseHours', {
                     ...config.responseHours,
-                    start: e.target.value
+                    start: time
                   })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  label="Heure de début"
                 />
               </div>
+              
               <div>
-                <label className="block text-xs text-gray mb-2">Fin</label>
-                <input
-                  type="time"
+                <TimeSelector
                   value={config.responseHours.end}
-                  onChange={(e) => handleConfigChange('responseHours', {
+                  onChange={(time) => handleConfigChange('responseHours', {
                     ...config.responseHours,
-                    end: e.target.value
+                    end: time
                   })}
-                  className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  label="Heure de fin"
                 />
               </div>
             </div>
-            <p className="text-xs text-gray mt-2">
-              L'IA répondra uniquement pendant ces heures
-            </p>
           </div>
         </div>
 

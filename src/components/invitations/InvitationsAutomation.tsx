@@ -11,6 +11,7 @@ import {
   MagnifyingGlass
 } from 'phosphor-react';
 import Button from '@/components/ui/Button';
+import TimeSelector from '@/components/ui/TimeSelector';
 
 interface InvitationConfig {
   inviteReactions: boolean;
@@ -158,38 +159,37 @@ export default function InvitationsAutomation() {
                 {/* Horaires d'invitation */}
                 {(config.inviteReactions || config.inviteComments) && (
                   <div className="p-6 bg-blue-50 rounded-lg border border-blue-200">
-                    <h3 className="font-medium text-black mb-4">
+                    <h3 className="font-medium text-black mb-6">
                       <Clock size={16} className="inline mr-2" />
                       Horaires d'envoi des invitations
                     </h3>
-                    <div className="grid grid-cols-2 gap-4 max-w-md">
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div>
-                        <label className="block text-xs text-gray mb-2">Début</label>
-                        <input
-                          type="time"
+                        <TimeSelector
                           value={config.inviteHours.start}
-                          onChange={(e) => handleConfigChange('inviteHours', {
+                          onChange={(time) => handleConfigChange('inviteHours', {
                             ...config.inviteHours,
-                            start: e.target.value
+                            start: time
                           })}
-                          className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-black focus:border-primary focus:ring-2 focus:ring-primary/20"
+                          label="Heure de début"
                         />
                       </div>
+                      
                       <div>
-                        <label className="block text-xs text-gray mb-2">Fin</label>
-                        <input
-                          type="time"
+                        <TimeSelector
                           value={config.inviteHours.end}
-                          onChange={(e) => handleConfigChange('inviteHours', {
+                          onChange={(time) => handleConfigChange('inviteHours', {
                             ...config.inviteHours,
-                            end: e.target.value
+                            end: time
                           })}
-                          className="w-full px-3 py-2 rounded-lg border border-gray/20 bg-white text-black focus:border-primary focus:ring-2 focus:ring-primary/20"
+                          label="Heure de fin"
                         />
                       </div>
                     </div>
-                    <p className="text-xs text-blue-800 mt-2">
-                      Les invitations seront envoyées uniquement pendant ces heures
+                    
+                    <p className="text-sm text-blue-800 mt-6 p-4 bg-blue-100 rounded-lg">
+                      📨 Les invitations LinkedIn seront envoyées automatiquement pendant ces créneaux horaires
                     </p>
                   </div>
                 )}
