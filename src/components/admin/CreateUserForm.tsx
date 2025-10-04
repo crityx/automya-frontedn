@@ -25,7 +25,8 @@ export default function CreateUserForm() {
     // Simuler la création d'utilisateur
     setTimeout(() => {
       setIsLoading(false);
-      alert('Utilisateur créé avec succès !');
+      // TODO: Show success notification instead of alert
+      // notification.success('Utilisateur créé avec succès !');
       setFormData({
         firstName: '',
         lastName: '',

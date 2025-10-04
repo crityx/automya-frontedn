@@ -8,7 +8,7 @@ import {
   CreditCard, 
   Plus, 
   Minus, 
-  Search, 
+  MagnifyingGlass, 
   History,
   TrendUp,
   Users,
@@ -120,8 +120,7 @@ export default function CreditsManager() {
       return;
     }
 
-    console.log(`${creditAction === 'add' ? 'Adding' : 'Removing'} ${finalAmount} credits to/from ${selectedUser.name}`);
-    console.log('Reason:', reason);
+    // TODO: Implement actual credit modification API call
     
     setIsModalOpen(false);
     setReason('');
@@ -208,7 +207,7 @@ export default function CreditsManager() {
               <h2 className="text-xl font-semibold text-black">Gestion par utilisateur</h2>
               
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
+                <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray" />
                 <input
                   type="text"
                   placeholder="Rechercher..."

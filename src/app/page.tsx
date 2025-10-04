@@ -15,12 +15,12 @@ export default function Home() {
     phone: string;
     password: string;
   }) => {
-    console.log('Register:', userData);
+    // TODO: Implement registration logic
     setShowAnimation(true);
   };
 
   const handleLogin = async (email: string, password: string) => {
-    console.log('Login:', { email, password });
+    // TODO: Implement login logic
     setShowAnimation(true);
   };
 

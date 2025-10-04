@@ -17,7 +17,7 @@ export default function ProfileInfo() {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = () => {
-    console.log('Saving profile:', profileData);
+    // TODO: Implement profile save
     setIsEditing(false);
   };
 
@@ -25,7 +25,7 @@ export default function ProfileInfo() {
     if (profileData.linkedinConnected) {
       setProfileData(prev => ({ ...prev, linkedinConnected: false }));
     } else {
-      console.log('Connecting to LinkedIn...');
+      // TODO: Implement LinkedIn connection
       setProfileData(prev => ({ ...prev, linkedinConnected: true }));
     }
   };

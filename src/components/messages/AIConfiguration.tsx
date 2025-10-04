@@ -51,11 +51,11 @@ export default function AIConfiguration() {
   };
 
   const handleSaveConfiguration = () => {
-    console.log('Saving AI configuration:', config);
+    // TODO: Implement AI configuration save
   };
 
   const testAI = () => {
-    console.log('Testing AI with current configuration...');
+    // TODO: Implement AI test with current configuration
   };
 
   return (

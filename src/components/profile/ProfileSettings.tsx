@@ -45,16 +45,16 @@ export default function ProfileSettings() {
   };
 
   const handlePasswordChange = () => {
-    console.log('Password change requested');
+    // TODO: Implement password change
   };
 
   const handleExportData = () => {
-    console.log('Data export requested');
+    // TODO: Implement data export
   };
 
   const handleDeleteAccount = () => {
     if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) {
-      console.log('Account deletion requested');
+      // TODO: Implement account deletion
     }
   };
 

@@ -114,7 +114,7 @@ export default function Header({ user }: HeaderProps) {
                   {user.avatar ? (
                     <img 
                       src={user.avatar} 
-                      alt={user.name}
+                      alt={`Photo de profil de ${user.name}`}
                       className="w-8 h-8 rounded-full object-cover"
                     />
                   ) : (
@@ -193,7 +193,7 @@ export default function Header({ user }: HeaderProps) {
                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray/10 transition-colors"
                     onClick={() => {
                       setIsProfileOpen(false);
-                      console.log('Logout');
+                      // TODO: Implement logout logic
                     }}
                   >
                     Se déconnecter

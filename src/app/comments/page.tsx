@@ -1,7 +1,12 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import CommentsAutomation from '@/components/comments/CommentsAutomation';
+
+const CommentsAutomation = dynamic(() => import('@/components/comments/CommentsAutomation'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>,
+  ssr: false
+});
 import { Robot } from 'phosphor-react';
 
 const commentsMenuSections = [

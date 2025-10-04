@@ -19,13 +19,13 @@ import {
 } from 'recharts';
 import { 
   Users, 
-  DollarSign, 
+  CurrencyDollar, 
   TrendUp, 
   Globe,
-  UserCheck,
-  MessageSquare,
+  User,
+  ChatCircle,
   CreditCard,
-  Award,
+  Trophy,
   Calendar,
   Download,
   ArrowUp,
@@ -157,7 +157,7 @@ export default function GlobalStats() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-green-50">
-              <DollarSign className="w-6 h-6 text-green-600" />
+              <CurrencyDollar className="w-6 h-6 text-green-600" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
               {getGrowthIcon(true)}
@@ -173,7 +173,7 @@ export default function GlobalStats() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-primary-light">
-              <UserCheck className="w-6 h-6 text-primary" />
+              <User className="w-6 h-6 text-primary" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
               {getGrowthIcon(true)}
@@ -189,7 +189,7 @@ export default function GlobalStats() {
         <div className="bg-white rounded-2xl p-6 border border-gray/20">
           <div className="flex items-center justify-between mb-4">
             <div className="p-2 rounded-lg bg-orange-50">
-              <MessageSquare className="w-6 h-6 text-orange-600" />
+              <ChatCircle className="w-6 h-6 text-orange-600" />
             </div>
             <div className="flex items-center space-x-1 text-green-600">
               {getGrowthIcon(true)}
@@ -425,7 +425,7 @@ export default function GlobalStats() {
 
           <div className="text-center p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-center mb-2">
-              <Award className="w-5 h-5 text-orange-600" />
+              <Trophy className="w-5 h-5 text-orange-600" />
             </div>
             <div className="text-2xl font-bold text-black mb-1">4.8/5</div>
             <div className="text-sm text-gray">Satisfaction client</div>

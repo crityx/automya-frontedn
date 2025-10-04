@@ -1,8 +1,17 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import MediaManager from '@/components/articles/MediaManager';
 import { PenNib, CalendarBlank, Image, Kanban } from 'phosphor-react';
+
+const MediaManager = dynamic(() => import('@/components/articles/MediaManager'), {
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  ),
+  ssr: false
+});
 
 const postMenuSections = [
   {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import Button from '@/components/ui/Button';
 import { 
   Users, 
@@ -56,7 +56,7 @@ interface SellerDashboardProps {
   userRole?: 'user' | 'seller' | 'admin';
 }
 
-export default function SellerDashboard({ userRole = 'seller' }: SellerDashboardProps) {
+function SellerDashboard({ userRole = 'seller' }: SellerDashboardProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -77,7 +77,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
   };
 
   const handleUserCreditAction = (action: 'add' | 'remove', amount: number, reason: string) => {
-    console.log(`${action} ${amount} credits to ${selectedUser.name}: ${reason}`);
+    // TODO: Implement user credit ${action}: ${amount} credits, reason: ${reason}
     alert(`${amount} crédits ${action === 'add' ? 'ajoutés' : 'retirés'} avec succès !`);
   };
 
@@ -87,7 +87,7 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
       return;
     }
     
-    console.log(`Adding ${bulkCredits.amount} credits to all users: ${bulkCredits.reason}`);
+    // TODO: Implement bulk credit addition: ${bulkCredits.amount} credits to all users
     setIsBulkCreditModalOpen(false);
     setBulkCredits({ amount: 50, reason: '' });
     alert(`${bulkCredits.amount} crédits ajoutés à tous les utilisateurs !`);
@@ -393,3 +393,5 @@ export default function SellerDashboard({ userRole = 'seller' }: SellerDashboard
     </div>
   );
 }
+
+export default memo(SellerDashboard);

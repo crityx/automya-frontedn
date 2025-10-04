@@ -1,7 +1,12 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import ProfileInfo from '@/components/profile/ProfileInfo';
+
+const ProfileInfo = dynamic(() => import('@/components/profile/ProfileInfo'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>,
+  ssr: false
+});
 import { User, CreditCard, Gift, Gear, Globe, Users } from 'phosphor-react';
 
 const profileMenuSections = [

@@ -144,7 +144,7 @@ export default function PostEditor({
               </Button>
               <Button
                 onClick={() => {
-                  console.log('Enregistrer comme brouillon');
+                  // TODO: Implement save as draft
                 }}
                 variant="ghost"
                 className="w-full text-gray hover:text-black"
@@ -176,7 +176,7 @@ export default function PostEditor({
               </Button>
               <Button
                 onClick={() => {
-                  console.log('Enregistrer comme brouillon');
+                  // TODO: Implement save as draft
                 }}
                 variant="ghost"
                 className="w-full text-gray hover:text-black"

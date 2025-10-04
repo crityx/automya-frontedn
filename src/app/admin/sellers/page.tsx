@@ -1,8 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import SellersManagement from '@/components/admin/SellersManagement';
+
+const SellersManagement = dynamic(() => import('@/components/admin/SellersManagement'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded-lg"></div>,
+  ssr: false
+});
 import { Users, CreditCard, ChartBar, UserPlus, Gear, TrendUp } from 'phosphor-react';
 
 const adminMenuSections = [

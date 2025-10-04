@@ -113,7 +113,7 @@ export default function PostPreview({
                 <>
                   <img
                     src={selectedImage}
-                    alt="Image sélectionnée"
+                    alt="Image sélectionnée pour le post LinkedIn"
                     className="w-12 h-12 rounded object-cover"
                   />
                   <div className="text-left flex-1">
@@ -152,7 +152,7 @@ export default function PostPreview({
               <div className="relative group">
                 <img
                   src={selectedImage}
-                  alt="Post image"
+                  alt="Image du post LinkedIn - Contenu généré automatiquement"
                   className="w-full rounded-lg object-cover max-h-80"
                 />
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">

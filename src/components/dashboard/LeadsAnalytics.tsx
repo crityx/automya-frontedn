@@ -98,11 +98,11 @@ export default function LeadsAnalytics() {
   };
 
   const exportLeads = () => {
-    console.log('Exporting leads data...');
+    // TODO: Implement leads export
   };
 
   const contactLead = (leadId: string, method: string) => {
-    console.log(`Contacting lead ${leadId} via ${method}`);
+    // TODO: Implement lead contact via ${method}
   };
 
   const getStatusColor = (status: string) => {

@@ -106,7 +106,7 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
             setSelectedImage(url);
             setIsImageModalOpen(false);
             
-            console.log('Image ajoutée automatiquement à la galerie:', file.name);
+            // Image added to gallery automatically
           }
         };
         input.click();
@@ -195,7 +195,7 @@ Et vous, comment abordez-vous ces défis ? Partagez votre expérience ! 👇
         
         // Auto-sélectionner les nouvelles images
         setSelectedSourceImages(prev => [...prev, ...newImages]);
-        console.log('Images importées et sélectionnées:', newImages.length);
+        // Images imported and selected: ${newImages.length}
       }
     };
     input.click();

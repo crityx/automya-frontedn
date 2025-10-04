@@ -24,7 +24,7 @@ import {
   CurrencyDollar,
   CalendarBlank,
   Target,
-  Award,
+  Trophy,
   ArrowUp,
   ArrowDown
 } from 'phosphor-react';

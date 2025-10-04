@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode, memo, useMemo } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'phosphor-react';
 
@@ -10,13 +10,16 @@ interface ModalProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export default function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
-  const sizes = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl'
-  };
+const Modal = memo(function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
+  const sizeClass = useMemo(() => {
+    const sizes = {
+      sm: 'max-w-md',
+      md: 'max-w-lg',
+      lg: 'max-w-2xl',
+      xl: 'max-w-4xl'
+    };
+    return sizes[size];
+  }, [size]);
 
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -44,7 +47,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className={`w-full ${sizes[size]} bg-white rounded-2xl p-6 shadow-xl transform transition-all`}>
+              <Dialog.Panel className={`w-full ${sizeClass} bg-white rounded-2xl p-6 shadow-xl transform transition-all`}>
                 <div className="flex items-center justify-between mb-4">
                   {title && (
                     <Dialog.Title className="text-xl font-semibold text-black">
@@ -66,4 +69,6 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' }:
       </Dialog>
     </Transition>
   );
-}
+});
+
+export default Modal;
